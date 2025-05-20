@@ -12,5 +12,3 @@ fi
 
 eval "$(fnm env --fnm-dir "$HOME"/.node)"
 fnm install --lts
-
-curl -fsSL https://bun.sh/install | bash

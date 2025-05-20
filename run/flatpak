@@ -1,9 +1,5 @@
 #!/usr/bin/env bash
 
-if [[ "${GLOBAL:-}" != 1 ]]; then
-	source ./Shared/profile
-fi
-
 sudo pacman -S --noconfirm --needed flatpak
 
 flatpak remote-add --if-not-exists --user flathub https://dl.flathub.org/repo/flathub.flatpakrepo
