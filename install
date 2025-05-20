@@ -32,7 +32,6 @@ source ./Shared/secrets
 
 source ./run/common
 source ./run/nerdfonts
-source ./run/personal
 
 source ./dev/php
 source ./dev/golang
@@ -50,6 +49,7 @@ if ! grep -qi microsoft /proc/version; then
 	source ./run/flameshot
 	source ./run/flatpak
 	source ./run/swaywm
+	source ./run/personal
 fi
 
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then
