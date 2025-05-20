@@ -1,0 +1,53 @@
+#!/usr/bin/env bash
+
+clear
+
+set -euo pipefail
+
+[[ -f /etc/os-release ]] && . /etc/os-release
+
+if [[ $ID != "arch" ]]; then
+	echo "OS not detected as archlinux"
+	exit 1
+fi
+
+sudo -v
+timestamp_sudo() {
+	while :; do
+		sudo -v
+		sleep 45
+	done
+}
+
+timestamp_sudo &
+timestamp_sudo_pid=$!
+# Ensure to kill the keep_sudo
+trap "sudo -k; kill -9 $timestamp_sudo_pid 2>/dev/null;" EXIT SIGINT SIGTERM
+
+readonly GLOBAL=1
+
+source ./Shared/profile
+source ./Shared/install_dotfiles
+source ./Shared/secrets
+
+source ./run/common
+source ./run/nerdfonts
+
+source ./dev/php
+source ./dev/golang
+source ./dev/nodejs
+source ./dev/rust
+source ./dev/git
+source ./dev/docker
+source ./dev/neovim
+
+if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then
+	git remote add origin git@github.com:"$GIT_USER"/setup-arch.git
+fi
+
+if ! git remote -v | awk 'NR==1 {print $2}' | grep -i git@ &>/dev/null; then
+	git remote set-url origin git@github.com:"$GIT_USER"/setup-arch.git
+fi
+
+clear
+echo "Success, need reboot"
