@@ -1,0 +1,69 @@
+#!/usr/bin/env bash
+
+install_dotfile() {
+	mkdir -p "$HOME"/.config
+	mkdir -p "$HOME"/.cache
+	mkdir -p "$HOME"/.local/bin
+
+	local root=$1
+	local excludes=(* .* .git .gitignore)
+
+	shift
+	local expand_excludes=("$@")
+
+	if [[ ${#expand_excludes[@]} -gt 0 ]]; then
+		excludes+=("${expand_excludes[@]}")
+	fi
+
+	for dotfile in "$HOME"/"$root"/{*,.*}; do
+		base=$(basename "$dotfile")
+		target=$HOME/$base
+		skip=0
+
+		for exclude in "${excludes[@]}"; do
+			if [[ $base == $exclude ]]; then
+				continue 2
+			fi
+		done
+
+		if [[ -f $target ]] || [[ -L $target ]]; then
+			rm -rf "$target"
+		fi
+
+		if [[ ! -d $dotfile ]] || [[ ! -d $target ]]; then
+			ln -sf "$dotfile" "$target"
+			continue
+		fi
+
+		for subdotfile in "$dotfile"/*; do
+			subdotfile_base=$(basename "$subdotfile")
+			subdotfile_target=$target/$subdotfile_base
+
+			for exclude in "${excludes[@]}"; do
+				if [[ $subdotfile_base == $exclude ]]; then
+					continue 3
+				fi
+			done
+
+			if [[ -f $subdotfile_target ]] || [[ -L $subdotfile_target ]]; then
+				rm -rf "$subdotfile_target"
+			fi
+
+			if [[ ! -d $subdotfile ]] || [[ ! -d $subdotfile_target ]]; then
+				ln -sf "$subdotfile" "$subdotfile_target"
+				continue
+			fi
+
+			for subdotfile_child in "$subdotfile"/*; do
+				for exclude in "${excludes[@]}"; do
+					if [[ $subdotfile_child == $exclude ]]; then
+						continue 4
+					fi
+				done
+
+				rm -rf "$subdotfile_target/$(basename "$subdotfile_child")"
+				ln -sf "$subdotfile_child" "$subdotfile_target/$(basename "$subdotfile_child")"
+			done
+		done
+	done
+}

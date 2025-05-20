@@ -1,0 +1,63 @@
+#!/usr/bin/env bash
+
+current_dir=$PWD
+
+if [[ "${GLOBAL:-}" != 1 ]]; then
+	source ./Shared/profile
+fi
+
+dependencies=(
+	base-devel
+	cmake
+	ninja
+	grim
+	kguiaddons5
+	qt5-base
+	qt5-tools
+	qt5-svg
+	hicolor-icon-theme
+)
+
+sudo pacman -S --noconfirm --needed "${dependencies[@]}"
+
+if ! [[ -d /tmp/flameshot ]]; then
+	git clone --depth 1 https://github.com/flameshot-org/flameshot.git /tmp/flameshot
+fi
+
+cd /tmp/flameshot
+
+cmake --no-warn-unused-cli \
+	-S. \
+	-Bbuild \
+	-GNinja \
+	-DCMAKE_PREFIX_PATH=/usr/local \
+	-DUSE_WAYLAND_CLIPBOARD=1 \
+	-DUSE_WAYLAND_GRIM=true \
+	-DCMAKE_BUILD_TYPE=Release
+
+cmake --build ./build \
+	--config Release \
+	--target all \
+	-j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
+
+sudo cmake --install ./build
+
+mkdir -p "$HOME"/Pictures/Screenshot
+mkdir -p "$HOME"/.config/flameshot
+
+tee "$HOME"/.config/flameshot/flameshot.ini <<-EOF
+	[General]
+	drawFontSize=9
+	saveAsFileExtension=png
+	saveLastRegion=true
+	savePath=$HOME/Pictures/Screenshot
+	savePathFixed=false
+	showDesktopNotification=false
+	showHelp=false
+	showSelectionGeometryHideTime=3000
+	showStartupLaunchMessage=false
+	startupLaunch=false
+	useGrimAdapter=true
+EOF
+
+cd "$current_dir"

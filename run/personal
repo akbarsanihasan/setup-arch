@@ -1,0 +1,21 @@
+#!/usr/bin/env bash
+
+if [[ "${GLOBAL:-}" != 1 ]]; then
+	source ./Shared/secrets
+	source ./Shared/install_dotfile
+fi
+
+sudo pacman -S --noconfirm --needed git
+
+personal_repos=(Personal setup-extras)
+personal_repos_dest=("$HOME"/.personal "$PWD"/extras)
+
+for repo_index in ${!personal_repos[@]}; do
+	if ! [[ -d "${personal_repos_dest[$repo_index]}" ]]; then
+		git clone --depth 1 \
+			https://"$GIT_TOKEN"@github.com/"$GIT_USER"/"${personal_repos[$repo_index]}".git \
+			"${personal_repos_dest[$repo_index]}"
+	fi
+done
+
+install_dotfile .personal vault

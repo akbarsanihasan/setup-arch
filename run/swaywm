@@ -1,0 +1,176 @@
+#!/usr/bin/env bash
+
+current_dir=$PWD
+
+if [[ "${GLOBAL:-}" != 1 ]]; then
+	source ./Shared/secrets
+	source ./Shared/install_dotfiles
+fi
+
+install() {
+	local core=(
+		git
+		make
+		zsh
+		wayland
+		xorg-xwayland
+
+		sway
+		swayidle
+		swaylock
+		swaybg
+		xdg-desktop-portal-wlr
+		xdg-desktop-portal-gtk
+		pipewire
+		pipewire-audio
+		pipewire-pulse
+		pipewire-alsa
+		pipewire-jack
+		wireplumber
+		gvfs
+
+		wl-clipboard
+		cliphist
+		polkit-kde-agent
+		libnotify
+		brightnessctl
+		playerctl
+		xdg-user-dirs
+	)
+
+	local tools=(
+		fd
+		jq
+		ripgrep
+		gawk
+		less
+		curl
+		wget
+		tar
+		zip
+		unzip
+		unrar
+		p7zip
+	)
+
+	local companion=(
+		waybar
+		swaync
+		rofi-wayland
+		rofi-calc
+		rofi-emoji
+		noto-fonts-emoji
+
+		thunar
+		okular
+		ristretto
+		mousepad
+		pavucontrol
+		blueman
+		network-manager-applet
+	)
+
+	local theme=(
+		git
+		dconf
+		sassc
+		qt5ct
+		qt5-wayland
+		qt6ct
+		qt6-wayland
+		nwg-look
+		kvantum
+		adwaita-cursors
+		inter-font
+		ttf-dejavu
+		ttf-liberation
+	)
+
+	if pacman -Q jack2 &>/dev/null; then
+		sudo pacman -Rns --noconfirm jack2
+	fi
+	sudo pacman -S --noconfirm --needed \
+		"${core[@]}" \
+		"${tools[@]}" \
+		"${companion[@]}" \
+		"${theme[@]}"
+
+	if ! [[ -d $HOME/.swaywm ]]; then
+		git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-swaywm "$HOME"/.swaywm
+	fi
+	if ! [[ -d $HOME/.wallpapers ]]; then
+		git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/wallpapers "$HOME"/.wallpapers
+	fi
+	install_dotfile .swaywm
+
+	if ! [[ -d /tmp/gtk-theme ]]; then
+		git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme /tmp/gtk-theme
+		sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' /tmp/gtk-theme/src/sass/_variables.scss
+	fi
+	if ! [[ -d /tmp/icon-pack ]]; then
+		git clone --depth 1 -b 20250201 https://github.com/PapirusDevelopmentTeam/papirus-icon-theme /tmp/icon-pack
+	fi
+	if [[ -d "$HOME"/.local/share/themes ]]; then
+		mkdir -p "$HOME"/.local/share/themes
+	fi
+
+	cd /tmp/gtk-theme
+	./install.sh --dest "$HOME"/.local/share/themes \
+		--theme default \
+		--color dark \
+		--size compact \
+		--libadwaita system \
+		--tweaks catppuccin black rimless
+	cd /tmp/icon-pack
+	make install PREFIX="$HOME"/.local
+
+	if ! [[ -d /tmp/qtnct ]]; then
+		git clone --depth 1 https://github.com/catppuccin/qt5ct /tmp/qtnct
+	fi
+	mkdir -p "$HOME"/.config/{qt5ct,qt6ct}/colors/
+	cp /tmp/qtnct/themes/catppuccin-mocha-blue.conf "$HOME"/.config/qt5ct/colors/catppuccin-mocha.conf
+	cp /tmp/qtnct/themes/catppuccin-mocha-blue.conf "$HOME"/.config/qt6ct/colors/catppuccin-mocha.conf
+}
+
+configure() {
+	sudo chsh -s "$(command -v zsh)" "$USER"
+	sudo usermod -aG input "$USER"
+
+	systemctl --user start pipewire
+	systemctl --user enable pipewire
+	systemctl --user start wireplumber
+	systemctl --user enable wireplumber
+
+	wpctl status &>/dev/null
+	sleep 3
+	wpctl set-volume @DEFAULT_SINK@ 40%
+	wpctl set-volume @DEFAULT_SOURCE@ 40%
+	wpctl set-mute @DEFAULT_SOURCE@ 1
+	sudo systemctl mask NetworkManager-wait-online.service
+
+	/usr/bin/xdg-user-dirs-update
+
+	mkdir -p "$HOME"/{CS,Library}
+	tee "$HOME"/.config/gtk-3.0/bookmarks <<-EOF
+		file:///home/$USER/CS
+		file:///home/$USER/Documents
+		file:///home/$USER/Downloads
+		file:///home/$USER/Library
+		file:///home/$USER/Music
+		file:///home/$USER/Pictures
+		file:///home/$USER/Public
+		file:///home/$USER/Templates
+		file:///home/$USER/Videos
+	EOF
+
+	dconf write /org/gnome/desktop/interface/cursor-theme "'Adwaita'"
+	dconf write /org/gnome/desktop/interface/font-name "'Inter Display Semi-Bold 14'"
+	dconf write /org/gnome/desktop/interface/gtk-theme "'Colloid-Dark-Compact-Catppuccin'"
+	dconf write /org/gnome/desktop/wm/preferences/theme "'Colloid-Dark-Compact-Catppuccin'"
+	dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
+	dconf write /org/gnome/desktop/interface/icon-theme "'Papirus-Dark'"
+}
+
+install
+configure
+cd "$current_dir"

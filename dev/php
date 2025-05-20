@@ -1,0 +1,8 @@
+#!/usr/bin/env bash
+
+sudo pacman -S --noconfirm --needed curl
+
+curl -fsSL https://php.new/install/linux | bash
+
+sudo rm -rf /usr/local/php
+sudo mv "$HOME"/.config/herd-lite/ /usr/local/php
