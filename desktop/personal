@@ -18,4 +18,8 @@ for repo_index in ${!personal_repos[@]}; do
 	fi
 done
 
-install_dotfile .personal vault
+if ! grep -qi microsoft /proc/version; then
+	install_dotfile .personal vault
+else
+	install_dotfile .personal .zen .mozilla Notes
+fi
