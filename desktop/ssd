@@ -1,0 +1,17 @@
+#!/usr/bin/env bash
+
+if ! command -v fstrim &>/dev/null; then
+	sudo pacman -S --needed --noconfirm util-linux
+fi
+
+if ! sudo systemctl is-active --quiet fstrim.timer; then
+	while read disk; do
+		disc_gran=$(lsblk -p -d --discard --noheadings --bytes -o 'DISC-GRAN' "$disk")
+
+		if [[ $disc_gran -gt 0 ]]; then
+			sudo systemctl enable fstrim.timer
+			sudo systemctl start fstrim.timer
+			break
+		fi
+	done < <(lsblk --noheadings -p -d -o name)
+fi

@@ -30,8 +30,8 @@ source ./Shared/profile
 source ./Shared/install_dotfiles
 source ./Shared/secrets
 
-source ./run/common
-source ./run/nerdfonts
+source ./desktop/common
+source ./desktop/nerdfonts
 
 source ./dev/php
 source ./dev/golang
@@ -42,14 +42,15 @@ source ./dev/docker
 source ./dev/neovim
 
 if ! grep -qi microsoft /proc/version; then
-	source ./run/bluetooth
-	source ./run/fcitx
-	source ./run/udiskie
-	source ./run/tlp
-	source ./run/flameshot
-	source ./run/flatpak
-	source ./run/swaywm
-	source ./run/personal
+	source ./desktop/ssd
+	source ./desktop/bluetooth
+	source ./desktop/fcitx
+	source ./desktop/udiskie
+	source ./desktop/tlp
+	source ./desktop/flatpak
+	source ./desktop/flameshot
+	source ./desktop/swaywm
+	source ./desktop/personal
 fi
 
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then

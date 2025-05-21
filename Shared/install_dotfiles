@@ -3,6 +3,7 @@
 install_dotfile() {
 	mkdir -p "$HOME"/.config
 	mkdir -p "$HOME"/.cache
+	mkdir -p "$HOME"/.local/share
 	mkdir -p "$HOME"/.local/bin
 
 	local root=$1
