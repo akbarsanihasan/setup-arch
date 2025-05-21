@@ -42,7 +42,7 @@ if ! [[ -d $HOME/.common ]]; then
 	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-common "$HOME"/.common
 fi
 
-if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
+if ! [[ -e "$HOME"/.common/.config/tmux/plugins/tpm ]]; then
 	git clone https://github.com/tmux-plugins/tpm "$HOME"/.common/.config/tmux/plugins/tpm
 fi
 
