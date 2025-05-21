@@ -35,7 +35,7 @@ install_dotfile() {
 			continue
 		fi
 
-		for subdotfile in "$dotfile"/{*, .*}; do
+		for subdotfile in "$dotfile"/{*,.*}; do
 			subdotfile_base=$(basename "$subdotfile")
 			subdotfile_target=$target/$subdotfile_base
 
