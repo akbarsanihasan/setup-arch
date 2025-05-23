@@ -147,6 +147,7 @@ sudo systemctl mask NetworkManager-wait-online.service
 
 /usr/bin/xdg-user-dirs-update
 
+mkdir -p "$HOME"/.config/gtk-3.0/
 mkdir -p "$HOME"/{CS,Library}
 tee "$HOME"/.config/gtk-3.0/bookmarks <<-EOF
 	file:///home/$USER/CS
