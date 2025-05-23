@@ -7,7 +7,7 @@ if [[ "${GLOBAL:-}" != 1 ]]; then
 	source ./Shared/install_dotfiles
 fi
 
-local core=(
+core=(
 	git
 	make
 	zsh
@@ -37,7 +37,7 @@ local core=(
 	xdg-user-dirs
 )
 
-local tools=(
+tools=(
 	fd
 	jq
 	ripgrep
@@ -52,7 +52,7 @@ local tools=(
 	p7zip
 )
 
-local companion=(
+companion=(
 	waybar
 	swaync
 	rofi-wayland
@@ -69,7 +69,7 @@ local companion=(
 	network-manager-applet
 )
 
-local theme=(
+theme=(
 	git
 	dconf
 	sassc
