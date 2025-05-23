@@ -2,7 +2,7 @@
 
 current_dir=$PWD
 
-if [[ "${__GLOBAL__:-}" != 1 ]]; then
+if [[ "${GLOBAL:-}" != 1 ]]; then
 	source ./Shared/profile
 	source ./Shared/secrets
 fi
