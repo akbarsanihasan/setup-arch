@@ -8,7 +8,7 @@ fi
 sudo pacman -S --noconfirm --needed git
 
 personal_repos=(Personal setup-extras)
-personal_repos_dest=("$HOME"/.personal "$PWD"/extras)
+personal_repos_dest=("$PWD"/dotfiles/.personal "$PWD"/extras)
 
 for repo_index in ${!personal_repos[@]}; do
 	if ! [[ -d "${personal_repos_dest[$repo_index]}" ]]; then
@@ -19,7 +19,7 @@ for repo_index in ${!personal_repos[@]}; do
 done
 
 if ! grep -qi microsoft /proc/version; then
-	install_dotfile .personal vault
+	install_dotfile "$PWD"/dotfiles/.personal
 else
 	install_dotfile .personal .zen .mozilla Notes
 fi

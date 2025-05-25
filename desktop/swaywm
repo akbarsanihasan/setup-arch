@@ -95,13 +95,13 @@ sudo pacman -S --noconfirm --needed \
 	"${companion[@]}" \
 	"${theme[@]}"
 
-if ! [[ -d $HOME/.swaywm ]]; then
-	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-swaywm "$HOME"/.swaywm
+if ! [[ -d $PWD/dotfiles/.swaywm ]]; then
+	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-swaywm "$PWD"/dotfiles/.swaywm
 fi
 if ! [[ -d $HOME/.wallpapers ]]; then
 	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/wallpapers "$HOME"/.wallpapers
 fi
-install_dotfile .swaywm
+install_dotfile "$PWD"/dotfiles/.swaywm
 
 if ! [[ -d /tmp/gtk-theme ]]; then
 	git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme /tmp/gtk-theme

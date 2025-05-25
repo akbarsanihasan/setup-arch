@@ -16,7 +16,7 @@ install_dotfile() {
 		excludes+=("${expand_excludes[@]}")
 	fi
 
-	for dotfile in "$HOME"/"$root"/{*,.*}; do
+	for dotfile in "$root"/{*,.*}; do
 		base=$(basename "$dotfile")
 		target=$HOME/$base
 		skip=0

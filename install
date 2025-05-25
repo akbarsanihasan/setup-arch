@@ -54,11 +54,11 @@ if ! grep -qi microsoft /proc/version; then
 fi
 
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then
-	git remote add origin git@github.com:"$GIT_USER"/setup-arch.git
+	git remote add origin https://"$GIT_TOKEN"@github.com/"$GIT_USER"/setup-arch.git
 fi
 
-if ! git remote -v | awk 'NR==1 {print $2}' | grep -i git@ &>/dev/null; then
-	git remote set-url origin git@github.com:"$GIT_USER"/setup-arch.git
+if ! git remote -v | awk 'NR==1 {print $2}' | grep -i @github.com &>/dev/null; then
+	git remote set-url origin https://"$GIT_TOKEN"@github.com/"$GIT_USER"/setup-arch.git
 fi
 
 clear

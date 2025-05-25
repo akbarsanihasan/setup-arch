@@ -33,6 +33,7 @@ apps=(
 	org.chromium.Chromium
 	md.obsidian.Obsidian
 	org.onlyoffice.desktopeditors
+	com.calibre_ebook.calibre
 	com.github.tchx84.Flatseal
 )
 

@@ -8,8 +8,6 @@ fi
 packages=(
 	git
 	zsh
-	foot
-	mpv
 	tmux
 	fzf
 	btop
@@ -19,6 +17,11 @@ packages=(
 	trash-cli
 	man
 	tldr
+)
+
+gui_packages=(
+	foot
+	mpv
 )
 
 tools=(
@@ -38,17 +41,17 @@ tools=(
 
 sudo pacman -S --noconfirm --needed "${packages[@]}" "${tools[@]}"
 
-if ! [[ -d $HOME/.common ]]; then
-	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-common "$HOME"/.common
+if ! [[ -d $PWD/dotfiles/.common ]]; then
+	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-common "$PWD"/dotfiles/.common
 fi
 
-if ! [[ -e "$HOME"/.common/.config/tmux/plugins/tpm ]]; then
-	git clone https://github.com/tmux-plugins/tpm "$HOME"/.common/.config/tmux/plugins/tpm
+install_dotfile "$PWD"/dotfiles/.common
+
+if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
+	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
 fi
-
-install_dotfile .common
-
 "$HOME"/.config/tmux/plugins/tpm/bin/install_plugins all
+
 sudo chsh -s "$(command -v zsh)" "$USER"
 zsh -c "source $HOME/.zshrc" || true
 bat cache --build
