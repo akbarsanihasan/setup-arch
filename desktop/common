@@ -40,6 +40,9 @@ tools=(
 )
 
 sudo pacman -S --noconfirm --needed "${packages[@]}" "${tools[@]}"
+if ! grep -qi microsoft /proc/version; then
+	sudo pacman -S --noconfirm --needed "${gui_packages[@]}"
+fi
 
 if ! [[ -d $PWD/dotfiles/.common ]]; then
 	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-common "$PWD"/dotfiles/.common
