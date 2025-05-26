@@ -8,7 +8,7 @@ fi
 sudo pacman -S --noconfirm --needed git
 
 personal_repos=(Personal setup-extras)
-personal_repos_dest=("$PWD"/dotfiles/.personal "$PWD"/extras)
+personal_repos_dest=("$PWD"/dotfiles/.personal "$HOME"/.extras)
 
 for repo_index in ${!personal_repos[@]}; do
 	if ! [[ -d "${personal_repos_dest[$repo_index]}" ]]; then

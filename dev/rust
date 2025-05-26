@@ -1,9 +1,0 @@
-#!/usr/bin/env bash
-
-sudo pacman -S --noconfirm --needed curl
-
-curl --proto '=https' --tlsv1.2 -sSf https://sh.rustup.rs |
-	sh -s -- -y --no-modify-path --no-update-default-toolchain
-
-[ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"
-rustup default stable

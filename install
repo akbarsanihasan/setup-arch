@@ -33,15 +33,6 @@ source ./Shared/secrets
 source ./desktop/common
 source ./desktop/nerdfonts
 source ./desktop/personal
-
-source ./dev/nodejs
-source ./dev/php
-source ./dev/golang
-source ./dev/rust
-source ./dev/git
-source ./dev/docker
-source ./dev/neovim
-
 if ! grep -qi microsoft /proc/version; then
 	source ./desktop/ssd
 	source ./desktop/bluetooth
