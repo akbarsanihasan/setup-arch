@@ -7,7 +7,7 @@ install_dotfile() {
 	mkdir -p "$HOME"/.local/bin
 
 	local root=$1
-	local excludes=("*" ".*" ".git" ".gitignore")
+	local excludes=("*" ".*" ".git" ".gitignore" "README.md")
 
 	shift
 	local expand_excludes=("$@")
