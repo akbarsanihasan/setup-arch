@@ -2,13 +2,22 @@
 
 if [[ "${GLOBAL:-}" != 1 ]]; then
 	source ./Shared/secrets
-	source ./Shared/install_dotfiles
+	source ./Shared/dotfiles
+	source ./desktop/flatpak
 fi
 
 sudo pacman -S --noconfirm --needed git
 
+apps=(
+	app.zen_browser.zen
+	org.mozilla.firefox
+	org.chromium.Chromium
+	md.obsidian.Obsidian
+	com.calibre_ebook.calibre
+)
+
 personal_repos=(Personal setup-extras)
-personal_repos_dest=("$PWD"/dotfiles/.personal "$HOME"/.extras)
+personal_repos_dest=("$PWD"/.personal "$PWD"/Extras)
 
 for repo_index in ${!personal_repos[@]}; do
 	if ! [[ -d "${personal_repos_dest[$repo_index]}" ]]; then
@@ -18,8 +27,18 @@ for repo_index in ${!personal_repos[@]}; do
 	fi
 done
 
-if ! grep -qi microsoft /proc/version; then
-	install_dotfile "$PWD"/dotfiles/.personal
-else
-	install_dotfile .personal Notes
-fi
+install_dotfile "$PWD"/.personal
+
+for app_id in "${!apps[@]}"; do
+	flatpak install \
+		--user \
+		--noninteractive \
+		--assumeyes \
+		"${apps[$app_id]}"
+done
+
+# Calibre reader
+calibre_override=(
+	--filesystem=xdg-config/calibre
+)
+flatpak override --user --filesystem=xdg-config/calibre com.calibre_ebook.calibre

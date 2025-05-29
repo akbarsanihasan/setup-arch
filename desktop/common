@@ -2,7 +2,7 @@
 
 if [[ "${GLOBAL:-}" != 1 ]]; then
 	source ./Shared/secrets
-	source ./Shared/install_dotfiles
+	source ./Shared/dotfiles
 fi
 
 packages=(
@@ -44,11 +44,11 @@ if ! grep -qi microsoft /proc/version; then
 	sudo pacman -S --noconfirm --needed "${gui_packages[@]}"
 fi
 
-if ! [[ -d $PWD/dotfiles/.common ]]; then
-	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-common "$PWD"/dotfiles/.common
+if ! [[ -d $PWD/.common ]]; then
+	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-common "$PWD"/.common
 fi
 
-install_dotfile "$PWD"/dotfiles/.common
+install_dotfile "$PWD"/.common
 
 if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
 	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm

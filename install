@@ -27,21 +27,23 @@ trap "sudo -k; kill -9 $timestamp_sudo_pid 2>/dev/null;" EXIT SIGINT SIGTERM
 readonly GLOBAL=1
 
 source ./Shared/profile
-source ./Shared/install_dotfiles
+source ./Shared/dotfiles
 source ./Shared/secrets
+
+source ./hardware/pipewire
+source ./hardware/bluetooth
+source ./hardware/tlp
+source ./hardware/ssd
 
 source ./desktop/common
 source ./desktop/nerdfonts
-source ./desktop/personal
 if ! grep -qi microsoft /proc/version; then
-	source ./desktop/ssd
-	source ./desktop/bluetooth
 	source ./desktop/swaywm
 	source ./desktop/fcitx
 	source ./desktop/udiskie
-	source ./desktop/tlp
 	source ./desktop/flameshot
 	source ./desktop/flatpak
+	source ./desktop/personal
 fi
 
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then

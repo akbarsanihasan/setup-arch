@@ -1,2 +1,4 @@
-/dotfiles
-/extras
+/.common
+/.swaywm
+/.personal
+/Extras

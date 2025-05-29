@@ -32,7 +32,7 @@ install_dotfile() {
 		fi
 
 		if [[ ! -d $dotfile ]] || [[ ! -d $target ]]; then
-			ln -sf "$dotfile" "$target"
+			ln -sfv "$dotfile" "$target"
 			continue
 		fi
 
@@ -51,7 +51,7 @@ install_dotfile() {
 			fi
 
 			if [[ ! -d $subdotfile ]] || [[ ! -d $subdotfile_target ]]; then
-				ln -sf "$subdotfile" "$subdotfile_target"
+				ln -sfv "$subdotfile" "$subdotfile_target"
 				continue
 			fi
 
@@ -66,7 +66,7 @@ install_dotfile() {
 				done
 
 				rm -rf "$subdotfile_child_target"
-				ln -sf "$subdotfile_child" "$subdotfile_child_target"
+				ln -sfv "$subdotfile_child" "$subdotfile_child_target"
 			done
 		done
 	done

@@ -18,6 +18,10 @@ flatpak override --user --socket=system-bus
 flatpak override --user --socket=ssh-auth
 
 flatpak override --user --filesystem=home
+flatpak override --user --filesystem=host
+flatpak override --user --filesystem=host-os
+flatpak override --user --filesystem=xdg-config
+flatpak override --user --filesystem=xdg-data
 flatpak override --user --filesystem=xdg-config/gtk-3.0:ro
 flatpak override --user --filesystem=xdg-config/gtk-4.0:ro
 flatpak override --user --filesystem=xdg-config/Kvantum:ro
@@ -26,19 +30,3 @@ flatpak override --user --filesystem=xdg-data/fonts:ro
 
 flatpak override --user --env=QT_QPA_PLATFORM="wayland;xcb"
 flatpak override --user --env=ELECTRON_OZONE_PLATFORM_HINT=auto
-
-apps=(
-	app.zen_browser.zen
-	org.mozilla.firefox
-	org.chromium.Chromium
-	md.obsidian.Obsidian
-	org.onlyoffice.desktopeditors
-	com.calibre_ebook.calibre
-	com.github.tchx84.Flatseal
-)
-
-for app in "${apps[@]}"; do
-	flatpak install --user --noninteractive --assumeyes --app "$app"
-done
-
-xdg-settings set default-web-browser app.zen_browser.zen.desktop

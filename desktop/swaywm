@@ -4,7 +4,9 @@ current_dir=$PWD
 
 if [[ "${GLOBAL:-}" != 1 ]]; then
 	source ./Shared/secrets
-	source ./Shared/install_dotfiles
+	source ./Shared/dotfiles
+	source ./hardware/pipewire
+	source ./hardware/bluetooth
 fi
 
 core=(
@@ -21,13 +23,6 @@ core=(
 	xdg-desktop-portal-wlr
 	xdg-desktop-portal-gtk
 	xdg-desktop-portal-kde
-	pipewire
-	pipewire-audio
-	pipewire-pulse
-	pipewire-alsa
-	pipewire-jack
-	wireplumber
-	gvfs
 
 	wl-clipboard
 	cliphist
@@ -36,21 +31,6 @@ core=(
 	brightnessctl
 	playerctl
 	xdg-user-dirs
-)
-
-tools=(
-	fd
-	jq
-	ripgrep
-	gawk
-	less
-	curl
-	wget
-	tar
-	zip
-	unzip
-	unrar
-	p7zip
 )
 
 companion=(
@@ -62,13 +42,14 @@ companion=(
 	noto-fonts-emoji
 
 	thunar
+	gvfs
+	file-roller
 	okular
 	ristretto
 	mousepad
 	pavucontrol
 	blueberry
 	nm-connection-editor
-	file-roller
 )
 
 theme=(
@@ -87,22 +68,34 @@ theme=(
 	ttf-liberation
 )
 
-if pacman -Q jack2 &>/dev/null; then
-	sudo pacman -Rddns --noconfirm jack2
-fi
+tools=(
+	fd
+	jq
+	ripgrep
+	gawk
+	less
+	curl
+	wget
+	tar
+	zip
+	unzip
+	unrar
+	p7zip
+)
+
 sudo pacman -S --noconfirm --needed \
 	"${core[@]}" \
-	"${tools[@]}" \
 	"${companion[@]}" \
-	"${theme[@]}"
+	"${theme[@]}" \
+	"${tools[@]}"
 
-if ! [[ -d $PWD/dotfiles/.swaywm ]]; then
-	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-swaywm "$PWD"/dotfiles/.swaywm
+if ! [[ -d $PWD/.swaywm ]]; then
+	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/dotfiles-swaywm "$PWD"/.swaywm
 fi
 if ! [[ -d $HOME/.wallpapers ]]; then
 	git clone https://"$GIT_TOKEN"@github.com/"$GIT_USER"/wallpapers "$HOME"/.wallpapers
 fi
-install_dotfile "$PWD"/dotfiles/.swaywm
+install_dotfile "$PWD"/.swaywm
 
 if ! [[ -d /tmp/gtk-theme ]]; then
 	git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme /tmp/gtk-theme
@@ -135,16 +128,6 @@ cp /tmp/qtnct/themes/catppuccin-mocha-blue.conf "$HOME"/.config/qt6ct/colors/cat
 sudo chsh -s "$(command -v zsh)" "$USER"
 sudo usermod -aG input "$USER"
 
-systemctl --user start pipewire
-systemctl --user enable pipewire
-systemctl --user start wireplumber
-systemctl --user enable wireplumber
-
-wpctl status &>/dev/null
-sleep 3
-wpctl set-volume @DEFAULT_SINK@ 40%
-wpctl set-volume @DEFAULT_SOURCE@ 40%
-wpctl set-mute @DEFAULT_SOURCE@ 1
 sudo systemctl mask NetworkManager-wait-online.service
 
 /usr/bin/xdg-user-dirs-update
