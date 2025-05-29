@@ -8,6 +8,7 @@ fi
 packages=(
 	git
 	zsh
+	starship
 	tmux
 	fzf
 	btop
