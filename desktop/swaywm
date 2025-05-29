@@ -68,6 +68,7 @@ companion=(
 	pavucontrol
 	blueberry
 	nm-connection-editor
+	file-roller
 )
 
 theme=(
