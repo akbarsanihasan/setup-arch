@@ -41,8 +41,8 @@ if ! grep -qi microsoft /proc/version; then
 	source ./desktop/swaywm
 	source ./desktop/fcitx
 	source ./desktop/udiskie
-	source ./desktop/flameshot
 	source ./desktop/flatpak
+	source ./desktop/flameshot
 	source ./desktop/personal
 fi
 
