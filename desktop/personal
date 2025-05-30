@@ -42,3 +42,10 @@ calibre_override=(
 	--filesystem=xdg-config/calibre
 )
 flatpak override --user --filesystem=xdg-config/calibre com.calibre_ebook.calibre
+
+if ! grep -ie "\"database_path\":.*$HOME/.*" "$HOME"/.config/calibre/global.py.json; then
+	sed -i --follow-symlinks "s|\"database_path\": *\"[^\"]*\"|\"database_path\": \"$HOME/library1.db\"|" "$HOME/.config/calibre/global.py.json"
+fi
+if ! grep -ie "\"library_path\":.*$HOME/.*" "$HOME"/.config/calibre/global.py.json; then
+	sed -i --follow-symlinks "s|\"library_path\": *\"[^\"]*\"|\"library_path\": \"$HOME/Calibre Library\"|" "$HOME/.config/calibre/global.py.json"
+fi
