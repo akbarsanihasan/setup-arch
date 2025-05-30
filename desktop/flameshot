@@ -1,9 +1,6 @@
 #!/usr/bin/env bash
 
-current_dir=$PWD
-
 if [[ "${GLOBAL:-}" != 1 ]]; then
-	source ./Shared/profile
 	source ./desktop/flatpak
 fi
 
@@ -28,5 +25,3 @@ tee "$HOME"/.config/flameshot/flameshot.ini <<-EOF
 	startupLaunch=false
 	useGrimAdapter=true
 EOF
-
-cd "$current_dir"

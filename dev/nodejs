@@ -1,0 +1,33 @@
+#!/usr/bin/env bash
+
+clear
+
+export NPM_CONFIG_CACHE=$HOME/.node
+export NPM_CONFIG_PREFIX=$HOME/.node
+
+sudo pacman -S --noconfirm --needed curl unzip
+
+if ! command -v "$HOME"/.local/bin/fnm &>/dev/null; then
+	curl -fsSL https://fnm.vercel.app/install |
+		bash -s -- --skip-shell --install-dir "$HOME"/.local/bin
+fi
+
+eval "$("$HOME"/.local/bin/fnm env --fnm-dir "$HOME"/.node)"
+"$HOME"/.local/bin/fnm install --lts
+
+shellrcs=(.zshrc .bashrc)
+for shellrc in "${shellrcs[@]}"; do
+	if ! [[ -e "$HOME/$shellrc" ]]; then
+		touch "$HOME/$shellrc"
+	fi
+	if ! grep -i "# NodeJS" "$HOME/$shellrc" &>/dev/null; then
+		tee -a "$HOME/$shellrc" <<-EOF
+			# NodeJS
+			export NPM_CONFIG_CACHE=\$HOME/.node
+			export NPM_CONFIG_PREFIX=\$HOME/.node
+			if command -v fnm &>/dev/null || command -v $HOME/.local/bin/fnm &>/dev/null; then
+			   eval "\$(fnm env --fnm-dir "\$HOME"/.node)"
+			fi
+		EOF
+	fi
+done

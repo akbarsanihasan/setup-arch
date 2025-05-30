@@ -46,6 +46,14 @@ if ! grep -qi microsoft /proc/version; then
 	source ./desktop/personal
 fi
 
+source ./dev/nodejs
+source ./dev/golang
+source ./dev/php
+source ./dev/rust
+source ./dev/git
+source ./dev/docker
+source ./dev/neovim
+
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then
 	git remote add origin https://"$GIT_TOKEN"@github.com/"$GIT_USER"/setup-arch.git
 fi
