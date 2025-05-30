@@ -55,4 +55,3 @@ fi
 
 sudo chsh -s "$(command -v zsh)" "$USER"
 zsh -c "source $HOME/.zshrc" || true
-bat cache --build
