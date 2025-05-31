@@ -30,8 +30,9 @@ source ./Shared/profile
 source ./Shared/dotfiles
 source ./Shared/secrets
 
-source ./hardware/pipewire
+source ./hardware/network
 source ./hardware/bluetooth
+source ./hardware/pipewire
 source ./hardware/tlp
 source ./hardware/ssd
 
