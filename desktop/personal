@@ -17,7 +17,7 @@ apps=(
 )
 
 personal_repos=(Personal setup-extras)
-personal_repos_dest=("$PWD"/.personal "$PWD"/Extras)
+personal_repos_dest=("$PWD"/.personal "$PWD"/extras)
 
 for repo_index in ${!personal_repos[@]}; do
 	if ! [[ -d "${personal_repos_dest[$repo_index]}" ]]; then
