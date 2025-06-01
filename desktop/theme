@@ -2,50 +2,47 @@
 
 current_dir=$PWD
 
-if [[ "${GLOBAL:-}" != 1 ]]; then
-fi
-
 theme=(
-    git
-    dconf
-    sassc
-    qt5ct
-    qt5-wayland
-    qt6ct
-    qt6-wayland
-    nwg-look
-    kvantum
-    adwaita-cursors
-    inter-font
-    ttf-dejavu
-    ttf-liberation
+	git
+	dconf
+	sassc
+	qt5ct
+	qt5-wayland
+	qt6ct
+	qt6-wayland
+	nwg-look
+	kvantum
+	adwaita-cursors
+	inter-font
+	ttf-dejavu
+	ttf-liberation
 )
 
 sudo pacman -S --noconfirm --needed "${theme[@]}"
 
 if ! [[ -d /tmp/gtk-theme ]]; then
-    git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme /tmp/gtk-theme
-    sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' /tmp/gtk-theme/src/sass/_variables.scss
+	git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme /tmp/gtk-theme
+	sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' /tmp/gtk-theme/src/sass/_variables.scss
 fi
 if ! [[ -d /tmp/icon-pack ]]; then
-    git clone --depth 1 -b 20250201 https://github.com/PapirusDevelopmentTeam/papirus-icon-theme /tmp/icon-pack
+	git clone --depth 1 -b 20250201 https://github.com/PapirusDevelopmentTeam/papirus-icon-theme /tmp/icon-pack
 fi
 if [[ -d "$HOME"/.local/share/themes ]]; then
-    mkdir -p "$HOME"/.local/share/themes
+	mkdir -p "$HOME"/.local/share/themes
 fi
 
 cd /tmp/gtk-theme
 ./install.sh --dest "$HOME"/.local/share/themes \
-    --theme default \
-    --color dark \
-    --size compact \
-    --libadwaita system \
-    --tweaks catppuccin black rimless
+	--theme default \
+	--color dark \
+	--size compact \
+	--libadwaita system \
+	--tweaks catppuccin black rimless
 cd /tmp/icon-pack
 make install PREFIX="$HOME"/.local
 
 if ! [[ -d /tmp/qtnct ]]; then
-    git clone --depth 1 https://github.com/catppuccin/qt5ct /tmp/qtnct
+	git clone --depth 1 https://github.com/catppuccin/qt5ct /tmp/qtnct
 fi
 mkdir -p "$HOME"/.config/{qt5ct,qt6ct}/colors/
 cp /tmp/qtnct/themes/catppuccin-mocha-blue.conf "$HOME"/.config/qt5ct/colors/catppuccin-mocha.conf
@@ -58,4 +55,4 @@ dconf write /org/gnome/desktop/wm/preferences/theme "'Colloid-Dark-Compact-Catpp
 dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"
 dconf write /org/gnome/desktop/interface/icon-theme "'Papirus-Dark'"
 
-cd $current_dir
+cd "$current_dir"
