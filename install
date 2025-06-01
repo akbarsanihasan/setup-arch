@@ -47,6 +47,7 @@ if ! grep -qi microsoft /proc/version; then
 	source ./desktop/flatpak
 	source ./desktop/flameshot
 	source ./desktop/personal
+	source ./desktop/theme
 fi
 
 source ./dev/nodejs
