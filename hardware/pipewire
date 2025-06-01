@@ -7,6 +7,7 @@ packages=(
 	pipewire-alsa
 	pipewire-jack
 	wireplumber
+	rtkit
 )
 
 if pacman -Q jack2 &>/dev/null; then
