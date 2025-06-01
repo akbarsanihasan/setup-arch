@@ -33,8 +33,10 @@ source ./Shared/secrets
 source ./hardware/network
 source ./hardware/bluetooth
 source ./hardware/pipewire
-source ./hardware/tlp
-source ./hardware/ssd
+source ./hardware/disk
+if ls /sys/class/power_supply/BAT* 1>/dev/null 2>&1; then
+	source ./hardware/battery
+fi
 
 source ./desktop/common
 source ./desktop/nerdfonts

@@ -14,14 +14,12 @@ mkdir -p "$HOME"/.config/flameshot
 tee "$HOME"/.config/flameshot/flameshot.ini <<-EOF
 	[General]
 	drawFontSize=9
-	saveAsFileExtension=png
 	saveLastRegion=true
 	savePath=$HOME/Pictures/Screenshot
 	savePathFixed=false
-	showDesktopNotification=false
+	saveAsFileExtension=png
 	showHelp=false
-	showSelectionGeometryHideTime=3000
+	startupLaunch=true
 	showStartupLaunchMessage=false
-	startupLaunch=false
-	useGrimAdapter=true
+	showDesktopNotification=false
 EOF
