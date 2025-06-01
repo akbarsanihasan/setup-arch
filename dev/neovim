@@ -25,7 +25,7 @@ packages=(
 
 sudo pacman -S --noconfirm --needed "${packages[@]}"
 
-version=v0.10.4
+version=stable
 if ! [[ -d /tmp/neovim ]]; then
 	git clone --depth 1 -b "$version" https://github.com/neovim/neovim /tmp/neovim
 fi
