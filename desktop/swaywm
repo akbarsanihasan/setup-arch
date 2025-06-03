@@ -25,7 +25,7 @@ core=(
 
 	wl-clipboard
 	cliphist
-	polkit-kde-agent
+	polkit-gnome
 	libnotify
 	brightnessctl
 	playerctl
