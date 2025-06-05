@@ -30,6 +30,7 @@ core=(
 	brightnessctl
 	playerctl
 	xdg-user-dirs
+	dconf
 )
 
 companion=(
@@ -47,7 +48,7 @@ companion=(
 	ristretto
 	mousepad
 	pavucontrol
-	blueberry
+	blueman
 	nm-connection-editor
 )
 
@@ -83,6 +84,7 @@ sudo chsh -s "$(command -v zsh)" "$USER"
 sudo usermod -aG input "$USER"
 
 /usr/bin/xdg-user-dirs-update
+dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
 
 mkdir -p "$HOME"/.config/gtk-3.0/
 tee "$HOME"/.config/gtk-3.0/bookmarks <<-EOF
