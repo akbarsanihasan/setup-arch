@@ -15,6 +15,10 @@ current_dir=$PWD
 packages=(
 	git
 	curl
+	git
+	unzip
+	tar
+	gzip
 	base-devel
 	cmake
 	ninja
@@ -25,7 +29,7 @@ packages=(
 
 sudo pacman -S --noconfirm --needed "${packages[@]}"
 
-version=stable
+version=v0.11.2
 if ! [[ -d /tmp/neovim ]]; then
 	git clone --depth 1 -b "$version" https://github.com/neovim/neovim /tmp/neovim
 fi
