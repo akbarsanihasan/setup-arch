@@ -8,14 +8,6 @@ fi
 
 sudo pacman -S --noconfirm --needed git
 
-apps=(
-	app.zen_browser.zen
-	org.mozilla.firefox
-	org.chromium.Chromium
-	md.obsidian.Obsidian
-	com.calibre_ebook.calibre
-)
-
 personal_repos=(Personal setup-extras)
 personal_repos_dest=("$PWD"/.personal "$PWD"/extras)
 
@@ -28,6 +20,33 @@ for repo_index in ${!personal_repos[@]}; do
 done
 
 install_dotfile "$PWD"/.personal
+if ! grep -ie "\"library_path\":.*$HOME/Books" "$HOME"/.config/calibre/global.py.json; then
+	sed -i --follow-symlinks "s|\"library_path\": *\"[^\"]*\"|\"library_path\": \"$HOME/Books\"|" "$HOME/.config/calibre/global.py.json"
+fi
+if ! grep -ie "\"database_path\":.*$HOME/Books/library1.db" "$HOME"/.config/calibre/global.py.json; then
+	sed -i --follow-symlinks "s|\"database_path\": *\"[^\"]*\"|\"database_path\": \"$HOME/Books/library1.db\"|" "$HOME/.config/calibre/global.py.json"
+fi
+
+apps=(
+	app.zen_browser.zen
+	org.mozilla.firefox
+	org.chromium.Chromium
+	md.obsidian.Obsidian
+	com.calibre_ebook.calibre
+)
+
+zen_browser_override=(
+	--filesystem=home/.zen
+)
+
+firefox_override=(
+	--filesystem=home/.mozilla
+)
+
+calibre_override=(
+	--filesystem=xdg-config/calibre
+	--filesystem=home/Books
+)
 
 for app_id in "${!apps[@]}"; do
 	flatpak install \
@@ -37,15 +56,6 @@ for app_id in "${!apps[@]}"; do
 		"${apps[$app_id]}"
 done
 
-# Calibre reader
-calibre_override=(
-	--filesystem=xdg-config/calibre
-)
-flatpak override --user --filesystem=xdg-config/calibre com.calibre_ebook.calibre
-
-if ! grep -ie "\"library_path\":.*$HOME/Books" "$HOME"/.config/calibre/global.py.json; then
-	sed -i --follow-symlinks "s|\"library_path\": *\"[^\"]*\"|\"library_path\": \"$HOME/Books\"|" "$HOME/.config/calibre/global.py.json"
-fi
-if ! grep -ie "\"database_path\":.*$HOME/Books/library1.db" "$HOME"/.config/calibre/global.py.json; then
-	sed -i --follow-symlinks "s|\"database_path\": *\"[^\"]*\"|\"database_path\": \"$HOME/Books/library1.db\"|" "$HOME/.config/calibre/global.py.json"
-fi
+flatpak override --user "${zen_browser_override[@]}" app.zen_browser.zen
+flatpak override --user "${firefox_override[@]}" org.mozilla.firefox
+flatpak override --user "${calibre_override[@]}" com.calibre_ebook.calibre
