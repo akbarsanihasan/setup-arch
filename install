@@ -30,16 +30,17 @@ source ./Shared/profile
 source ./Shared/dotfiles
 source ./Shared/secrets
 
-source ./hardware/network
-source ./hardware/bluetooth
-source ./hardware/pipewire
-source ./hardware/disk
-if ls /sys/class/power_supply/BAT* 1>/dev/null 2>&1; then
-	source ./hardware/battery
-fi
-
 source ./desktop/common
 source ./desktop/nerdfonts
+
+source ./dev/nodejs
+source ./dev/golang
+source ./dev/php
+source ./dev/rust
+source ./dev/git
+source ./dev/docker
+source ./dev/neovim
+
 if ! grep -qi microsoft /proc/version; then
 	source ./desktop/swaywm
 	source ./desktop/ime
@@ -50,15 +51,6 @@ if ! grep -qi microsoft /proc/version; then
 	source ./desktop/theme
 	source ./desktop/personal
 fi
-
-source ./dev/nodejs
-source ./dev/golang
-source ./dev/php
-source ./dev/rust
-
-source ./dev/git
-source ./dev/docker
-source ./dev/neovim
 
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then
 	git remote add origin https://"$GIT_TOKEN"@github.com/"$GIT_USER"/setup-arch.git
