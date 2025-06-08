@@ -3,7 +3,6 @@
 if [[ "${GLOBAL:-}" != 1 ]]; then
 	source ./Shared/secrets
 	source ./Shared/dotfiles
-	source ./desktop/flatpak
 fi
 
 sudo pacman -S --noconfirm --needed git
@@ -26,36 +25,3 @@ fi
 if ! grep -ie "\"database_path\":.*$HOME/Books/library1.db" "$HOME"/.config/calibre/global.py.json; then
 	sed -i --follow-symlinks "s|\"database_path\": *\"[^\"]*\"|\"database_path\": \"$HOME/Books/library1.db\"|" "$HOME/.config/calibre/global.py.json"
 fi
-
-apps=(
-	app.zen_browser.zen
-	org.mozilla.firefox
-	org.chromium.Chromium
-	md.obsidian.Obsidian
-	com.calibre_ebook.calibre
-)
-
-zen_browser_override=(
-	--filesystem=home/.zen
-)
-
-firefox_override=(
-	--filesystem=home/.mozilla
-)
-
-calibre_override=(
-	--filesystem=xdg-config/calibre
-	--filesystem=home/Books
-)
-
-for app_id in "${!apps[@]}"; do
-	flatpak install \
-		--user \
-		--noninteractive \
-		--assumeyes \
-		"${apps[$app_id]}"
-done
-
-flatpak override --user "${zen_browser_override[@]}" app.zen_browser.zen
-flatpak override --user "${firefox_override[@]}" org.mozilla.firefox
-flatpak override --user "${calibre_override[@]}" com.calibre_ebook.calibre

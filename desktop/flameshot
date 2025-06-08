@@ -5,8 +5,8 @@ if [[ "${GLOBAL:-}" != 1 ]]; then
 fi
 
 sudo pacman -S --noconfirm --needed grim
-flatpak install --user --noninteractive --assumeyes flameshot
-flatpak override --user --filesystem=xdg-config/flameshot
+flatpak install --user --noninteractive --assumeyes org.flameshot.Flameshot
+flatpak override --user --filesystem=xdg-config/flameshot org.flameshot.Flameshot
 
 mkdir -p "$HOME"/Pictures/Screenshot
 mkdir -p "$HOME"/.config/flameshot
@@ -15,7 +15,7 @@ tee "$HOME"/.config/flameshot/flameshot.ini <<-EOF
 	[General]
 	drawFontSize=9
 	saveLastRegion=true
-	savePath=$HOME/Pictures/Screenshot
+	savappHOME/Pictures/Screenshot
 	savePathFixed=false
 	saveAsFileExtension=png
 	showHelp=false

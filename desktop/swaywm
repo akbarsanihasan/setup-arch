@@ -42,7 +42,6 @@ companion=(
 	noto-fonts-emoji
 
 	thunar
-	gvfs
 	file-roller
 	okular
 	ristretto
@@ -50,6 +49,12 @@ companion=(
 	pavucontrol
 	blueman
 	nm-connection-editor
+
+	gvfs
+	gvfs-mtp
+	tumbler
+	ffmpegthumbnailer
+	webp-pixbuf-loader
 )
 
 tools=(

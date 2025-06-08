@@ -17,5 +17,4 @@ fi
 if ! [[ -d /tmp/fcitx-theme ]]; then
 	git clone --depth 1 https://github.com/catppuccin/fcitx5.git /tmp/fcitx-theme
 fi
-
 cp -r /tmp/fcitx-theme/src/catppuccin-mocha-mauve "$HOME"/.local/share/fcitx5/themes/
