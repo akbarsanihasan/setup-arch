@@ -15,9 +15,9 @@ if pacman -Q jack2 &>/dev/null; then
 fi
 sudo pacman -S --needed --noconfirm "${packages[@]}"
 
-systemctl --user start pipewire
+systemctl --user restart pipewire
 systemctl --user enable pipewire
-systemctl --user start wireplumber
+systemctl --user restart wireplumber
 systemctl --user enable wireplumber
 
 wpctl status &>/dev/null

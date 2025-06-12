@@ -3,7 +3,6 @@
 clear
 
 if [[ "${GLOBAL:-}" != 1 ]]; then
-	source ./Shared/profile
 	source ./dev/nodejs
 	source ./dev/golang
 	source ./dev/php
@@ -14,17 +13,18 @@ current_dir=$PWD
 
 packages=(
 	git
-	curl
-	git
-	unzip
-	tar
-	gzip
 	base-devel
+	make
 	cmake
 	ninja
 	gettext
 	luarocks
 	tree-sitter-cli
+	curl
+	wget
+	unzip
+	tar
+	gzip
 )
 
 sudo pacman -S --noconfirm --needed "${packages[@]}"
@@ -36,10 +36,7 @@ fi
 
 cd /tmp/neovim
 make deps
-make CMAKE_BUILD_TYPE=Release \
-	CMAKE_PREFIX_PATH=/usr/local \
-	-j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
-
+make CMAKE_BUILD_TYPE=Release -j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
 sudo make install
 
 if ! [[ -d $HOME/.config/nvim ]]; then

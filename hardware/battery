@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 
-if ls /sys/class/power_supply/BAT* 1>/dev/null 2>&1; then
+if ls /sys/class/power_supply/BAT* &>/dev/null; then
 	sudo pacman -S --noconfirm --needed tlp
 
 	sudo mkdir -p /etc/tlp.d

@@ -26,12 +26,23 @@ trap "sudo -k; kill -9 $timestamp_sudo_pid 2>/dev/null;" EXIT SIGINT SIGTERM
 
 readonly GLOBAL=1
 
-source ./Shared/profile
 source ./Shared/dotfiles
 source ./Shared/secrets
 
 source ./desktop/common
 source ./desktop/nerdfonts
+if ! grep -qi microsoft /proc/version; then
+	source ./hardware/network
+	source ./hardware/bluetooth
+	source ./hardware/pipewire
+	source ./hardware/battery
+	source ./desktop/swaywm
+	source ./desktop/flatpak
+	source ./desktop/browsers
+	source ./desktop/flameshot
+	source ./desktop/ime
+	source ./desktop/udiskie
+fi
 
 source ./dev/nodejs
 source ./dev/golang
@@ -41,15 +52,8 @@ source ./dev/git
 source ./dev/docker
 source ./dev/neovim
 
-if ! grep -qi microsoft /proc/version; then
-	source ./desktop/swaywm
-	source ./desktop/ime
-	source ./desktop/browsers
-	source ./desktop/flameshot
-	source ./desktop/udiskie
-	source ./desktop/flatpak
-	source ./desktop/theme
-	source ./desktop/personal
+if ! [[ -d $HOME/.extras ]]; then
+	git clone https://github.com/akbarsanihasan/setup-extras "$HOME"/.extras
 fi
 
 if ! git remote -v | awk 'NR==1 {print $1}' | grep origin &>/dev/null; then

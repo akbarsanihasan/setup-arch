@@ -10,11 +10,104 @@ packages=(
 
 sudo pacman -S --noconfirm --needed "${packages[@]}"
 
-if ! [[ -d $HOME/.local/share/fcitx5/themes ]]; then
-	mkdir -p "$HOME"/.local/share/fcitx5/themes
-fi
-
 if ! [[ -d /tmp/fcitx-theme ]]; then
 	git clone --depth 1 https://github.com/catppuccin/fcitx5.git /tmp/fcitx-theme
 fi
+if ! [[ -d $HOME/.local/share/fcitx5/themes ]]; then
+	mkdir -p "$HOME"/.local/share/fcitx5/themes
+fi
 cp -r /tmp/fcitx-theme/src/catppuccin-mocha-mauve "$HOME"/.local/share/fcitx5/themes/
+
+mkdir -p "$HOME"/.config/fcitx5/conf/
+tee "$HOME"/.config/fcitx5/config <<-EOF
+	[Hotkey]
+	TriggerKeys=
+	EnumerateWithTriggerKeys=True
+	EnumerateBackwardKeys=
+	EnumerateSkipFirst=False
+	EnumerateGroupForwardKeys=
+	EnumerateGroupBackwardKeys=
+	ModifierOnlyKeyTimeout=250
+
+	[Hotkey/EnumerateForwardKeys]
+	0=Control+Alt+space
+
+	[Hotkey/AltTriggerKeys]
+	0=Shift_L
+
+	[Hotkey/ActivateKeys]
+	0=Hangul_Hanja
+
+	[Hotkey/DeactivateKeys]
+	0=Hangul_Romaja
+
+	[Hotkey/PrevPage]
+	0=Up
+
+	[Hotkey/NextPage]
+	0=Down
+
+	[Hotkey/NextCandidate]
+	0=Tab
+
+	[Hotkey/PrevCandidate]
+	0=Shift+Tab
+
+	[Behavior]
+	ActiveByDefault=False
+	resetStateWhenFocusIn=No
+	ShareInputState=No
+	PreeditEnabledByDefault=True
+	ShowInputMethodInformation=True
+	showInputMethodInformationWhenFocusIn=False
+	CompactInputMethodInformation=True
+	ShowFirstInputMethodInformation=True
+	DefaultPageSize=5
+	OverrideXkbOption=False
+	CustomXkbOption=
+	EnabledAddons=
+	DisabledAddons=
+	PreloadInputMethod=True
+	AllowInputMethodForPassword=False
+	ShowPreeditForPassword=False
+	AutoSavePeriod=30
+EOF
+
+tee "$HOME"/.config/fcitx5/profile <<-EOF
+	[Groups/0]
+	Name=Main
+	Default Layout=us
+	DefaultIM=mozc
+
+	[Groups/0/Items/0]
+	Name=keyboard-us
+
+	[Groups/0/Items/1]
+	Name=mozc
+
+	[Groups/0/Items/2]
+	Name=hangul
+
+	[GroupOrder]
+	0=Main
+EOF
+
+tee "$HOME"/.config/fcitx5/conf/classicui.conf <<-EOF
+	Vertical Candidate List=False
+	WheelForPaging=True
+	Font="Inter Display Semibold 14"
+	MenuFont="Inter Display Semibold 14"
+	TrayFont="Inter Display Semibold 14"
+	TrayOutlineColor=#000000
+	TrayTextColor=#ffffff
+	PreferTextIcon=False
+	ShowLayoutNameInIcon=True
+	UseInputMethodLanguageToDisplayText=True
+	Theme=catppuccin-mocha-mauve
+	DarkTheme=catppuccin-mocha-mauve
+	UseDarkTheme=False
+	UseAccentColor=True
+	PerScreenDPI=False
+	ForceWaylandDPI=0
+	EnableFractionalScale=True
+EOF
