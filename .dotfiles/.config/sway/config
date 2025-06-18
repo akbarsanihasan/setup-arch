@@ -49,10 +49,10 @@ exec $bin_path/wallpaper daemon $wallpaper_path &
 exec $bin_path/polkit
 
 exec $bin_path/open_app foot
-exec $bin_path/open_app zen
+exec $bin_path/open_app /opt/zen/zen
 
 exec fcitx5 &
-exec udiskie -t &
+exec udiskie -t --appindicator &
 exec flameshot &
 
 xwayland enable
@@ -226,11 +226,6 @@ for_window [app_id="chromium"] {
     move container workspace 2
 }
 
-for_window [app_id="virt-manager"] {
-    inhibit_idle focus
-    move container workspace 4
-} 
-
 for_window [app_id="gnome-keyring-prompt"] floating enable
 for_window [app_id="polkit"] floating enable
 for_window [app_id="pavucontrol"] floating enable
@@ -240,6 +235,5 @@ for_window [app_id="file-roller"] floating enable
 for_window [app_id="ristretto"] floating enable
 for_window [app_id="qbittorrent"] inhibit_idle open
 for_window [app_id="mpv"] inhibit_idle focus
-for_window [app_id="virt-manager"] inhibit_idle focus
 for_window [app_id="obsidian"] move container workspace 10
 for_window [app_id="calibre"] move container workspace 10 
