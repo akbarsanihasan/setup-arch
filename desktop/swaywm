@@ -79,7 +79,7 @@ compiled() {
 
 core=(zsh wayland xorg-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk wl-clipboard cliphist polkit-gnome)
 apps=(thunar file-roller okular ristretto mousepad pavucontrol blueman nm-connection-editor)
-utilities=(libnotify brightnessctl playerctl xdg-user-dirs gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugins)
+utilities=(libnotify brightnessctl playerctl xdg-user-dirs gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin)
 tools=(make dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
 
 sudo pacman -S --noconfirm --needed \
