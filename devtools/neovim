@@ -1,0 +1,43 @@
+#!/usr/bin/env bash
+
+clear
+
+current_dir=$PWD
+
+dependencies=(
+	luarocks
+	tree-sitter-cli
+	curl
+	wget
+	unzip
+	tar
+	gzip
+)
+build_dependencies=(
+	git
+	base-devel
+	make
+	cmake
+	ninja
+	gettext
+)
+
+sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
+
+version=v0.11.2
+if ! [[ -d /tmp/neovim ]]; then
+	git clone --depth 1 -b "$version" https://github.com/neovim/neovim /tmp/neovim
+fi
+
+cd /tmp/neovim
+make deps
+make CMAKE_BUILD_TYPE=Release \
+	CMAKE_INSTALL_PREFIX=/usr/local \
+	-j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
+sudo make install
+
+if ! [[ -d $HOME/.config/nvim ]]; then
+	git clone https://github.com/akbarsanihasan/nvimrc.git "$HOME"/.config/nvim
+fi
+
+cd "$current_dir"

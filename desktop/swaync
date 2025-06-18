@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+current_dir=$PWD
+
+packaged() {
+	sudo pacman -S --noconfirm --needed swaync
+}
+
+compiled() {
+	local dependencies=(
+		gtk4
+		gtk4-layer-shell
+		gtk-layer-shell
+		dbus
+		glib2
+		gobject-introspection
+		libgee
+		json-glib
+		libpulse
+		gvfs
+		libnotify
+		granite7
+		blueprint-compiler
+		libadwaita
+	)
+
+	local build_dependencies=(
+		git
+		base-devel
+		meson
+		vala
+		sassc
+		scdoc
+	)
+
+	sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
+
+	local VERSION=v0.11.0
+	if ! [[ -d /tmp/swaync ]]; then
+		git clone --recursive --depth 1 -b "$VERSION" https://github.com/ErikReider/SwayNotificationCenter /tmp/swaync
+	fi
+
+	cd /tmp/swaync
+	meson setup ./build --reconfigure --prefix=/usr/local --sysconfdir=/etc
+	meson compile -C ./build
+	sudo meson install -C ./build
+}
+
+compiled
+
+cd "$current_dir"

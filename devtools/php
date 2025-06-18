@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+clear
+
+sudo pacman -S --noconfirm --needed curl
+
+BASE_URL="https://download.herdphp.com"
+DOWNLOAD_DIR="/tmp/php"
+INSTALL_DIR="/opt/php"
+PHP_BIN="$INSTALL_DIR/bin/php"
+COMPOSER_BIN="$INSTALL_DIR/bin/composer"
+LARAVEL_BIN="$INSTALL_DIR/bin/laravel"
+
+sudo rm -rf /usr/local/php
+
+sudo mkdir -p "$INSTALL_DIR/bin"
+sudo curl -L "$BASE_URL/herd-lite/linux/x64/8.4/php" -o "$PHP_BIN"
+sudo curl -L "$BASE_URL/herd-lite/composer" -o "$COMPOSER_BIN"
+sudo curl -L "$BASE_URL/herd-lite/laravel" -o "$LARAVEL_BIN"
+sudo curl -L "https://curl.se/ca/cacert.pem" -o "$INSTALL_DIR/cacert.pem"
+
+sudo chmod -R +x "$INSTALL_DIR"/bin
+
+sudo tee "$INSTALL_DIR"/php.ini <<-EOF
+	curl.cainfo=$INSTALL_DIR/cacert.pem
+	openssl.cafile=$INSTALL_DIR/cacert.pem
+	pcre.jit=0
+EOF
+
+shellrcs=(.zshrc .bashrc)
+for shellrc in "${shellrcs[@]}"; do
+	if ! [[ -e "$HOME/$shellrc" ]]; then
+		touch "$HOME/$shellrc"
+	fi
+	if ! grep -i "# PHP" "$HOME/$shellrc" &>/dev/null; then
+		tee -a "$HOME/$shellrc" <<-EOF
+			# PHP
+			export PATH="$INSTALL_DIR/bin:\$PATH"
+			export PHP_INI_SCAN_DIR="$INSTALL_DIR:\$PHP_INI_SCAN_DIR"
+		EOF
+	fi
+done

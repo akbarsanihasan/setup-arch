@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+. /etc/os-release
+
+sleep 1
+pkill -e -f xdg-desktop-portal-wlr
+pkill -e -f xdg-desktop-portal-hyprland
+pkill -f xdg-desktop-portal
+pkill -f xdg-desktop-portal-gtk
+
+case $ID in
+arch)
+	/usr/lib/xdg-desktop-portal-wlr &
+	/usr/lib/xdg-desktop-portal-gtk &
+	/usr/lib/xdg-desktop-portal-kde &
+	/usr/lib/xdg-desktop-portal &
+	;;
+debian)
+	/usr/libexec/xdg-desktop-portal-wlr &
+	/usr/libexec/xdg-desktop-portal-gtk &
+	/usr/libexec/xdg-desktop-portal-kde &
+	/usr/libexec/xdg-desktop-portal &
+	;;
+esac

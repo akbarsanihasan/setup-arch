@@ -1,0 +1,114 @@
+#!/usr/bin/env bash
+
+clear
+
+current_dir=$PWD
+
+packaged() {
+	sudo pacman -S --noconfirm --needed sway \
+		swaybg \
+		swaylock \
+		swayidle
+}
+
+compiled() {
+	local build_dependencies=(
+		git
+		base-devel
+		libcap
+		meson
+		cmake
+		scdoc
+		wayland-protocols
+	)
+	local dependencies=(
+		cairo
+		gdk-pixbuf2
+		json-c
+		libdrm
+		libevdev
+		libinput
+		libxcb
+		libxkbcommon
+		pango
+		pcre2
+		pixman
+		xcb-util-wm
+	)
+
+	sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${dependencies[@]}"
+
+	local REPOS=(sway swaybg swaylock swayidle)
+	local REPO_VERSIONS=(1.11 v1.2.1 v1.8.2 1.8.0)
+
+	for i in ${!REPOS[@]}; do
+		local DOWNLOAD_PATH=/tmp/"${REPOS[$i]}"
+
+		if ! [[ -d /tmp/"${REPOS[$i]}" ]]; then
+			git clone --recursive --depth 1 -b "${REPO_VERSIONS[$i]}" \
+				https://github.com/swaywm/"${REPOS[$i]}" \
+				"$DOWNLOAD_PATH"
+		fi
+
+		if [[ ${REPOS[$i]} == "sway" ]]; then
+			if ! [[ -d $DOWNLOAD_PATH/subprojects/wlroots ]]; then
+				git clone --recursive --depth 1 -b 0.19.0 https://gitlab.freedesktop.org/wlroots/wlroots.git "$DOWNLOAD_PATH"/subprojects/wlroots
+			fi
+			if ! [[ -d $DOWNLOAD_PATH/subprojects/libdisplay-info ]]; then
+				git clone --recursive --depth 1 -b 0.2.0 https://gitlab.freedesktop.org/emersion/libdisplay-info.git "$DOWNLOAD_PATH"/subprojects/libdisplay-info
+			fi
+			if ! [[ -d $DOWNLOAD_PATH/subprojects/libliftoff ]]; then
+				git clone --recursive --depth 1 -b v0.5.0 https://gitlab.freedesktop.org/emersion/libliftoff.git "$DOWNLOAD_PATH"/subprojects/libliftoff
+			fi
+			if ! [[ -d $DOWNLOAD_PATH/subprojects/libdrm ]]; then
+				git clone --recursive --depth 1 -b libdrm-2.4.125 https://gitlab.freedesktop.org/mesa/drm.git "$DOWNLOAD_PATH"/subprojects/libdrm
+			fi
+			if ! [[ -d $DOWNLOAD_PATH/subprojects/seatd ]]; then
+				git clone --recursive --depth 1 -b 0.9.1 https://git.sr.ht/~kennylevinsen/seatd "$DOWNLOAD_PATH"/subprojects/seatd
+			fi
+		fi
+
+		cd "$DOWNLOAD_PATH"
+		meson setup ./build --reconfigure \
+			--prefix=/usr/local \
+			--sysconfdir=/etc
+		meson compile -C ./build
+		sudo meson install -C ./build
+	done
+}
+
+core=(zsh wayland xorg-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk wl-clipboard cliphist polkit-gnome)
+apps=(thunar file-roller okular ristretto mousepad pavucontrol blueman nm-connection-editor)
+dependencies=(libnotify brightnessctl playerctl xdg-user-dirs gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader)
+tools=(make dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
+
+sudo pacman -S --noconfirm --needed \
+	"${core[@]}" \
+	"${apps[@]}" \
+	"${dependencies[@]}" \
+	"${tools[@]}"
+
+compiled
+
+if ! [[ -d "$HOME"/.wallpapers ]]; then
+	git clone https://github.com/akbarsanihasan/wallpapers "$HOME"/.wallpapers
+fi
+
+/usr/bin/xdg-user-dirs-update
+dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
+
+mkdir -p "$HOME"/.config/gtk-3.0/
+tee "$HOME"/.config/gtk-3.0/bookmarks <<-EOF
+	file:///home/$USER/Documents
+	file:///home/$USER/Downloads
+	file:///home/$USER/Music
+	file:///home/$USER/Pictures
+	file:///home/$USER/Public
+	file:///home/$USER/Templates
+	file:///home/$USER/Videos
+EOF
+
+sudo chsh -s "$(command -v zsh)" "$USER"
+sudo usermod -aG input "$USER"
+
+cd "$current_dir"

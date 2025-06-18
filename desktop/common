@@ -1,0 +1,19 @@
+#!/usr/bin/env bash
+
+clear
+
+core=(git zsh tmux fzf btop fastfetch trash-cli man tldr)
+gui_packages=(foot mpv)
+tools=(fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
+
+sudo pacman -S --noconfirm --needed "${core[@]}" "${tools[@]}"
+if ! grep -qi microsoft /proc/version; then
+	sudo pacman -S --noconfirm --needed "${gui_packages[@]}"
+fi
+
+if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
+	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
+fi
+"$HOME"/.config/tmux/plugins/tpm/bin/install_plugins all
+
+sudo chsh -s "$(command -v zsh)" "$USER"

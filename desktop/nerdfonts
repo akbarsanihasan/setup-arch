@@ -1,0 +1,23 @@
+#!/usr/bin/env bash
+
+clear
+
+current_dir=$PWD
+
+sudo pacman -S --noconfirm --needed git
+
+if ! [[ -d /tmp/nerdfonts ]]; then
+	git clone --filter=blob:none --sparse \
+		https://github.com/ryanoasis/nerd-fonts.git \
+		/tmp/nerdfonts
+fi
+
+cd /tmp/nerdfonts
+
+git sparse-checkout add patched-fonts/JetBrainsMono
+git sparse-checkout add patched-fonts/FiraCode
+
+./install.sh -U
+./install.sh -Up
+
+cd "$current_dir"
