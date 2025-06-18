@@ -4,15 +4,17 @@ clear
 
 current_dir=$PWD
 
+mkdir -p "$HOME"/.cache/dotfiles
+
 sudo pacman -S --noconfirm --needed git
 
 if ! [[ -d $HOME/.cache/dotfiles/nerdfonts ]]; then
 	git clone --filter=blob:none --sparse \
 		https://github.com/ryanoasis/nerd-fonts.git \
-		$HOME/.cache/dotfiles/nerdfonts
+		"$HOME"/.cache/dotfiles/nerdfonts
 fi
 
-cd $HOME/.cache/dotfiles/nerdfonts
+cd "$HOME"/.cache/dotfiles/nerdfonts
 
 git sparse-checkout add patched-fonts/JetBrainsMono
 git sparse-checkout add patched-fonts/FiraCode

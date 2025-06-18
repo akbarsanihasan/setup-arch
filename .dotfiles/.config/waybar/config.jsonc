@@ -7,7 +7,6 @@
         "cpu",
         "memory",
         "disk",
-        "systemd-failed-units",
         "network#downspeed",
         "network#upspeed",
         "sway/language",
@@ -49,12 +48,6 @@
         "max-length": 10,
         "tooltip-format": "Available ~ {free}",
     },
-    "systemd-failed-units": {
-        "format": "<span><big>󱡝</big> {nr_failed}</span>",
-        "hide-on-ok": true,
-        "system": true,
-        "user": true,
-    },
     "network#downspeed": {
         "interval": 10,
         "format": "<span><big></big> {bandwidthDownBytes}</span>",
@@ -71,11 +64,12 @@
     "keyboard-state": {
         "numlock": false,
         "capslock": true,
+        "binding-keys": [58, 1, 70],
         "format": {
             "capslock": "{icon}",
         },
         "format-icons": {
-            "locked": "<span><big>󰘲</big></span>",
+            "locked": "󰘲",
             "unlocked": "",
         },
     },
@@ -129,16 +123,21 @@
         "on-scroll-down": "wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%-",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": true,
+        "states": {
+            "muted": 0,
+        },
     },
     "wireplumber#icon": {
         "format": "<span><big></big></span>",
-        "format-muted": "<span><big></big></span>",
         "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol -t 3",
         "on-scroll-up": "wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%+",
         "on-scroll-down": "wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%-",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": true,
+        "states": {
+            "muted": 0,
+        },
     },
     "group/audio": {
         "orientation": "horizontal",

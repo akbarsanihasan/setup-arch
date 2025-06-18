@@ -46,8 +46,7 @@ window#waybar > box {
 #memory,
 #disk,
 #network.downspeed,
-#network.upspeed,
-#systemd-failed-units {
+#network.upspeed {
     margin-right: 0.5rem;
 }
 
@@ -72,9 +71,9 @@ menuitem:hover:not(.menu-title) {
     background-color: @base;
 }
 
-#network,
-#bluetooth,
 #keyboard-state label.locked,
+#bluetooth,
+#network,
 #custom-swayidle {
     margin-right: 0.6rem;
 }

@@ -4,6 +4,8 @@ clear
 
 current_dir=$PWD
 
+mkdir -p "$HOME"/.cache/dotfiles
+
 fonts=(inter-font ttf-dejavu ttf-liberation noto-fonts-emoji)
 theme=(nwg-look kvantum sassc qt5ct qt5-wayland qt6ct qt6-wayland adwaita-cursors dconf)
 

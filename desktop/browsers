@@ -2,6 +2,8 @@
 
 clear
 
+mkdir -p "$HOME"/.cache/dotfiles
+
 sudo pacman -S --noconfirm --needed curl \
 	tar \
 	firefox \

@@ -4,6 +4,8 @@ clear
 
 current_dir=$PWD
 
+mkdir -p "$HOME"/.cache/dotfiles
+
 packaged() {
 	sudo pacman -S --noconfirm --needed waybar
 }
