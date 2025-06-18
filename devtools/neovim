@@ -13,6 +13,7 @@ dependencies=(
 	tar
 	gzip
 )
+
 build_dependencies=(
 	git
 	base-devel
@@ -25,11 +26,11 @@ build_dependencies=(
 sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
 version=v0.11.2
-if ! [[ -d /tmp/neovim ]]; then
-	git clone --depth 1 -b "$version" https://github.com/neovim/neovim /tmp/neovim
+if ! [[ -d $HOME/.cache/dotfiles/neovim ]]; then
+	git clone --depth 1 -b "$version" https://github.com/neovim/neovim "$HOME"/.cache/dotfiles/neovim
 fi
 
-cd /tmp/neovim
+cd "$HOME"/.cache/dotfiles/neovim
 make deps
 make CMAKE_BUILD_TYPE=Release \
 	CMAKE_INSTALL_PREFIX=/usr/local \

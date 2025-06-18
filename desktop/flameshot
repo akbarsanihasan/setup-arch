@@ -25,11 +25,11 @@ build_dependencies=(
 sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
 VERSION=v12.1.0
-if ! [[ -d /tmp/flameshot ]]; then
-	git clone --recursive --depth 1 -b "$VERSION" https://github.com/flameshot-org/flameshot.git /tmp/flameshot
+if ! [[ -d $HOME/.cache/dotfiles/flameshot ]]; then
+	git clone --recursive --depth 1 -b "$VERSION" https://github.com/flameshot-org/flameshot.git "$HOME"/.cache/dotfiles/flameshot
 fi
 
-cd /tmp/flameshot
+cd $HOME/.cache/dotfiles/flameshot
 cmake -GNinja -B ./build -S . \
 	-DCMAKE_BUILD_TYPE=Release \
 	-DCMAKE_INSTALL_PREFIX=/usr/local \

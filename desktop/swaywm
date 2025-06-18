@@ -12,15 +12,6 @@ packaged() {
 }
 
 compiled() {
-	local build_dependencies=(
-		git
-		base-devel
-		libcap
-		meson
-		cmake
-		scdoc
-		wayland-protocols
-	)
 	local dependencies=(
 		cairo
 		gdk-pixbuf2
@@ -35,16 +26,25 @@ compiled() {
 		pixman
 		xcb-util-wm
 	)
+	local build_dependencies=(
+		git
+		base-devel
+		libcap
+		meson
+		cmake
+		scdoc
+		wayland-protocols
+	)
 
-	sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${dependencies[@]}"
+	sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
 	local REPOS=(sway swaybg swaylock swayidle)
 	local REPO_VERSIONS=(1.11 v1.2.1 v1.8.2 1.8.0)
 
 	for i in ${!REPOS[@]}; do
-		local DOWNLOAD_PATH=/tmp/"${REPOS[$i]}"
+		local DOWNLOAD_PATH=$HOME/.cache/dotfiles/"${REPOS[$i]}"
 
-		if ! [[ -d /tmp/"${REPOS[$i]}" ]]; then
+		if ! [[ -d $HOME/.cache/dotfiles/"${REPOS[$i]}" ]]; then
 			git clone --recursive --depth 1 -b "${REPO_VERSIONS[$i]}" \
 				https://github.com/swaywm/"${REPOS[$i]}" \
 				"$DOWNLOAD_PATH"
@@ -79,13 +79,13 @@ compiled() {
 
 core=(zsh wayland xorg-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk wl-clipboard cliphist polkit-gnome)
 apps=(thunar file-roller okular ristretto mousepad pavucontrol blueman nm-connection-editor)
-dependencies=(libnotify brightnessctl playerctl xdg-user-dirs gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader)
+utilities=(libnotify brightnessctl playerctl xdg-user-dirs gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugins)
 tools=(make dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
 
 sudo pacman -S --noconfirm --needed \
 	"${core[@]}" \
 	"${apps[@]}" \
-	"${dependencies[@]}" \
+	"${utilities[@]}" \
 	"${tools[@]}"
 
 compiled

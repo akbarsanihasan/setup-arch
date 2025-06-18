@@ -5,25 +5,23 @@ clear
 sudo pacman -S --noconfirm --needed curl
 
 BASE_URL="https://download.herdphp.com"
-DOWNLOAD_DIR="/tmp/php"
-INSTALL_DIR="/opt/php"
-PHP_BIN="$INSTALL_DIR/bin/php"
-COMPOSER_BIN="$INSTALL_DIR/bin/composer"
-LARAVEL_BIN="$INSTALL_DIR/bin/laravel"
+INSTALL_PATH="/opt/php"
+PHP_BIN="$INSTALL_PATH/bin/php"
+COMPOSER_BIN="$INSTALL_PATH/bin/composer"
+LARAVEL_BIN="$INSTALL_PATH/bin/laravel"
 
-sudo rm -rf /usr/local/php
-
-sudo mkdir -p "$INSTALL_DIR/bin"
+sudo rm -rf "$INSTALL_PATH"
+sudo mkdir -p "$INSTALL_PATH/bin"
 sudo curl -L "$BASE_URL/herd-lite/linux/x64/8.4/php" -o "$PHP_BIN"
 sudo curl -L "$BASE_URL/herd-lite/composer" -o "$COMPOSER_BIN"
 sudo curl -L "$BASE_URL/herd-lite/laravel" -o "$LARAVEL_BIN"
-sudo curl -L "https://curl.se/ca/cacert.pem" -o "$INSTALL_DIR/cacert.pem"
+sudo curl -L "https://curl.se/ca/cacert.pem" -o "$INSTALL_PATH/cacert.pem"
 
-sudo chmod -R +x "$INSTALL_DIR"/bin
+sudo chmod -R +x "$INSTALL_PATH"/bin
 
-sudo tee "$INSTALL_DIR"/php.ini <<-EOF
-	curl.cainfo=$INSTALL_DIR/cacert.pem
-	openssl.cafile=$INSTALL_DIR/cacert.pem
+sudo tee "$INSTALL_PATH"/php.ini <<-EOF
+	curl.cainfo=$INSTALL_PATH/cacert.pem
+	openssl.cafile=$INSTALL_PATH/cacert.pem
 	pcre.jit=0
 EOF
 
@@ -35,8 +33,8 @@ for shellrc in "${shellrcs[@]}"; do
 	if ! grep -i "# PHP" "$HOME/$shellrc" &>/dev/null; then
 		tee -a "$HOME/$shellrc" <<-EOF
 			# PHP
-			export PATH="$INSTALL_DIR/bin:\$PATH"
-			export PHP_INI_SCAN_DIR="$INSTALL_DIR:\$PHP_INI_SCAN_DIR"
+			export PATH="$INSTALL_PATH/bin:\$PATH"
+			export PHP_INI_SCAN_DIR="$INSTALL_PATH:\$PHP_INI_SCAN_DIR"
 		EOF
 	fi
 done

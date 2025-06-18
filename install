@@ -49,7 +49,7 @@ source ./devtools/neovim
 source ./devtools/git
 source ./devtools/docker
 
-if ! [[ -d $HOME/.extras ]]; then
+if ! [[ -d $PWD/extras ]]; then
 	git clone https://github.com/akbarsanihasan/setup-extras "$PWD"/extras
 fi
 

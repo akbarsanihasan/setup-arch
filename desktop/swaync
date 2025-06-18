@@ -19,9 +19,10 @@ compiled() {
 		libpulse
 		gvfs
 		libnotify
-		granite7
+		granite
 		blueprint-compiler
 		libadwaita
+		libhandy
 	)
 
 	local build_dependencies=(
@@ -36,12 +37,14 @@ compiled() {
 	sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
 	local VERSION=v0.11.0
-	if ! [[ -d /tmp/swaync ]]; then
-		git clone --recursive --depth 1 -b "$VERSION" https://github.com/ErikReider/SwayNotificationCenter /tmp/swaync
+	if ! [[ -d $HOME/.cache/dotfiles/swaync ]]; then
+		git clone --recursive --depth 1 -b "$VERSION" https://github.com/ErikReider/SwayNotificationCenter "$HOME"/.cache/dotfiles/swaync
 	fi
 
-	cd /tmp/swaync
-	meson setup ./build --reconfigure --prefix=/usr/local --sysconfdir=/etc
+	cd "$HOME"/.cache/dotfiles/swaync
+	meson setup ./build --reconfigure \
+		--prefix=/usr/local \
+		--sysconfdir=/etc
 	meson compile -C ./build
 	sudo meson install -C ./build
 }

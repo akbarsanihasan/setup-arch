@@ -12,10 +12,10 @@ packages=(
 
 sudo pacman -S --noconfirm --needed "${packages[@]}"
 
-if ! [[ -d /tmp/fcitx-theme ]]; then
-	git clone --depth 1 https://github.com/catppuccin/fcitx5.git /tmp/fcitx-theme
+if ! [[ -d $HOME/.cache/dotfiles/fcitx-theme ]]; then
+	git clone --depth 1 https://github.com/catppuccin/fcitx5.git $HOME/.cache/dotfiles/fcitx-theme
 fi
 if ! [[ -d $HOME/.local/share/fcitx5/themes ]]; then
 	mkdir -p "$HOME"/.local/share/fcitx5/themes
 fi
-cp -r /tmp/fcitx-theme/src/catppuccin-mocha-mauve "$HOME"/.local/share/fcitx5/themes/
+cp -r $HOME/.cache/dotfiles/fcitx-theme/src/catppuccin-mocha-mauve "$HOME"/.local/share/fcitx5/themes/
