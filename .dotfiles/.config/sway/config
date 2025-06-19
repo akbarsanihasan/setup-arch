@@ -60,7 +60,6 @@ default_border pixel 1
 default_floating_border pixel 1
 smart_borders off
 floating_minimum_size 600 x 450 
-floating_maximum_size 900 x 600 
 focus_follows_mouse yes
 focus_on_window_activation smart
 focus_wrapping no
@@ -228,8 +227,14 @@ for_window [app_id="chromium"] {
 
 for_window [app_id="gnome-keyring-prompt"] floating enable
 for_window [app_id="polkit"] floating enable
-for_window [app_id="pavucontrol"] floating enable
-for_window [app_id="blueman-manager"] floating enable
+for_window [app_id="pavucontrol"] {
+    floating enable
+    resize set 800px 600px
+}
+for_window [app_id="blueman-manager"] {
+    floating enable
+    resize set 800px 600px
+}
 for_window [app_id="nm-connection-editor"] floating enable
 for_window [app_id="file-roller"] floating enable
 for_window [app_id="ristretto"] floating enable

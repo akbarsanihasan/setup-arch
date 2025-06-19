@@ -15,9 +15,9 @@
         "tray",
         "keyboard-state",
         "custom/swayidle",
+        "group/audio",
         "bluetooth",
         "network",
-        "group/audio",
         "custom/fence",
         "custom/battery",
         "clock",
@@ -60,13 +60,14 @@
     "tray": {
         "show-passive-item": true,
         "reverse-direction": true,
+        "expand": true
     },
     "keyboard-state": {
         "numlock": false,
         "capslock": true,
         "binding-keys": [58, 1, 70],
         "format": {
-            "capslock": "{icon}",
+            "capslock": "<span><big>{icon}</big></span>",
         },
         "format-icons": {
             "locked": "󰘲",
@@ -74,7 +75,7 @@
         },
     },
     "custom/swayidle": {
-        "format": "<span><big>{}</big></span>",
+        "format": "{}",
         "exec": "~/.local/bin/idle icon",
         "exec-if": "bash -c 'which swayidle &>/dev/null'",
         "interval": 8,
@@ -93,29 +94,18 @@
         "tooltip-format-ethernet": "{ifname} {icon}",
         "tooltip-format-disconnected": "Disconnected",
         "max-length": 50,
+        "on-click": "[[ \"$(nmcli radio wifi)\" == enabled ]] && nmcli radio wifi off || nmcli radio wifi on",
         "on-click-right": "nm-connection-editor",
-        "menu": "on-click",
-        "menu-file": "~/.config/waybar/wifimenu.xml",
-        "menu-actions": {
-            "toggle": "[[ \"$(nmcli radio wifi)\" == enabled ]] && nmcli radio wifi off || nmcli radio wifi on",
-            "settings": "nm-connection-editor",
-        },
     },
     "bluetooth": {
         "format": "<span><big>󰂯</big></span>",
         "format-connected": "<span><big>󰂱</big></span>",
-        "format-disabled": "<span><big>󰂲</big></span>",
-        "format-no-controller": "<span><big>󰂲</big></span>",
+        "format-no-controller": "<span><big>󰂯</big></span>",
         "tooltip-format": "{device_alias} {device_battery_percentage}%",
+        "on-click": "rfkill toggle bluetooth",
         "on-click-right": "blueman-manager",
-        "menu": "on-click",
-        "menu-file": "~/.config/waybar/bluetoothmenu.xml",
-        "menu-actions": {
-            "toggle": "rfkill toggle bluetooth",
-            "settings": "blueman-manager",
-        },
     },
-    "wireplumber": {
+    "pulseaudio": {
         "format": "{volume}% ",
         "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol -t 3",
@@ -123,11 +113,8 @@
         "on-scroll-down": "wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%-",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": true,
-        "states": {
-            "muted": 0,
-        },
     },
-    "wireplumber#icon": {
+    "pulseaudio#icon": {
         "format": "<span><big></big></span>",
         "on-click": "wpctl set-mute @DEFAULT_SINK@ toggle",
         "on-click-right": "pavucontrol -t 3",
@@ -135,13 +122,10 @@
         "on-scroll-down": "wpctl set-volume -l 1.5 @DEFAULT_SINK@ 5%-",
         "reverse-scrolling": true,
         "reverse-mouse-scrolling": true,
-        "states": {
-            "muted": 0,
-        },
     },
     "group/audio": {
         "orientation": "horizontal",
-        "modules": ["wireplumber#icon", "wireplumber"],
+        "modules": ["pulseaudio#icon", "pulseaudio"],
         "drawer": {
             "transition-left-to-right": false,
         },
@@ -151,7 +135,7 @@
         "tooltip": false,
     },
     "custom/battery": {
-        "format": "<span rise='-0.6pt'><big>{icon}</big></span> <span>{text}%</span>",
+        "format": "<span><big>{icon}</big></span> <span rise='0.8pt'>{text}%</span>",
         "exec": "~/.local/bin/waybar_battery",
         "exec-if": "bash -c 'which upower &>/dev/null'",
         "format-icons": ["", "", "", "", ""],

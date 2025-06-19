@@ -60,7 +60,7 @@ REPO_VERSIONS=(1.7.9.1 v2.3.2 v4.1.0)
 
 for i in "${!REPOS[@]}"; do
 	REPO=${REPOS[$i]}
-	DOWNLOAD_PATH=/tmp/$(basename "$REPO")
+	DOWNLOAD_PATH=$HOME/.cache/dotfiles/$(basename "$REPO")
 
 	if ! [[ -d $DOWNLOAD_PATH ]]; then
 		git clone --recursive --depth 1 -b "${REPO_VERSIONS[$i]}" https://github.com/"$REPO" "$DOWNLOAD_PATH"
@@ -78,7 +78,7 @@ for i in "${!REPOS[@]}"; do
 		--prefix=/usr/local \
 		--sysconfdir=/etc
 	meson compile -C ./build
-	sudo meson install -C ./build
+	sudo meson install -C ./build | tee ./build/install_manifest.txt
 done
 
 cd "$current_dir"

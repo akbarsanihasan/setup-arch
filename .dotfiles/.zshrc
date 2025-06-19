@@ -91,16 +91,14 @@ export PATH="$HOME/.local/bin:$PATH"
 # NodeJS
 export NPM_CONFIG_CACHE=$HOME/.node
 export NPM_CONFIG_PREFIX=$HOME/.node
-if command -v fnm &>/dev/null; then
+if command -v fnm &>/dev/null || command -v /usr/local/bin/fnm &>/dev/null; then
    eval "$(fnm env --fnm-dir "$HOME"/.node)"
-else 
-   eval "$($HOME/.local/bin/fnm env --fnm-dir "$HOME"/.node)"
 fi
 # Golang
-export PATH="/usr/local/go/bin:$PATH"
+export PATH="/opt/go/bin:$PATH"
 export PATH="$HOME/go/bin:$PATH"
 # PHP
-export PATH="/usr/local/php/bin:$PATH"
-export PHP_INI_SCAN_DIR="/usr/local/php:$PHP_INI_SCAN_DIR"
+export PATH="/opt/php/bin:$PATH"
+export PHP_INI_SCAN_DIR="/opt/php:$PHP_INI_SCAN_DIR"
 # Rust
 [ -s "$HOME/.cargo/env" ] && . "$HOME/.cargo/env"

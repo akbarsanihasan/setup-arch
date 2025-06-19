@@ -18,7 +18,7 @@ icon() {
 		return 0
 	fi
 
-	echo ""
+	echo ""
 }
 
 toggle() {
@@ -26,7 +26,7 @@ toggle() {
 	pkill -SIGRTMIN+9 waybar
 }
 
-case "$1" in
+case ""$1 in
 daemon) daemon ;;
 toggle) toggle ;;
 icon) icon ;;

@@ -48,7 +48,7 @@ compiled() {
 		--prefix=/usr/local \
 		--sysconfdir=/etc
 	meson compile -C ./build
-	sudo meson install -C ./build
+	sudo meson install -C ./build | tee ./build/install_manifest.txt
 }
 
 compiled
