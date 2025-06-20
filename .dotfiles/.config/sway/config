@@ -235,10 +235,5 @@ for_window [app_id="blueman-manager"] {
     floating enable
     resize set 800px 600px
 }
-for_window [app_id="nm-connection-editor"] floating enable
-for_window [app_id="file-roller"] floating enable
-for_window [app_id="ristretto"] floating enable
-for_window [app_id="qbittorrent"] inhibit_idle open
-for_window [app_id="mpv"] inhibit_idle focus
 for_window [app_id="obsidian"] move container workspace 10
 for_window [app_id="calibre"] move container workspace 10 
