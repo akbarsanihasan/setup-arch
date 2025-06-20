@@ -43,8 +43,4 @@ if ! [[ -d $HOME/.config/nvim ]]; then
 	git clone https://github.com/akbarsanihasan/nvimrc.git "$HOME"/.config/nvim
 fi
 
-echo "Installing and configuring neovim"
-/usr/local/bin/nvim --headless -c "Lazy sync" -c qall
-/usr/local/bin/nvim --headless -c "TSInstall all" -c qall
-
 cd "$current_dir"
