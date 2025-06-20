@@ -1,0 +1,34 @@
+#!/usr/bin/env bash
+
+clear
+
+core=(git zsh tmux fzf btop fastfetch trash-cli man tldr)
+apps=(foot mpv thunar file-roller okular ristretto mousepad pavucontrol blueman nm-connection-editor)
+apps_dependencies=(gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin)
+tools=(dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
+
+sudo pacman -S --noconfirm --needed "${core[@]}" \
+	"${apps[@]}" \
+	"${apps_deppendencies[@]}" \
+	"${tools[@]}"
+
+if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
+	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
+fi
+"$HOME"/.config/tmux/plugins/tpm/bin/install_plugins all
+
+dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
+
+/usr/bin/xdg-user-dirs-update
+mkdir -p "$HOME"/.config/gtk-3.0/
+tee "$HOME"/.config/gtk-3.0/bookmarks <<-EOF
+	file:///home/$USER/Documents
+	file:///home/$USER/Downloads
+	file:///home/$USER/Music
+	file:///home/$USER/Pictures
+	file:///home/$USER/Public
+	file:///home/$USER/Templates
+	file:///home/$USER/Videos
+EOF
+
+sudo chsh -s "$(command -v zsh)" "$USER"

@@ -74,16 +74,24 @@ tmux_sessionaizer() {
 }
 zle -N tmux_sessionaizer
 
-tmux_main() {
+tmux_sessionaizer_global() {
+    zle -I
+    BUFFER="$HOME/.local/bin/tmux_sessionaizer global"
+    zle accept-line
+}
+zle -N tmux_sessionaizer_global
+
+tmux_sessionaizer_main() {
     zle -I
     BUFFER="$HOME/.local/bin/tmux_sessionaizer main"
     zle accept-line
 }
-zle -N tmux_main
+zle -N tmux_sessionaizer_main
 
 bindkey -e
 bindkey "^[;" tmux_sessionaizer
-bindkey "^['" tmux_main
+bindkey "^[/" tmux_sessionaizer_global
+bindkey "^['" tmux_sessionaizer_main
 
 
 #---------- Path ----------#

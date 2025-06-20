@@ -29,11 +29,11 @@ source ./hardware/battery
 source ./hardware/graphic
 
 source ./desktop/dotfiles
-source ./desktop/common
 source ./desktop/swaywm
 source ./desktop/rofi
 source ./desktop/waybar
 source ./desktop/swaync
+source ./desktop/core
 source ./desktop/browsers
 source ./desktop/flameshot
 source ./desktop/ime

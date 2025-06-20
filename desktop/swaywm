@@ -79,38 +79,14 @@ compiled() {
 	done
 }
 
-core=(zsh wayland xorg-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk wl-clipboard cliphist polkit-gnome)
-apps=(thunar file-roller okular ristretto mousepad pavucontrol blueman nm-connection-editor)
-utilities=(libnotify brightnessctl playerctl xdg-user-dirs gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin)
-tools=(make dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
+core=(wayland xorg-xwayland xdg-desktop-portal-wlr xdg-desktop-portal-gtk)
+utilities=(wl-clipboard cliphist polkit-gnome libnotify brightnessctl playerctl xdg-user-dirs)
 
-sudo pacman -S --noconfirm --needed \
-	"${core[@]}" \
-	"${apps[@]}" \
-	"${utilities[@]}" \
-	"${tools[@]}"
-
+sudo pacman -S --noconfirm --needed "${core[@]}" "${utilities[@]}"
 compiled
 
 if ! [[ -d "$HOME"/.wallpapers ]]; then
 	git clone https://github.com/akbarsanihasan/wallpapers "$HOME"/.wallpapers
 fi
-
-/usr/bin/xdg-user-dirs-update
-dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
-
-mkdir -p "$HOME"/.config/gtk-3.0/
-tee "$HOME"/.config/gtk-3.0/bookmarks <<-EOF
-	file:///home/$USER/Documents
-	file:///home/$USER/Downloads
-	file:///home/$USER/Music
-	file:///home/$USER/Pictures
-	file:///home/$USER/Public
-	file:///home/$USER/Templates
-	file:///home/$USER/Videos
-EOF
-
-sudo chsh -s "$(command -v zsh)" "$USER"
-sudo usermod -aG input "$USER"
 
 cd "$current_dir"
