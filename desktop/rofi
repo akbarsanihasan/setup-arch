@@ -78,7 +78,7 @@ for i in "${!REPOS[@]}"; do
 		--prefix=/usr/local \
 		--sysconfdir=/etc
 	meson compile -C ./build
-	sudo meson install -C ./build | tee ./build/install_manifest.txt
+	sudo meson install -C ./build
 done
 
 cd "$current_dir"
