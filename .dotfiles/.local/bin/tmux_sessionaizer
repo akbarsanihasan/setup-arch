@@ -17,14 +17,13 @@ if [[ ${#findir[@]} -gt 0 ]]; then
 	selected=$(
 		find -L "${findir[@]}" -maxdepth 4 -type d \
 			-not -path "*/.git/*" \
-			-not -path "*/snap/*" \
-			-not -path "*/.git/*" \
-			-not -path "*/tmp/*" \
 			-not -path "*/node_modules/*" \
-			-not -path "*RECYCLE_BIN*" \
-			-not -path "*Windows*" \
-			-not -path "*Local*Disk*" \
+			-not -path "*/snap/*" \
+			-not -path "*/tmp/*" \
 			-not -path "*Trash*" \
+			-not -path "*Local*Disk*" \
+			-not -path "*Windows*" \
+			-not -path "*RECYCLE_BIN*" \
 			2>/dev/null | fzf
 	)
 fi

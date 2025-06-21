@@ -7,7 +7,6 @@ current_dir=$PWD
 mkdir -p "$HOME"/.cache/dotfiles
 
 dependencies=(
-	tree-sitter-cli
 	luarocks
 	curl
 	wget
