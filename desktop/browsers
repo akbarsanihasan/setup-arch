@@ -5,15 +5,15 @@ clear
 mkdir -p "$HOME"/.cache/dotfiles
 
 sudo pacman -S --noconfirm --needed curl \
-	tar \
-	firefox \
-	chromium
+    tar \
+    firefox \
+    chromium
 
 INSTALL_PATH=/opt/zen
 DOWNLOAD_PATH=$HOME/.cache/dotfiles/zen.linux-x86_64.tar.xz
 
 if ! tar -tvf "$DOWNLOAD_PATH" &>/dev/null; then
-	curl -Lo "$DOWNLOAD_PATH" https://github.com/zen-browser/desktop/releases/latest/download/"$(basename "$DOWNLOAD_PATH")"
+    curl -Lo "$DOWNLOAD_PATH" https://github.com/zen-browser/desktop/releases/latest/download/"$(basename "$DOWNLOAD_PATH")"
 fi
 
 sudo rm -rf "$INSTALL_PATH"

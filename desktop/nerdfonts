@@ -9,9 +9,9 @@ mkdir -p "$HOME"/.cache/dotfiles
 sudo pacman -S --noconfirm --needed git
 
 if ! [[ -d $HOME/.cache/dotfiles/nerdfonts ]]; then
-	git clone --filter=blob:none --sparse \
-		https://github.com/ryanoasis/nerd-fonts.git \
-		"$HOME"/.cache/dotfiles/nerdfonts
+    git clone --filter=blob:none --sparse \
+        https://github.com/ryanoasis/nerd-fonts.git \
+        "$HOME"/.cache/dotfiles/nerdfonts
 fi
 
 cd "$HOME"/.cache/dotfiles/nerdfonts

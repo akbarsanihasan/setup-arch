@@ -87,6 +87,7 @@ input "type:keyboard" {
 input "type:pointer" {
     drag enabled
     dwt enabled
+    drag_lock enabled
     natural_scroll enabled
     scroll_factor 0.40
     pointer_accel 0.15
@@ -94,9 +95,10 @@ input "type:pointer" {
 }
 
 input "type:touchpad" {
+    tap enabled
     drag enabled
     dwt enabled
-    tap enabled
+    drag_lock enabled
     natural_scroll enabled
     scroll_factor 0.20
     scroll_method two_finger

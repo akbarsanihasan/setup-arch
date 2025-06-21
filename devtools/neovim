@@ -7,39 +7,41 @@ current_dir=$PWD
 mkdir -p "$HOME"/.cache/dotfiles
 
 dependencies=(
-	luarocks
-	curl
-	wget
-	unzip
-	tar
-	gzip
+    luarocks
+    curl
+    wget
+    unzip
+    tar
+    gzip
 )
 
 build_dependencies=(
-	git
-	base-devel
-	make
-	cmake
-	ninja
-	gettext
+    git
+    base-devel
+    make
+    cmake
+    ninja
+    gettext
 )
 
 sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
 version=v0.11.2
 if ! [[ -d $HOME/.cache/dotfiles/neovim ]]; then
-	git clone --depth 1 -b "$version" https://github.com/neovim/neovim "$HOME"/.cache/dotfiles/neovim
+    git clone --depth 1 -b "$version" https://github.com/neovim/neovim "$HOME"/.cache/dotfiles/neovim
 fi
 
 cd "$HOME"/.cache/dotfiles/neovim
 make deps
 make CMAKE_BUILD_TYPE=Release \
-	CMAKE_INSTALL_PREFIX=/usr/local \
-	-j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
+    CMAKE_INSTALL_PREFIX=/usr/local \
+    -j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
 sudo make install
 
 if ! [[ -d $HOME/.config/nvim ]]; then
-	git clone https://github.com/akbarsanihasan/nvimrc.git "$HOME"/.config/nvim
+    git clone https://github.com/akbarsanihasan/nvimrc.git "$HOME"/.config/nvim
 fi
+
+/usr/local/bin/nvim --headless -c "MasonToolsInstallSync" -c "TSInstallSync all" -c "qall"
 
 cd "$current_dir"

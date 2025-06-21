@@ -5,37 +5,37 @@ clear
 current_dir=$PWD
 
 dependencies=(
-	qt5-base
-	qt5-svg
-	qt5-imageformats
-	hicolor-icon-theme
-	kguiaddons5
-	grim
+    qt5-base
+    qt5-svg
+    qt5-imageformats
+    hicolor-icon-theme
+    kguiaddons5
+    grim
 )
 
 build_dependencies=(
-	git
-	base-devel
-	cmake
-	extra-cmake-modules
-	ninja
-	qt5-tools
+    git
+    base-devel
+    cmake
+    extra-cmake-modules
+    ninja
+    qt5-tools
 )
 
 sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
 VERSION=v12.1.0
 if ! [[ -d $HOME/.cache/dotfiles/flameshot ]]; then
-	git clone --recursive --depth 1 -b "$VERSION" https://github.com/flameshot-org/flameshot.git "$HOME"/.cache/dotfiles/flameshot
+    git clone --recursive --depth 1 -b "$VERSION" https://github.com/flameshot-org/flameshot.git "$HOME"/.cache/dotfiles/flameshot
 fi
 
 cd $HOME/.cache/dotfiles/flameshot
 cmake -GNinja -B ./build -S . \
-	-DCMAKE_BUILD_TYPE=Release \
-	-DCMAKE_INSTALL_PREFIX=/usr/local \
-	-DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
-	-DUSE_WAYLAND_CLIPBOARD=true \
-	-DUSE_WAYLAND_GRIM=ON
+    -DCMAKE_BUILD_TYPE=Release \
+    -DCMAKE_INSTALL_PREFIX=/usr/local \
+    -DCMAKE_POLICY_VERSION_MINIMUM=3.5 \
+    -DUSE_WAYLAND_CLIPBOARD=true \
+    -DUSE_WAYLAND_GRIM=ON
 cmake --build ./build
 sudo cmake --install ./build
 

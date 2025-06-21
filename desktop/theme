@@ -12,28 +12,28 @@ theme=(nwg-look kvantum sassc qt5ct qt5-wayland qt6ct qt6-wayland adwaita-cursor
 sudo pacman -S --noconfirm "${fonts[@]}" "${theme[@]}"
 
 if ! [[ -d $HOME/.cache/dotfiles/gtk-theme ]]; then
-	git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme "$HOME"/.cache/dotfiles/gtk-theme
-	sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' "$HOME"/.cache/dotfiles/gtk-theme/src/sass/_variables.scss
+    git clone --depth 1 -b 2024-11-16 https://github.com/vinceliuice/Colloid-gtk-theme "$HOME"/.cache/dotfiles/gtk-theme
+    sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' "$HOME"/.cache/dotfiles/gtk-theme/src/sass/_variables.scss
 fi
 if ! [[ -d $HOME/.cache/dotfiles/icon-pack ]]; then
-	git clone --depth 1 -b 20250201 https://github.com/PapirusDevelopmentTeam/papirus-icon-theme "$HOME"/.cache/dotfiles/icon-pack
+    git clone --depth 1 -b 20250201 https://github.com/PapirusDevelopmentTeam/papirus-icon-theme "$HOME"/.cache/dotfiles/icon-pack
 fi
 if [[ -d "$HOME"/.local/share/themes ]]; then
-	mkdir -p "$HOME"/.local/share/themes
+    mkdir -p "$HOME"/.local/share/themes
 fi
 
 cd "$HOME"/.cache/dotfiles/gtk-theme
 ./install.sh --dest "$HOME"/.local/share/themes \
-	--theme default \
-	--color dark \
-	--size compact \
-	--libadwaita system \
-	--tweaks catppuccin black rimless
+    --theme default \
+    --color dark \
+    --size compact \
+    --libadwaita system \
+    --tweaks catppuccin black rimless
 cd "$HOME"/.cache/dotfiles/icon-pack
 make install PREFIX="$HOME"/.local
 
 if ! [[ -d $HOME/.cache/dotfiles/qtnct ]]; then
-	git clone --depth 1 https://github.com/catppuccin/qt5ct "$HOME"/.cache/dotfiles/qtnct
+    git clone --depth 1 https://github.com/catppuccin/qt5ct "$HOME"/.cache/dotfiles/qtnct
 fi
 mkdir -p "$HOME"/.config/{qt5ct,qt6ct}/colors/
 cp "$HOME"/.cache/dotfiles/qtnct/themes/catppuccin-mocha-blue.conf "$HOME"/.config/qt5ct/colors/catppuccin-mocha.conf

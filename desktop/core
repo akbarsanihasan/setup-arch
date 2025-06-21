@@ -8,12 +8,12 @@ apps_dependencies=(gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader th
 tools=(dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
 
 sudo pacman -S --noconfirm --needed "${core[@]}" \
-	"${apps[@]}" \
-	"${apps_deppendencies[@]}" \
-	"${tools[@]}"
+    "${apps[@]}" \
+    "${apps_deppendencies[@]}" \
+    "${tools[@]}"
 
 if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
-	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
 fi
 "$HOME"/.config/tmux/plugins/tpm/bin/install_plugins all
 

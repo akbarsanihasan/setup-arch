@@ -5,50 +5,50 @@ current_dir=$PWD
 mkdir -p "$HOME"/.cache/dotfiles
 
 packaged() {
-	sudo pacman -S --noconfirm --needed swaync
+    sudo pacman -S --noconfirm --needed swaync
 }
 
 compiled() {
-	local dependencies=(
-		gtk4
-		gtk4-layer-shell
-		gtk-layer-shell
-		dbus
-		glib2
-		gobject-introspection
-		libgee
-		json-glib
-		libpulse
-		gvfs
-		libnotify
-		granite
-		blueprint-compiler
-		libadwaita
-		libhandy
-	)
+    local dependencies=(
+        gtk4
+        gtk4-layer-shell
+        gtk-layer-shell
+        dbus
+        glib2
+        gobject-introspection
+        libgee
+        json-glib
+        libpulse
+        gvfs
+        libnotify
+        granite
+        blueprint-compiler
+        libadwaita
+        libhandy
+    )
 
-	local build_dependencies=(
-		git
-		base-devel
-		meson
-		vala
-		sassc
-		scdoc
-	)
+    local build_dependencies=(
+        git
+        base-devel
+        meson
+        vala
+        sassc
+        scdoc
+    )
 
-	sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
+    sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
-	local VERSION=v0.11.0
-	if ! [[ -d $HOME/.cache/dotfiles/swaync ]]; then
-		git clone --recursive --depth 1 -b "$VERSION" https://github.com/ErikReider/SwayNotificationCenter "$HOME"/.cache/dotfiles/swaync
-	fi
+    local VERSION=v0.11.0
+    if ! [[ -d $HOME/.cache/dotfiles/swaync ]]; then
+        git clone --recursive --depth 1 -b "$VERSION" https://github.com/ErikReider/SwayNotificationCenter "$HOME"/.cache/dotfiles/swaync
+    fi
 
-	cd "$HOME"/.cache/dotfiles/swaync
-	meson setup ./build --reconfigure \
-		--prefix=/usr/local \
-		--sysconfdir=/etc
-	meson compile -C ./build
-	sudo meson install -C ./build
+    cd "$HOME"/.cache/dotfiles/swaync
+    meson setup ./build --reconfigure \
+        --prefix=/usr/local \
+        --sysconfdir=/etc
+    meson compile -C ./build
+    sudo meson install -C ./build
 }
 
 compiled
