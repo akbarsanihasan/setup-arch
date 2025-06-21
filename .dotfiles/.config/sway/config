@@ -108,7 +108,6 @@ input "type:touchpad" {
 
 bindsym --to-code {
     $mod+SHIFT+R reload
-    $mod+Q kill
     $mod+E fullscreen
     $mod+T floating toggle
     $mod+M focus mode_toggle
@@ -116,6 +115,7 @@ bindsym --to-code {
     $mod+SHIFT+N focus prev
     $mod+W layout toggle splitv splith
     $mod+SHIFT+W split toggle
+    $mod+SHIFT+X kill
 
     $mod+$left focus left
     $mod+$right focus right
