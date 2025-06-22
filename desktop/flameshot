@@ -29,7 +29,7 @@ if ! [[ -d $HOME/.cache/dotfiles/flameshot ]]; then
     git clone --recursive --depth 1 -b "$VERSION" https://github.com/flameshot-org/flameshot.git "$HOME"/.cache/dotfiles/flameshot
 fi
 
-cd $HOME/.cache/dotfiles/flameshot
+cd "$HOME"/.cache/dotfiles/flameshot
 cmake -GNinja -B ./build -S . \
     -DCMAKE_BUILD_TYPE=Release \
     -DCMAKE_INSTALL_PREFIX=/usr/local \

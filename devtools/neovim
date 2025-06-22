@@ -42,6 +42,6 @@ if ! [[ -d $HOME/.config/nvim ]]; then
     git clone https://github.com/akbarsanihasan/nvimrc.git "$HOME"/.config/nvim
 fi
 
-/usr/local/bin/nvim --headless -c "MasonToolsInstallSync" -c "TSInstallSync all" -c "qall"
+/usr/local/bin/nvim --headless -c "MasonToolsInstallSync" -c "Org install_treesitter_grammar" -c "qall"
 
 cd "$current_dir"

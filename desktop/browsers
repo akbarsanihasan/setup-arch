@@ -17,7 +17,13 @@ if ! tar -tvf "$DOWNLOAD_PATH" &>/dev/null; then
 fi
 
 sudo rm -rf "$INSTALL_PATH"
-sudo tar -C /opt/ -xvf "$DOWNLOAD_PATH"
+sudo mkdir -p "$INSTALL_PATH"
+sudo tar --strip-components=1 -C "$INSTALL_PATH" -xvf "$DOWNLOAD_PATH"
+
+sudo tee /usr/local/bin/zen <<-EOF
+	exec $INSTALL_PATH/zen \${@}
+EOF
+sudo chmod +x /usr/local/bin/zen
 
 sudo tee /usr/local/share/applications/zen.desktop <<-EOF
 	[Desktop Entry]
