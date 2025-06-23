@@ -2,10 +2,8 @@
 
 clear
 
-current_dir=$PWD
-
 URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-x64"
-DOWNLOAD_PATH=$HOME/.cache/dotfiles/vscode.tar.gz
+DOWNLOAD_PATH=$PWD/.cache/vscode.tar.gz
 INSTALL_PATH=/opt/vscode
 
 if ! tar -tvf "$DOWNLOAD_PATH" &>/dev/null; then

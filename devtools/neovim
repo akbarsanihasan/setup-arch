@@ -4,11 +4,10 @@ clear
 
 current_dir=$PWD
 
-mkdir -p "$HOME"/.cache/dotfiles
-
 dependencies=(
     luarocks
     curl
+    pandoc
     wget
     unzip
     tar
@@ -26,22 +25,18 @@ build_dependencies=(
 
 sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
-version=v0.11.2
-if ! [[ -d $HOME/.cache/dotfiles/neovim ]]; then
-    git clone --depth 1 -b "$version" https://github.com/neovim/neovim "$HOME"/.cache/dotfiles/neovim
+VERSION=v0.11.2
+DOWNLOAD_PATH="$current_dir"/.cache/neovim
+if ! [[ -d $DOWNLOAD_PATH ]]; then
+    mkdir -p "$DOWNLOAD_PATH"
+    git clone --depth 1 -b "$VERSION" https://github.com/neovim/neovim "$DOWNLOAD_PATH"
 fi
 
-cd "$HOME"/.cache/dotfiles/neovim
+cd "$DOWNLOAD_PATH"
 make deps
 make CMAKE_BUILD_TYPE=Release \
     CMAKE_INSTALL_PREFIX=/usr/local \
     -j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
 sudo make install
-
-if ! [[ -d $HOME/.config/nvim ]]; then
-    git clone https://github.com/akbarsanihasan/nvimrc.git "$HOME"/.config/nvim
-fi
-
-/usr/local/bin/nvim --headless -c "MasonToolsInstallSync" -c "Org install_treesitter_grammar" -c "qall"
 
 cd "$current_dir"

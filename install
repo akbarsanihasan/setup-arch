@@ -49,8 +49,8 @@ source ./devtools/neovim
 source ./devtools/git
 source ./devtools/docker
 
-if ! [[ -d $PWD/extras ]]; then
-    git clone https://github.com/akbarsanihasan/setup-extras "$PWD"/extras
+if ! [[ -d $HOME/.extras ]]; then
+    git clone https://github.com/akbarsanihasan/setup-extras "$HOME"/.extras
 fi
 
 clear

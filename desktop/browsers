@@ -2,7 +2,7 @@
 
 clear
 
-mkdir -p "$HOME"/.cache/dotfiles
+mkdir -p "$HOME"/.cache/destkop
 
 sudo pacman -S --noconfirm --needed curl \
     tar \
@@ -10,8 +10,9 @@ sudo pacman -S --noconfirm --needed curl \
     chromium
 
 INSTALL_PATH=/opt/zen
-DOWNLOAD_PATH=$HOME/.cache/dotfiles/zen.linux-x86_64.tar.xz
+DOWNLOAD_PATH=$PWD/.cache/zen.linux-x86_64.tar.xz
 
+mkdir -p "$(dirname "$DOWNLOAD_PATH")"
 if ! tar -tvf "$DOWNLOAD_PATH" &>/dev/null; then
     curl -Lo "$DOWNLOAD_PATH" https://github.com/zen-browser/desktop/releases/latest/download/"$(basename "$DOWNLOAD_PATH")"
 fi

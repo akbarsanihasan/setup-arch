@@ -4,17 +4,18 @@ clear
 
 current_dir=$PWD
 
-mkdir -p "$HOME"/.cache/dotfiles
+DOWNLOAD_PATH=$current_dir/.cache/nerdfonts
 
 sudo pacman -S --noconfirm --needed git
 
-if ! [[ -d $HOME/.cache/dotfiles/nerdfonts ]]; then
+if ! [[ -d $DOWNLOAD_PATH ]]; then
+    mkdir -p "$DOWNLOAD_PATH"
     git clone --filter=blob:none --sparse \
         https://github.com/ryanoasis/nerd-fonts.git \
-        "$HOME"/.cache/dotfiles/nerdfonts
+        "$DOWNLOAD_PATH"
 fi
 
-cd "$HOME"/.cache/dotfiles/nerdfonts
+cd "$DOWNLOAD_PATH"
 
 git sparse-checkout add patched-fonts/JetBrainsMono
 git sparse-checkout add patched-fonts/FiraCode

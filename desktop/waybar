@@ -4,8 +4,6 @@ clear
 
 current_dir=$PWD
 
-mkdir -p "$HOME"/.cache/dotfiles
-
 packaged() {
     sudo pacman -S --noconfirm --needed waybar
 }
@@ -52,11 +50,14 @@ compiled() {
     sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
 
     local VERSION=0.12.0
-    if ! [[ -d $HOME/.cache/dotfiles/waybar ]]; then
-        git clone --recursive --depth 1 -b "$VERSION" https://github.com/Alexays/Waybar "$HOME"/.cache/dotfiles/waybar
+    local DOWNLOAD_PATH=$current_dir/.cache/waybar
+
+    if ! [[ -d $DOWNLOAD_PATH ]]; then
+        mkdir -p "$DOWNLOAD_PATH"
+        git clone --recursive --depth 1 -b "$VERSION" https://github.com/Alexays/Waybar "$DOWNLOAD_PATH"
     fi
 
-    cd "$HOME"/.cache/dotfiles/waybar
+    cd "$DOWNLOAD_PATH"
     meson setup ./build --reconfigure \
         --prefix=/usr/local \
         --sysconfdir=/etc \

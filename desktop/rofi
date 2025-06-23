@@ -60,9 +60,10 @@ REPO_VERSIONS=(1.7.9.1 v2.3.2 v4.1.0)
 
 for i in "${!REPOS[@]}"; do
     REPO=${REPOS[$i]}
-    DOWNLOAD_PATH=$HOME/.cache/dotfiles/$(basename "$REPO")
+    DOWNLOAD_PATH=$current_dir/.cache/$(basename "$REPO")
 
     if ! [[ -d $DOWNLOAD_PATH ]]; then
+        mkdir -p "$DOWNLOAD_PATH"
         git clone --recursive --depth 1 -b "${REPO_VERSIONS[$i]}" https://github.com/"$REPO" "$DOWNLOAD_PATH"
     fi
 

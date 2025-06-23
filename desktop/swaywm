@@ -4,8 +4,6 @@ clear
 
 current_dir=$PWD
 
-mkdir -p "$HOME"/.cache/dotfiles
-
 packaged() {
     sudo pacman -S --noconfirm --needed sway \
         swaybg \
@@ -44,9 +42,10 @@ compiled() {
     local REPO_VERSIONS=(1.11 v1.2.1 v1.8.2 1.8.0)
 
     for i in ${!REPOS[@]}; do
-        local DOWNLOAD_PATH=$HOME/.cache/dotfiles/"${REPOS[$i]}"
+        local DOWNLOAD_PATH=$current_dir/.cache/"${REPOS[$i]}"
 
-        if ! [[ -d $HOME/.cache/dotfiles/"${REPOS[$i]}" ]]; then
+        if ! [[ -d $DOWNLOAD_PATH ]]; then
+            mkdir -p "$DOWNLOAD_PATH"
             git clone --recursive --depth 1 -b "${REPO_VERSIONS[$i]}" \
                 https://github.com/swaywm/"${REPOS[$i]}" \
                 "$DOWNLOAD_PATH"

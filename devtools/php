@@ -5,18 +5,24 @@ clear
 sudo pacman -S --noconfirm --needed curl
 
 BASE_URL="https://download.herdphp.com"
+DOWNLOAD_PATH=$PWD/.cache/php
 INSTALL_PATH="/opt/php"
-PHP_BIN="$INSTALL_PATH/bin/php"
-COMPOSER_BIN="$INSTALL_PATH/bin/composer"
-LARAVEL_BIN="$INSTALL_PATH/bin/laravel"
+INSTALL_BIN_PATH=$INSTALL_PATH/bin
 
+mkdir -p "$DOWNLOAD_PATH"/bin
 sudo rm -rf "$INSTALL_PATH"
-sudo mkdir -p "$INSTALL_PATH/bin"
-sudo curl -L "$BASE_URL/herd-lite/linux/x64/8.4/php" -o "$PHP_BIN"
-sudo curl -L "$BASE_URL/herd-lite/composer" -o "$COMPOSER_BIN"
-sudo curl -L "$BASE_URL/herd-lite/laravel" -o "$LARAVEL_BIN"
-sudo curl -L "https://curl.se/ca/cacert.pem" -o "$INSTALL_PATH/cacert.pem"
 
+if ! "$DOWNLOAD_PATH"/bin/php &>/dev/null; then
+    curl -L "$BASE_URL/herd-lite/linux/x64/8.4/php" -o "$DOWNLOAD_PATH"/bin/php
+fi
+if ! "$DOWNLOAD_PATH"/bin/composer &>/dev/null; then
+    curl -L "$BASE_URL/herd-lite/composer" -o "$DOWNLOAD_PATH"/bin/composer
+fi
+if ! "$DOWNLOAD_PATH"/bin/laravel &>/dev/null; then
+    curl -L "$BASE_URL/herd-lite/laravel" -o "$DOWNLOAD_PATH"/bin/laravel
+fi
+curl -L "https://curl.se/ca/cacert.pem" -o "$DOWNLOAD_PATH"/cacert.pem
+sudo cp -R "$DOWNLOAD_PATH" "$INSTALL_PATH"
 sudo chmod -R +x "$INSTALL_PATH"/bin
 
 sudo tee "$INSTALL_PATH"/php.ini <<-EOF

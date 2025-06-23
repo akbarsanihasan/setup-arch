@@ -11,7 +11,7 @@ mkdir -p "$HOME"/.local/bin
 
 sudo pacman -S --noconfirm --needed git
 
-for config in "$PWD"/.dotfiles/{*,.*}; do
+for config in "$current_dir"/.dotfiles/{*,.*}; do
     basename_config=$(basename "$config")
     config_target="$HOME/$basename_config"
 
