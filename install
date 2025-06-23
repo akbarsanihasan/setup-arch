@@ -46,6 +46,7 @@ source ./devtools/golang
 source ./devtools/php
 source ./devtools/rust
 source ./devtools/neovim
+source ./devtools/vscode
 source ./devtools/git
 source ./devtools/docker
 
