@@ -6,8 +6,9 @@ URL="https://code.visualstudio.com/sha/download?build=stable&os=linux-x64"
 DOWNLOAD_PATH=$PWD/.cache/vscode.tar.gz
 INSTALL_PATH=/opt/vscode
 
+mkdir -p "$(dirname "$DOWNLOAD_PATH")"
 if ! tar -tvf "$DOWNLOAD_PATH" &>/dev/null; then
-    curl -Lo "$DOWNLOAD_PATH" "$URL"
+	curl -Lo "$DOWNLOAD_PATH" "$URL"
 fi
 
 sudo rm -rf "$INSTALL_PATH"
