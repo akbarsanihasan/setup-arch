@@ -134,6 +134,7 @@ bindsym --to-code {
 }
 
 bindsym --to-code $mod+Return exec $bin_path/open_app $term
+bindsym --to-code $mod+B exec $bin_path/open_app zen
 bindsym --to-code $mod+I exec $bin_path/idle toggle
 bindsym --to-code $mod+P exec $bin_path/open_app flameshot gui
 bindsym --to-code $mod+SHIFT+P exec $bin_path/open_app flameshot screen

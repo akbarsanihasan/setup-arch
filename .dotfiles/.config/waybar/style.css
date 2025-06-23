@@ -24,9 +24,9 @@ window#waybar {
     background: transparent;
 }
 
-window#waybar > box {
+window#waybar>box {
     background-color: @crust;
-    border-top: 0.08em solid @surface0;
+    border-bottom: 0.08em solid @surface0;
 }
 
 #workspaces {
