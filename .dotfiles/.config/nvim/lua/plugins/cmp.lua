@@ -1,40 +1,40 @@
 return {
-    'saghen/blink.cmp',
+    "hrsh7th/nvim-cmp",
     dependencies = {
-        'L3MON4D3/LuaSnip'
+        "hrsh7th/cmp-nvim-lsp",
+        "hrsh7th/cmp-buffer",
+        "hrsh7th/cmp-path",
+        'L3MON4D3/LuaSnip',
+        'saadparwaiz1/cmp_luasnip'
     },
-    opts_extend = { "sources.default" },
     event = { "InsertEnter", "CmdlineEnter" },
-    opts = {
-        keymap = { preset = 'default' },
-        fuzzy = { implementation = "lua" },
-        signature = { enabled = false },
-        cmdline = { enabled = false },
-        snippets = { preset = 'luasnip' },
-        sources = {
-            default = { 'lsp', 'path', 'snippets', 'buffer' },
-            per_filetype = {
-                org = { 'orgmode' }
+    config = function()
+        local cmp = require("cmp")
+        local luasnip = require("luasnip")
+
+        cmp.setup({
+            sources = cmp.config.sources({
+                { name = 'nvim_lsp' },
+                { name = 'luasnip' }, -- For luasnip users.
+            }, {
+                { name = 'orgmode' },
+                { name = "path" },
+                { name = 'buffer' },
+            }),
+            snippet = {
+                expand = function(args)
+                    luasnip.lsp_expand(args.body)
+                end,
             },
-            providers = {
-                orgmode = {
-                    name = 'Orgmode',
-                    module = 'orgmode.org.autocompletion.blink',
-                    fallbacks = { 'buffer' },
-                },
+            mapping = {
+                ["<C-y>"] = cmp.mapping.confirm({ select = true }),
+                ["<CR>"] = cmp.mapping.confirm({ select = false }),
+                ["<C-p>"] = cmp.mapping.select_prev_item({ behavior = "select" }),
+                ["<C-n>"] = cmp.mapping.select_next_item({ behavior = "select" }),
+                ['<C-u>'] = cmp.mapping.scroll_docs(-4),
+                ['<C-d>'] = cmp.mapping.scroll_docs(4),
+                ["<C-Space>"] = cmp.mapping.complete(),
             },
-        },
-        completion = {
-            documentation = { auto_show = true },
-            list = { selection = { preselect = false, auto_insert = false } },
-            menu = {
-                draw = {
-                    columns = {
-                        { "label", "label_description", gap = 1 },
-                        { "kind",  gap = 1 }
-                    },
-                }
-            }
-        },
-    },
+        })
+    end,
 }

@@ -84,8 +84,4 @@ utilities=(wl-clipboard cliphist polkit-gnome libnotify brightnessctl playerctl 
 sudo pacman -S --noconfirm --needed "${core[@]}" "${utilities[@]}"
 compiled
 
-if ! [[ -d "$HOME"/.wallpapers ]]; then
-    git clone https://github.com/akbarsanihasan/wallpapers "$HOME"/.wallpapers
-fi
-
 cd "$current_dir"

@@ -26,6 +26,7 @@ return {
                 ['mason-null-ls'] = true,
             },
             ensure_installed = {
+                -- LSP server
                 "gopls",
                 "phpactor",
                 "ts_ls",

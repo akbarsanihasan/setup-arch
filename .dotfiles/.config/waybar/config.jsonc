@@ -25,6 +25,7 @@
     ],
     "sway/language": {
         "format": "<span><big>󰌌</big> {long}</span>",
+        "hide-single-layout": true,
     },
     "sway/workspaces": {
         "all-outputs": true,

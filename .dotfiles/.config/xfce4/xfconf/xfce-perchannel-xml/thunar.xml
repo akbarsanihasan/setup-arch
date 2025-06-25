@@ -46,11 +46,10 @@
   <property name="misc-text-beside-icons" type="bool" value="false"/>
   <property name="misc-full-path-in-tab-title" type="bool" value="false"/>
   <property name="last-details-view-column-widths" type="string" value="50,993,117,50,50,50,127,50,740,136,50,224,50,239"/>
-  <property name="last-splitview-separator-position" type="int" value="856"/>
+  <property name="last-splitview-separator-position" type="int" value="1144"/>
   <property name="last-menubar-visible" type="bool" value="true"/>
   <property name="last-tabs-left" type="array">
-    <value type="string" value="file:///media/OSDrive"/>
-    <value type="string" value="network:///"/>
+    <value type="string" value="file:///home/akbarsanihasan/Desktop"/>
   </property>
   <property name="last-toolbar-items" type="string" value="menu:0,back:1,forward:1,open-parent:1,open-home:0,zoom-reset:0,view-as-icons:0,view-as-detailed-list:0,view-as-compact-list:0,toggle-split-view:0,reload:1,location-bar:1,search:1,uca-action-1726703696149506-1:0,zoom-out:0,zoom-in:0,undo:1,redo:1,new-tab:0,new-window:0,view-switcher:0"/>
   <property name="last-renamer-dialog-maximized" type="bool" value="true"/>

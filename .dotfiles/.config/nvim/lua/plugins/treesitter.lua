@@ -13,6 +13,7 @@ return {
                 enable = true,
                 additional_vim_regex_highlighting = false,
             },
+            ignore_install = { "org" },
             ensure_installed = {
                 "go",
                 "php",

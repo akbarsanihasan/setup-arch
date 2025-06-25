@@ -1,8 +1,13 @@
 {
-  "name": "personal-snippets",
-  "contributes": {
-    "snippets": [
-      { "language": "php", "path": "./php.json" }
-    ]
-  }
+    "name": "personal-snippets",
+    "contributes": {
+        "snippets": [
+            {
+                "language": [
+                    "php"
+                ],
+                "path": "./php.json"
+            }
+        ]
+    }
 }

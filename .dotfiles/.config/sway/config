@@ -79,8 +79,8 @@ output * scale 1
 output Virtual-1 res 1440x900
 
 input "type:keyboard" {
-    xkb_layout us,us
-    xkb_variant ,dvorak
+    xkb_layout us
+    xkb_variant ,
     xkb_options caps:swapescape
 }
 
@@ -115,7 +115,7 @@ bindsym --to-code {
     $mod+SHIFT+N focus prev
     $mod+W layout toggle splitv splith
     $mod+SHIFT+W split toggle
-    $mod+SHIFT+X kill
+    $mod+ALT+Q kill
 
     $mod+$left focus left
     $mod+$right focus right
@@ -211,25 +211,21 @@ for_window [shell="xwayland" window_type="dropdown_menu"] floating enable
 for_window [shell="xwayland" window_type="tooltip"] floating enable
 for_window [shell="xwayland" window_role="popup_menu"] floating enable
 for_window [shell="xwayland" class="Pinentry-gtk"] floating enable
-
+for_window [app_id="gnome-keyring-prompt"] floating enable
+for_window [app_id="polkit"] floating enable
 for_window [app_id="foot"] move container workspace 1
 for_window [app_id="zen"] {
     inhibit_idle focus
     move container workspace 2
 }
-
 for_window [app_id="firefox"] {
     inhibit_idle focus
     move container workspace 2
 }
-
 for_window [app_id="chromium"] {
     inhibit_idle focus
     move container workspace 2
 }
-
-for_window [app_id="gnome-keyring-prompt"] floating enable
-for_window [app_id="polkit"] floating enable
 for_window [app_id="pavucontrol"] {
     floating enable
     resize set 800px 600px
@@ -238,5 +234,3 @@ for_window [app_id="blueman-manager"] {
     floating enable
     resize set 800px 600px
 }
-for_window [app_id="obsidian"] move container workspace 10
-for_window [app_id="calibre"] move container workspace 10 
