@@ -28,30 +28,24 @@ source ./hardware/pipewire
 source ./hardware/battery
 source ./hardware/graphic
 
+source ./desktop/dotfiles
 source ./desktop/core
-source ./desktop/swaywm
-source ./desktop/rofi
-source ./desktop/waybar
-source ./desktop/swaync
-source ./desktop/browsers
-source ./desktop/flameshot
+source ./desktop/zen
 source ./desktop/ime
 source ./desktop/udiskie
 source ./desktop/nerdfonts
+source ./desktop/flatpak
 source ./desktop/theme
+source ./desktop/sddm
 
-source ./devtools/nodejs
-source ./devtools/golang
-source ./devtools/php
-source ./devtools/rust
-source ./devtools/neovim
-source ./devtools/vscode
-source ./devtools/git
-source ./devtools/docker
-
-if ! [[ -d $HOME/.extras ]]; then
-    git clone https://github.com/akbarsanihasan/setup-extras "$HOME"/.extras
-fi
+source ./dev/nodejs
+source ./dev/golang
+source ./dev/php
+source ./dev/rust
+source ./dev/neovim
+source ./dev/vscode
+source ./dev/git
+source ./dev/docker
 
 clear
 echo "Success, need reboot"

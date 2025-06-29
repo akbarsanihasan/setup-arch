@@ -2,75 +2,18 @@
 
 clear
 
-current_dir=$PWD
+common=(tmux zsh fzf fastfetch btop trash-cli)
+compositor=(wayland xorg-xwayland sway swayidle swaybg xdg-desktop-portal-wlr xdg-desktop-portal-gtk)
+addons=(waybar swaync rofi rofi-calc rofi-emoji wl-clipboard cliphist polkit-gnome libnotify brightnessctl playerctl)
+apps=(foot mpv thunar file-roller okular ristretto mousepad flameshot chromium firefox pavucontrol blueman nm-connection-editor android-file-transfer)
+optionals=(grim gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin thunar-shares-plugin xdg-user-dirs)
+tools=(coreutils git dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip tldr man)
 
-mkdir -p "$HOME"/.config
-mkdir -p "$HOME"/.cache
-mkdir -p "$HOME"/.local/share
-mkdir -p "$HOME"/.local/bin
-
-for config in "$current_dir"/.dotfiles/{*,.*}; do
-    basename_config=$(basename "$config")
-    config_target="$HOME/$basename_config"
-
-    if [[ $basename_config == "*" ]] || [[ $basename_config == ".*" ]]; then
-        continue
-    fi
-
-    if [[ -L $config_target ]]; then
-        rm -rf "$config_target"
-    fi
-
-    if [[ -f $config ]] || [[ ! -e $config_target ]]; then
-        echo "Linking config $config to $config_target"
-        ln -sfn "$config" "$config_target"
-        continue
-    fi
-
-    for subconfig in "$config"/{*,.*}; do
-        basename_subconfig=$(basename "$subconfig")
-        subconfig_target="$config_target/$basename_subconfig"
-
-        if [[ $basename_subconfig == "*" ]] || [[ $basename_subconfig == ".*" ]]; then
-            continue
-        fi
-
-        if [[ -L $subconfig_target ]]; then
-            rm -rf "$subconfig_target"
-        fi
-
-        if [[ -f $subconfig ]] || [ ! -e "$subconfig_target" ]; then
-            echo "Linking subconfig $subconfig to $subconfig_target"
-            ln -svfn "$subconfig" "$subconfig_target"
-            continue
-        fi
-
-        for node_subconfig in "$subconfig"/{*,.*}; do
-            basename_node_subconfig=$(basename "$node_subconfig")
-            node_subconfig_target="$subconfig_target/$basename_node_subconfig"
-
-            if [[ $basename_node_subconfig == "*" ]] || [[ $basename_node_subconfig == ".*" ]]; then
-                continue
-            fi
-
-            if [[ -L $node_subconfig_target ]]; then
-                rm -rf "$node_subconfig_target"
-            fi
-
-            echo "Linking node_subconfig $node_subconfig to $node_subconfig_target"
-            ln -svfn "$node_subconfig" "$node_subconfig_target"
-        done
-    done
-done
-
-core=(git zsh tmux fzf btop fastfetch trash-cli man tldr)
-apps=(foot mpv thunar file-roller okular ristretto mousepad pavucontrol blueman nm-connection-editor android-file-transfer)
-apps_dependencies=(gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin)
-tools=(dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip)
-
-sudo pacman -S --noconfirm --needed "${core[@]}" \
+sudo pacman -S --noconfirm --needed "${common[@]}" \
+    "${compositor[@]}" \
+    "${addons[@]}" \
     "${apps[@]}" \
-    "${apps_deppendencies[@]}" \
+    "${optionals[@]}" \
     "${tools[@]}"
 
 if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
@@ -94,5 +37,3 @@ dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
 dconf write /org/gnome/desktop/wm/preferences/button-layout "':'"
 
 sudo chsh -s "$(command -v zsh)" "$USER"
-
-cd "$current_dir"

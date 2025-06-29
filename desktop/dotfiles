@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+clear
+
+mkdir -p "$HOME"/.config
+mkdir -p "$HOME"/.local/bin
+mkdir -p "$HOME"/.local/share
+
+sudo pacman -S --noconfirm --needed fd
+
+fd . "$PWD"/.config --max-depth 1 --exec rm -rf "$HOME"/.config/{/}
+fd . "$PWD"/.config --max-depth 1 --exec ln -svfn {} "$HOME"/.config/{/}
+
+fd . "$PWD"/.local/bin --max-depth 1 --exec rm -rf "$HOME"/.local/bin/{/}
+fd . "$PWD"/.local/bin --max-depth 1 --exec ln -svfn {} "$HOME"/.local/bin/{/}
+
+rm -rf "$HOME"/.wallpapers
+ln -svfn "$PWD"/.wallpapers "$HOME"/.wallpapers
+
+rm -rf "$HOME"/.zprofile
+ln -svfn "$PWD"/.zprofile "$HOME"/.zprofile
+
+rm -rf "$HOME"/.zshrc
+ln -svfn "$PWD"/.zshrc "$HOME"/.zshrc

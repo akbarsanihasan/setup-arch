@@ -1,0 +1,156 @@
+@import './color.css';
+
+* {
+    min-height: 0;
+    margin: 0;
+    padding: 0;
+    border: none;
+    border-radius: 0;
+    animation: unset;
+    transition: unset;
+    color: @lavender;
+    font-size: 0.8rem;
+    font-weight: 500;
+    font-family:
+        Inter Display,
+        JetBrainsMono NFP,
+        Roboto,
+        Helvetica,
+        Arial,
+        sans-serif;
+}
+
+window#waybar {
+    background: transparent;
+}
+
+window#waybar>box {
+    min-height: 1.6rem;
+    background-color: @crust;
+    border-top: 0.08rem solid @surface0;
+}
+
+#custom-powermenu {
+    font-size: 1rem;
+    padding: 0 0.6rem;
+    min-width: 0;
+}
+
+#custom-powermenu:hover {
+    background: @base;
+}
+
+#window label {
+    font-weight: 800;
+}
+
+window#waybar:not(.empty) #window {
+    margin: 0 0.6rem;
+}
+
+#custom-terminal,
+#custom-browser,
+#custom-notes {
+    padding: 0 0.4rem;
+}
+
+#custom-terminal:hover,
+#custom-browser:hover,
+#custom-notes:hover {
+    background-color: @base;
+}
+
+#network.downspeed,
+#network.upspeed,
+#disk,
+#memory {
+    margin-right: 0.6rem;
+}
+
+#tray image {
+    margin-right: 0.6rem;
+}
+
+menu {
+    background-color: @crust;
+}
+
+menuitem {
+    padding: 0.3rem;
+    background-color: @crust;
+}
+
+menuitem.title label {
+    font-weight: bold;
+}
+
+menuitem:hover:not(.title) {
+    background-color: @base;
+}
+
+#language,
+#keyboard-state label.locked,
+#pulseaudio.icon,
+#custom-swayidle,
+#bluetooth,
+#network {
+    margin-right: 0.6rem;
+}
+
+#pulseaudio.muted,
+#network.disconnected,
+#network.disabled,
+#bluetooth.no-controller,
+#bluetooth.off,
+#bluetooth.disabled {
+    opacity: 0.4;
+}
+
+#custom-fence {
+    margin: 0 0.5rem;
+    font-weight: 900;
+    opacity: 0.6;
+    font-size: 0.8rem;
+}
+
+#custom-battery {
+    margin-right: 0.6rem;
+}
+
+#custom-battery.warning {
+    color: @yellow;
+}
+
+#custom-battery.critical {
+    color: @red;
+}
+
+#custom-battery.plugged {
+    opacity: 0.6;
+}
+
+@keyframes charging {
+    from {
+        opacity: 0.4;
+    }
+
+    to {
+        opacity: 1;
+    }
+}
+
+#custom-battery.charging {
+    animation: 1.5s linear charging infinite alternate;
+}
+
+#clock {
+    margin-right: 0.3rem;
+}
+
+#calendar {
+    margin-right: 0.3rem;
+}
+
+#custom-notification {
+    padding-right: 0.6rem;
+}

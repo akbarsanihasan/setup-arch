@@ -1,0 +1,42 @@
+#!/usr/bin/env bash
+
+clear
+
+current_dir=$PWD
+
+dependencies=(
+    luarocks
+    curl
+    pandoc
+    wget
+    unzip
+    tar
+    gzip
+)
+
+build_dependencies=(
+    git
+    base-devel
+    make
+    cmake
+    ninja
+    gettext
+)
+
+sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
+
+VERSION=v0.11.2
+DOWNLOAD_PATH=/tmp/neovim
+if ! [[ -d $DOWNLOAD_PATH ]]; then
+    mkdir -p "$DOWNLOAD_PATH"
+    git clone --depth 1 -b "$VERSION" https://github.com/neovim/neovim "$DOWNLOAD_PATH"
+fi
+
+cd "$DOWNLOAD_PATH"
+make deps
+make CMAKE_BUILD_TYPE=Release \
+    CMAKE_INSTALL_PREFIX=/usr/local \
+    -j"$(nproc 2>/dev/null || getconf _NPROCESSORS_CONF)"
+sudo make install
+
+cd "$current_dir"
