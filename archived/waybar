@@ -5,41 +5,41 @@ clear
 current_dir=$PWD
 
 dependencies=(
-	gtkmm3
-	libjsoncpp.so
-	libsigc++
-	fmt
-	libjack.so
-	upower
-	wayland
-	libdate-tz.so
-	libspdlog.so
-	gtk-layer-shell
-	libupower-glib.so
-	libevdev
-	libinput
-	libpulse
-	libnl
-	libappindicator-gtk3
-	libdbusmenu-gtk3
-	libmpdclient
-	libsndio.so
-	libxkbcommon
-	libwireplumber
-	playerctl
+    gtkmm3
+    libjsoncpp.so
+    libsigc++
+    fmt
+    libjack.so
+    upower
+    wayland
+    libdate-tz.so
+    libspdlog.so
+    gtk-layer-shell
+    libupower-glib.so
+    libevdev
+    libinput
+    libpulse
+    libnl
+    libappindicator-gtk3
+    libdbusmenu-gtk3
+    libmpdclient
+    libsndio.so
+    libxkbcommon
+    libwireplumber
+    playerctl
 )
 
 build_dependencies=(
-	git
-	base-devel
-	meson
-	cmake
-	catch2
-	ninja
-	scdoc
-	wayland-protocols
-	python-setuptools
-	glib2-devel
+    git
+    base-devel
+    meson
+    cmake
+    catch2
+    ninja
+    scdoc
+    wayland-protocols
+    python-setuptools
+    glib2-devel
 )
 
 sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@]}"
@@ -47,19 +47,19 @@ sudo pacman -S --noconfirm --needed "${dependencies[@]}" "${build_dependencies[@
 VERSION=0.12.0
 DOWNLOAD_PATH=/tmp/waybar
 if ! [[ -d $DOWNLOAD_PATH ]]; then
-	mkdir -p "$DOWNLOAD_PATH"
-	git clone --recursive --depth 1 -b "$VERSION" https://github.com/Alexays/Waybar "$DOWNLOAD_PATH"
+    mkdir -p "$DOWNLOAD_PATH"
+    git clone --recursive --depth 1 -b "$VERSION" https://github.com/Alexays/Waybar "$DOWNLOAD_PATH"
 fi
 
 cd "$DOWNLOAD_PATH"
 meson setup ./build --reconfigure \
-	--prefix=/usr/local \
-	--sysconfdir=/etc \
-	--buildtype=plain \
-	--auto-features=enabled \
-	-Dexperimental=true \
-	-Dcava=disabled \
-	-Dtests=disabled
+    --prefix=/usr/local \
+    --sysconfdir=/etc \
+    --buildtype=plain \
+    --auto-features=enabled \
+    -Dexperimental=true \
+    -Dcava=disabled \
+    -Dtests=disabled
 meson compile -C ./build
 sudo meson install -C ./build
 

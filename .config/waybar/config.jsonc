@@ -181,15 +181,20 @@
     },
     "custom/battery": {
         "format": "<span><big>{icon}</big></span> <span rise='0.8pt'>{text}%</span>",
-        "exec": "~/.local/bin/waybar_battery",
-        "exec-if": "bash -c 'which upower &>/dev/null'",
+        "exec": "~/.local/bin/battery wayindicator",
         "format-icons": ["", "", "", "", ""],
         "return-type": "json",
+        "interval": 8,
         "states": {
             "warning": 15,
             "critical": 8,
         },
-        "interval": 8,
+        "menu": "on-click",
+        "menu-file": "~/.config/waybar/battery-menu.xml",
+        "menu-actions": {
+            "tshd-start": "~/.local/bin/battery tshd start",
+            "tshd-stop": "~/.local/bin/battery tshd stop",
+        },
     },
     "clock": {
         "interval": 60,

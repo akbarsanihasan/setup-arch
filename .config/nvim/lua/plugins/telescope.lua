@@ -4,48 +4,12 @@ return {
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
     },
-    keys = function()
-        local builtin = require("telescope.builtin")
-        local opts = {
-            follow = true,
-            hidden = true
-        }
-
-        return {
-            {
-                "<C-p>",
-                function()
-                    builtin.find_files({ follow = true })
-                end,
-                silent = true,
-                noremap = true,
-            },
-            {
-                "<leader>oh",
-                function()
-                    builtin.find_files(opts)
-                end,
-                silent = true,
-                noremap = true,
-            },
-            {
-                "<leader>ow",
-                function()
-                    builtin.live_grep(opts)
-                end,
-                silent = true,
-                noremap = true,
-            },
-            {
-                "<leader>og",
-                function()
-                    builtin.git_files(opts)
-                end,
-                silent = true,
-                noremap = true,
-            },
-        }
-    end,
+    keys = {
+        { "<C-p>",      ":Telescope find_files follow=true<cr>",             silent = true, noremap = true, },
+        { "<leader>th", ":Telescope find_files follow=true hidden=true<cr>", silent = true, noremap = true, },
+        { "<leader>tw", ":Telescope live_grep follow=true hidden=true<cr>",  silent = true, noremap = true, },
+        { "<leader>tg", ":Telescope git_files follow=true hidden=true<cr>",  silent = true, noremap = true, },
+    },
     opts = {
         defaults = {
             prompt_prefix = " 󰭎  ",
