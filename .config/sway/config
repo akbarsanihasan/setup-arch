@@ -59,7 +59,7 @@ exec $bin_path/open_app foot
 exec $bin_path/open_app zen
 
 xwayland enable
-default_border pixel 1
+default_border normal 1
 default_floating_border pixel 1
 smart_borders off
 floating_minimum_size 600 x 450 
@@ -69,10 +69,11 @@ focus_wrapping no
 gaps inner 4
 gaps outer 0
 smart_gaps off
-mouse_warping container
+mouse_warping output
 tiling_drag enabled
 workspace_auto_back_and_forth no
 floating_modifier $mod
+font pango:Inter Display Medium 12
 client.focused           $surface0 $base $text  $surface0 $surface0
 client.focused_inactive  $base     $base $text  $base $base
 client.unfocused         $base     $base $text  $base $base
@@ -113,6 +114,12 @@ input "type:touch" {
     events disabled
 }
 
+input "1133:49948:Logitech_USB_Keyboard" {
+    xkb_options ctrl:menu_rctrl,caps:swapescape
+    xkb_layout us
+    xkb_variant ,
+}
+
 bindsym --to-code {
     $mod+SHIFT+R reload
     $mod+E fullscreen
@@ -120,7 +127,7 @@ bindsym --to-code {
     $mod+M focus mode_toggle
     $mod+N focus next
     $mod+SHIFT+N focus prev
-    $mod+W layout toggle splitv splith
+    $mod+W layout toggle splitv splith tabbed
     $mod+SHIFT+W split toggle
     $mod+ALT+Q kill
 

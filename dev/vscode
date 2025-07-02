@@ -12,6 +12,7 @@ fi
 sudo rm -rf "$INSTALL_PATH"
 sudo mkdir -p "$INSTALL_PATH"
 sudo tar --strip-components=1 -C "$INSTALL_PATH" -xvf "$DOWNLOAD_PATH"
+sudo chown -R "$USER" "$INSTALL_PATH"
 
 sudo tee /usr/local/bin/code <<-EOF
 	#/usr/bin/env bash

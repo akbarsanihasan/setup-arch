@@ -2,45 +2,46 @@
 
 selected=""
 if [[ $# -eq 1 ]]; then
-	selected=$1
+    selected=$1
 fi
 
 findir=()
 if [[ "$selected" == "" ]]; then
-	findir=("$PWD")
+    findir=("$PWD")
 fi
 if [[ "$selected" == "global" ]]; then
-	findir=("$HOME" "/run/media" "/media" "/volumes")
+    findir=("$HOME" "/run/media" "/media")
 fi
 
 if [[ ${#findir[@]} -gt 0 ]]; then
-	selected=$(
-		find -L "${findir[@]}" -maxdepth 4 -type d \
-			-not -path "*/.git/*" \
-			-not -path "*/node_modules/*" \
-			-not -path "*/snap/*" \
-			-not -path "*/tmp/*" \
-			-not -path "*Trash*" \
-			-not -path "*Local*Disk*" \
-			-not -path "*Windows*" \
-			-not -path "*RECYCLE_BIN*" \
-			2>/dev/null | fzf
-	)
+    selected=$(
+        fd . "${findir[@]}" -H -L -t d --maxdepth 6 \
+            --exclude ".git" \
+            --exclude "node_modules" \
+            --exclude "snap" \
+            --exclude "tmp" \
+            --exclude "Trash" \
+            --exclude "go/pkg" \
+            --exclude "*Local*Disk*" \
+            --exclude "*Windows*" \
+            --exclude "*RECYCLE_BIN*" \
+            2>/dev/null | fzf
+    )
 fi
 
 if [[ -z $selected ]]; then
-	exit 0
+    exit 0
 fi
 
 selected_name=$(echo "$selected" | tr -d ' ' | tr . _ | tr -d /)
 tmux_running=$(pgrep tmux)
 
 if ! tmux has-session -t="$selected_name" 2>/dev/null; then
-	tmux new-session -ds "$selected_name" -c "$selected" -n main
+    tmux new-session -ds "$selected_name" -c "$selected" -n main
 fi
 
 if [[ -z $TMUX ]]; then
-	tmux attach-session -t "$selected_name"
+    tmux attach-session -t "$selected_name"
 else
-	tmux switch-client -t "$selected_name"
+    tmux switch-client -t "$selected_name"
 fi

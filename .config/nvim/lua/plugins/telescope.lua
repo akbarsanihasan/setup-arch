@@ -5,28 +5,32 @@ return {
         "nvim-tree/nvim-web-devicons",
     },
     keys = {
-        { "<C-p>",      ":Telescope find_files follow=true<cr>",             silent = true, noremap = true, },
-        { "<leader>th", ":Telescope find_files follow=true hidden=true<cr>", silent = true, noremap = true, },
-        { "<leader>tw", ":Telescope live_grep follow=true hidden=true<cr>",  silent = true, noremap = true, },
-        { "<leader>tg", ":Telescope git_files follow=true hidden=true<cr>",  silent = true, noremap = true, },
+        { "<C-p>",      ":Telescope find_files follow=true hidden=true<cr>",  silent = true, noremap = true, },
+        { "<leader>tw", ":Telescope grep_string follow=true hidden=true<cr>", silent = true, noremap = true, },
+        { "<leader>tg", ":Telescope git_files follow=true hidden=true<cr>",   silent = true, noremap = true, },
     },
     opts = {
         defaults = {
             prompt_prefix = " 󰭎  ",
             selection_caret = " ",
-            path_display = { "absolute" },
-            sorting_strategy = "ascending",
-            layout_config = {
-                anchor = "N",
-                prompt_position = "top",
+            path_display = {
+                filename_first = {}
             },
-            mappings = {
-                n = {
-                    ["<C-t>"] = "nop",
-                },
-                i = {
-                    ["<C-t>"] = "nop",
-                },
+            sorting_strategy = "ascending",
+            layout_strategy = "vertical",
+            layout_config = {
+                width = 0.50,
+                height = 0.9,
+                anchor = "N",
+                anchor_padding = 2,
+                prompt_position = "top",
+                preview_cutoff = 20,
+                mirror = true
+            },
+            file_ignore_patterns = {
+                "^.git/",
+                "^node_modules/",
+                "^vendor/"
             },
         },
     },
