@@ -24,7 +24,7 @@ window#waybar {
     background: transparent;
 }
 
-window#waybar>box {
+window#waybar > box {
     min-height: 1.6rem;
     background-color: @crust;
     border-bottom: 0.08rem solid @surface0;
@@ -127,10 +127,7 @@ menuitem:hover:not(.title) {
     margin-right: 0.3rem;
 }
 
+#custom-notification,
 #calendar {
     margin-right: 0.3rem;
-}
-
-#custom-notification {
-    padding-right: 0.6rem;
 }
