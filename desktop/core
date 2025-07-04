@@ -6,18 +6,18 @@ common=(tmux zsh fzf fastfetch btop trash-cli)
 compositor=(wayland xorg-xwayland sway swayidle swaybg swaylock xdg-desktop-portal-wlr xdg-desktop-portal-gtk)
 addons=(waybar swaync rofi rofi-calc rofi-emoji wl-clipboard cliphist polkit-gnome libnotify brightnessctl playerctl)
 apps=(foot mpv thunar file-roller okular ristretto mousepad flameshot chromium firefox pavucontrol blueman nm-connection-editor android-file-transfer)
-optionals=(grim gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin thunar-shares-plugin xdg-user-dirs)
+optionals=(grim gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin thunar-shares-plugin xdg-user-dirs imagemagick)
 tools=(coreutils git dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip tldr man)
 
 sudo pacman -S --noconfirm --needed "${common[@]}" \
-	"${compositor[@]}" \
-	"${addons[@]}" \
-	"${apps[@]}" \
-	"${optionals[@]}" \
-	"${tools[@]}"
+    "${compositor[@]}" \
+    "${addons[@]}" \
+    "${apps[@]}" \
+    "${optionals[@]}" \
+    "${tools[@]}"
 
 if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
-	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
+    git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
 fi
 "$HOME"/.config/tmux/plugins/tpm/bin/install_plugins all
 

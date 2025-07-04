@@ -69,14 +69,14 @@ focus_wrapping no
 gaps inner 4
 gaps outer 0
 smart_gaps off
-mouse_warping output
+mouse_warping container
 tiling_drag enabled
 workspace_auto_back_and_forth no
 floating_modifier $mod
 font pango:Inter Display Medium 12
-client.focused           $surface0 $base $text  $surface0 $surface0
-client.focused_inactive  $base     $base $text  $base $base
-client.unfocused         $base     $base $text  $base $base
+client.focused           $surface0 $base $text  $base $base
+client.focused_inactive  $base     $crust $text  $base $base
+client.unfocused         $base     $crust $text  $base $base
 client.background        $base
 
 output * scale 1 
@@ -111,7 +111,7 @@ input "type:touchpad" {
 }
 
 input "type:touch" {
-    events disabled
+    events enabled
 }
 
 input "1133:49948:Logitech_USB_Keyboard" {

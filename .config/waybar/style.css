@@ -27,13 +27,16 @@ window#waybar {
 window#waybar>box {
     min-height: 1.6rem;
     background-color: @crust;
-    border-top: 0.08rem solid @surface0;
+    border-bottom: 0.08rem solid @surface0;
 }
 
-#custom-powermenu {
-    font-size: 1rem;
-    padding: 0 0.6rem;
-    min-width: 0;
+#workspaces {
+    background-color: @lavender;
+    margin-right: 0.6rem;
+}
+
+#workspaces button label {
+    color: @crust;
 }
 
 #custom-powermenu:hover {
@@ -44,24 +47,9 @@ window#waybar>box {
     font-weight: 800;
 }
 
-window#waybar:not(.empty) #window {
-    margin: 0 0.6rem;
-}
-
-#custom-terminal,
-#custom-browser,
-#custom-notes {
-    padding: 0 0.4rem;
-}
-
-#custom-terminal:hover,
-#custom-browser:hover,
-#custom-notes:hover {
-    background-color: @base;
-}
-
 #network.downspeed,
 #network.upspeed,
+#cpu,
 #disk,
 #memory {
     margin-right: 0.6rem;
@@ -88,7 +76,6 @@ menuitem:hover:not(.title) {
     background-color: @base;
 }
 
-#language,
 #keyboard-state label.locked,
 #pulseaudio.icon,
 #custom-swayidle,
@@ -104,13 +91,6 @@ menuitem:hover:not(.title) {
 #bluetooth.off,
 #bluetooth.disabled {
     opacity: 0.4;
-}
-
-#custom-fence {
-    margin: 0 0.5rem;
-    font-weight: 900;
-    opacity: 0.6;
-    font-size: 0.8rem;
 }
 
 #custom-battery {

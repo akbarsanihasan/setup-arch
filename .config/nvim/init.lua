@@ -24,6 +24,9 @@ require("lazy").setup({
     spec = {
         { import = "plugins" },
     },
+    rocks = {
+        hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
+    },
     install = { missing = true, },
     checker = { enabled = true, notify = false, },
     change_detection = { enabled = true, notify = false, },

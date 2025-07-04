@@ -2,8 +2,6 @@ return {
     "mason-org/mason.nvim",
     lazy = false,
     dependencies = {
-        "jay-babu/mason-null-ls.nvim",
-        "mason-org/mason-lspconfig.nvim",
         "WhoIsSethDaniel/mason-tool-installer",
     },
     opts = {

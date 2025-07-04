@@ -1,6 +1,7 @@
 return {
     "nvim-telescope/telescope.nvim",
     dependencies = {
+        'nvim-lua/popup.nvim',
         "nvim-lua/plenary.nvim",
         "nvim-tree/nvim-web-devicons",
     },
@@ -20,11 +21,9 @@ return {
             layout_strategy = "vertical",
             layout_config = {
                 width = 0.50,
-                height = 0.9,
                 anchor = "N",
-                anchor_padding = 2,
                 prompt_position = "top",
-                preview_cutoff = 20,
+                preview_cutoff = 10,
                 mirror = true
             },
             file_ignore_patterns = {
