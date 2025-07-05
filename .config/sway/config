@@ -55,9 +55,6 @@ exec $bin_path/polkit
 exec fcitx5
 exec udiskie -t --appindicator
 
-exec $bin_path/open_app foot
-exec $bin_path/open_app zen
-
 xwayland enable
 default_border normal 1
 default_floating_border pixel 1
@@ -110,10 +107,6 @@ input "type:touchpad" {
     pointer_accel 0.15
 }
 
-input "type:touch" {
-    events enabled
-}
-
 input "1133:49948:Logitech_USB_Keyboard" {
     xkb_options ctrl:menu_rctrl,caps:swapescape
     xkb_layout us
@@ -130,6 +123,11 @@ bindsym --to-code {
     $mod+W layout toggle splitv splith tabbed
     $mod+SHIFT+W split toggle
     $mod+ALT+Q kill
+
+    $mod+INSERT exec \
+            [[ "$(swaymsg -r -t get_inputs | jq -r '.[] | select(.type=="touch") | .libinput.send_events')" == "enabled" ]] && \
+            swaymsg input "type:touch" events disabled || \
+            swaymsg input "type:touch" events enabled
 
     $mod+$left focus left
     $mod+$right focus right
@@ -148,7 +146,7 @@ bindsym --to-code {
 }
 
 bindsym --to-code $mod+Return exec swaymsg workspace $term_workspace && $bin_path/open_app $term
-bindsym --to-code $mod+B exec swaymsg workspace $browser_workspace && $bin_path/open_app zen
+bindsym --to-code $mod+B exec swaymsg workspace $browser_workspace && $bin_path/open_app $HOME/.local/bin/zen
 bindsym --to-code $mod+I exec $bin_path/idle toggle
 bindsym --to-code $mod+P exec $bin_path/open_app flameshot gui
 bindsym --to-code $mod+SHIFT+P exec $bin_path/open_app flameshot screen

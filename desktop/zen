@@ -19,14 +19,14 @@ sudo mkdir -p "$INSTALL_PATH"
 sudo tar --strip-components=1 -C "$INSTALL_PATH" -xvf "$DOWNLOAD_PATH"
 sudo chown -R "$USER" "$INSTALL_PATH"
 
-sudo tee /usr/local/bin/zen <<-EOF
+tee "$HOME"/.local/bin/zen <<-EOF
 	#/usr/bin/env bash
 	exec $INSTALL_PATH/zen \${@}
 EOF
-sudo chmod +x /usr/local/bin/zen
+chmod +x "$HOME"/.local/bin/zen
 
-sudo mkdir -p /usr/local/share/applications/
-sudo tee /usr/local/share/applications/zen.desktop <<-EOF
+mkdir -p "$HOME"/.local/share/applications
+tee "$HOME"/.local/share/applications/zen.desktop <<-EOF
 	[Desktop Entry]
 	Name=Zen Browser
 	Comment=Experience tranquillity while browsing the web without people tracking you!

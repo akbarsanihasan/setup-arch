@@ -7,7 +7,7 @@ export NPM_CONFIG_PREFIX=$HOME/.node
 
 sudo pacman -S --noconfirm --needed curl unzip
 
-FNM_PATH=/usr/local/bin
+FNM_PATH=$HOME/.local/bin
 if ! command -v "$FNM_PATH"/fnm &>/dev/null; then
     curl -fsSL https://fnm.vercel.app/install |
         sudo bash -s -- --skip-shell --install-dir "$FNM_PATH"

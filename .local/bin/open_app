@@ -4,12 +4,12 @@ app=$1
 shift
 
 if command -v "$app" &>/dev/null; then
-	"$app" "$@" &
-	exit 0
+    "$app" "$@" &
+    exit 0
 fi
 
 if command -v flatpak &>/dev/null && flatpak run "$app" "$@"; then
-	exit 0
+    exit 0
 fi
 
 echo -e "Failed opening $app, could not find in the path"
