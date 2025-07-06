@@ -8,8 +8,7 @@ set $wallpaper_path time
 set $bin_path $HOME/.local/bin
 
 set $term_workspace 2
-set $browser_workspace 9
-set $document_workspace 10
+set $browser_workspace 10
 
 set $rosewater #f5e0dc
 set $flamingo #f2cdcd
@@ -82,7 +81,6 @@ output Virtual-1 res 1440x900
 input "type:keyboard" {
     xkb_layout us
     xkb_variant ,
-    xkb_options caps:swapescape
 }
 
 input "type:pointer" {
@@ -105,6 +103,10 @@ input "type:touchpad" {
     scroll_method two_finger
     accel_profile flat
     pointer_accel 0.15
+}
+
+input "type:touch" {
+    events disabled
 }
 
 input "1133:49948:Logitech_USB_Keyboard" {
@@ -226,16 +228,7 @@ for_window [shell="xwayland" class="Pinentry-gtk"] floating enable
 for_window [app_id="gnome-keyring-prompt"] floating enable
 for_window [app_id="polkit"] floating enable
 for_window [app_id="foot"] move container workspace $term_workspace
-for_window [app_id="obsidian"] move container workspace $document_workspace
 for_window [app_id="zen"] {
-    inhibit_idle focus
-    move container workspace $browser_workspace
-}
-for_window [app_id="firefox"] {
-    inhibit_idle focus
-    move container workspace $browser_workspace
-}
-for_window [app_id="chromium"] {
     inhibit_idle focus
     move container workspace $browser_workspace
 }

@@ -60,7 +60,6 @@
     "keyboard-state": {
         "numlock": false,
         "capslock": true,
-        "binding-keys": [58, 1, 70],
         "format": {
             "capslock": "<span><big>{icon}</big></span>",
         },

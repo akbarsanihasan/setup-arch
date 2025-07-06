@@ -9,10 +9,12 @@ waybar_indicator() {
     fi
 
     if ! command -v upower &>/dev/null; then
+        notify-send "Waybar battery" "Upower not found"
         exit 1
     fi
 
     if ! command -v jq &>/dev/null; then
+        notify-send "Waybar battery" "jq not found"
         exit 1
     fi
 
@@ -74,7 +76,7 @@ waybar_indicator() {
 
 threshold() {
     if ! command -v tlp &>/dev/null; then
-        local message="Cannot find tlp binary"
+        local message="TLP not found"
 
         notify-send "Battery" "$message"
         echo "$message"
