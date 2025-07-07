@@ -1,0 +1,24 @@
+#!/usr/bin/env bash
+
+clear
+
+mkdir -p "$HOME"/.config
+mkdir -p "$HOME"/.local/bin
+mkdir -p "$HOME"/.local/share
+
+sudo pacman -S --noconfirm --needed fd
+
+fd . "$PWD"/.dotfiles/.config --max-depth 1 --exec rm -rf "$HOME"/.config/{/}
+fd . "$PWD"/.dotfiles/.config --max-depth 1 --exec ln -svfn {} "$HOME"/.config/{/}
+
+fd . "$PWD"/.dotfiles/.local/bin --max-depth 1 --exec rm -rf "$HOME"/.local/bin/{/}
+fd . "$PWD"/.dotfiles/.local/bin --max-depth 1 --exec ln -svfn {} "$HOME"/.local/bin/{/}
+
+rm -rf "$HOME"/.wallpapers
+ln -svfn "$PWD"/.dotfiles/.wallpapers "$HOME"/.wallpapers
+
+rm -rf "$HOME"/.zprofile
+ln -svfn "$PWD"/.dotfiles/.zprofile "$HOME"/.zprofile
+
+rm -rf "$HOME"/.zshrc
+ln -svfn "$PWD"/.dotfiles/.zshrc "$HOME"/.zshrc

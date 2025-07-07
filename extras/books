@@ -1,0 +1,9 @@
+#!/usr/bin/env bash
+
+set -euo pipefail
+
+sudo pacman -S --noconfirm --needed calibre git
+
+if ! [[ -d $HOME/Books ]]; then
+    git clone https://github.com/akbarsanihasan/Books.git "$HOME"/Books
+fi

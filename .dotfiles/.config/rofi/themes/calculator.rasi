@@ -1,0 +1,22 @@
+@import './common.rasi'
+
+configuration {
+   modes: [ calc ];
+}
+
+window {
+   height: 0;
+   width: 30%;
+   location: south;
+   y-offset: -10%;
+}
+
+entry {
+   placeholder: "  Calculator";
+}
+
+listview {
+    dynamic: true;
+    lines: 6;
+}
+

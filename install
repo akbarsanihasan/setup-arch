@@ -1,0 +1,51 @@
+#!/usr/bin/env bash
+
+clear
+
+set -euo pipefail
+
+[[ -f /etc/os-release ]] && . /etc/os-release
+
+if [[ $ID != "arch" ]]; then
+    echo "OS not detected as archlinux"
+    exit 1
+fi
+
+sudo -v
+timestamp_sudo() {
+    while :; do
+        sudo -v
+        sleep 45
+    done
+}
+timestamp_sudo &
+timestamp_sudo_pid=$!
+trap "sudo -k; kill -9 $timestamp_sudo_pid 2>/dev/null;" EXIT SIGINT SIGTERM
+
+source ./hardware/network
+source ./hardware/bluetooth
+source ./hardware/pipewire
+source ./hardware/intel-graphic
+source ./hardware/disk
+source ./hardware/battery
+
+source ./desktop/dotfiles
+source ./desktop/core
+source ./desktop/zen-browser
+source ./desktop/ime
+source ./desktop/udiskie
+source ./desktop/nerdfonts
+source ./desktop/theme
+source ./desktop/sddm
+
+source ./dev/nodejs
+source ./dev/golang
+source ./dev/php
+source ./dev/rust
+source ./dev/neovim
+source ./dev/vscode
+source ./dev/git
+source ./dev/docker
+
+clear
+echo "Success, need reboot"
