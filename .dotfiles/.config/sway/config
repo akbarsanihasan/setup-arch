@@ -117,7 +117,7 @@ input "type:touch" {
     events disabled
 }
 
-bindsym --to-code {
+bindsym --to-code --inhibited {
     $mod+E fullscreen
     $mod+T floating toggle
     $mod+M focus mode_toggle
@@ -138,24 +138,17 @@ bindsym --to-code {
     $mod+SHIFT+$right resize grow width 10px
     $mod+SHIFT+$down resize grow height 10px
     $mod+SHIFT+$up resize shrink height 10px
-}
 
-bindsym --to-code {
     $mod+Return exec swaymsg workspace $term_workspace && $bin_path/open_app $term
     $mod+B exec swaymsg workspace $browser_workspace && $bin_path/open_app $browser
     $mod+I exec $bin_path/idle toggle
     $mod+P exec $bin_path/open_app flameshot gui
     $mod+SHIFT+P exec $bin_path/open_app flameshot screen
     $mod+SHIFT+B exec pkill waybar || exec waybar
-}
-bindsym $mod+ALT+Escape exec $bin_path/wallpaper apply $wallpaper_path
-bindsym $mod+SHIFT+Escape exec $bin_path/lock
-bindsym --to-code --locked $mod+ALT+Space exec swaymsg input 'type:keyboard' xkb_switch_layout next
 
-bindsym --to-code {
     $mod+Space exec pkill rofi || \
-	rofi -show drun \
-		-show-icons
+        rofi -show drun \
+            -show-icons
 
     $mod+Slash exec pkill rofi || \
         rofi -show calc \
@@ -177,6 +170,10 @@ bindsym --to-code {
             -theme "$HOME/.config/rofi/themes/emoji.rasi"
 }
 
+bindsym $mod+ALT+Escape exec $bin_path/wallpaper apply $wallpaper_path
+bindsym $mod+SHIFT+Escape exec $bin_path/lock
+bindsym --to-code --locked $mod+ALT+Space exec swaymsg input 'type:keyboard' xkb_switch_layout next
+
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
 bindsym $mod+3 workspace 3
@@ -187,10 +184,6 @@ bindsym $mod+7 workspace 7
 bindsym $mod+8 workspace 8
 bindsym $mod+9 workspace 9
 bindsym $mod+0 workspace 10
-bindsym --to-code $mod+G workspace back_and_forth
-bindgesture swipe:4:left workspace next
-bindgesture swipe:4:right workspace prev
-
 bindsym $mod+ALT+1 move workspace 1, workspace 1 
 bindsym $mod+ALT+2 move workspace 2, workspace 2 
 bindsym $mod+ALT+3 move workspace 3, workspace 3 
@@ -201,6 +194,9 @@ bindsym $mod+ALT+7 move workspace 7, workspace 7
 bindsym $mod+ALT+8 move workspace 8, workspace 8 
 bindsym $mod+ALT+9 move workspace 9, workspace 9 
 bindsym $mod+ALT+0 move workspace 10, workspace 10
+bindsym --to-code $mod+G workspace back_and_forth
+bindgesture swipe:4:left workspace next
+bindgesture swipe:4:right workspace prev
 
 bindsym XF86MonBrightnessUp exec brightnessctl -s set +5% -n 1% 
 bindsym XF86MonBrightnessDown exec brightnessctl -s set 5%- -n 1%
