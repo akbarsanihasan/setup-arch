@@ -4,6 +4,7 @@ set $up K
 set $down J
 set $mod Mod4
 set $term foot
+set $browser $HOME/.local/bin/zen
 set $wallpaper_path time
 set $bin_path $HOME/.local/bin
 
@@ -55,8 +56,10 @@ exec fcitx5
 exec udiskie -t --appindicator
 
 xwayland enable
+floating_modifier $mod
 default_border normal 1
-default_floating_border pixel 1
+default_floating_border normal 1
+titlebar_border_thickness 1
 smart_borders off
 floating_minimum_size 600 x 450 
 focus_follows_mouse yes
@@ -68,9 +71,8 @@ smart_gaps off
 mouse_warping container
 tiling_drag enabled
 workspace_auto_back_and_forth no
-floating_modifier $mod
 font pango:Inter Display Medium 12
-client.focused           $base $base $text  $base $base
+client.focused           $surface0 $surface0 $text  $surface0 $surface0
 client.focused_inactive  $crust     $crust $text  $crust $crust
 client.unfocused         $crust     $crust $text  $crust $crust
 client.urgent            $red     $red $text  $red $red
@@ -116,21 +118,11 @@ input "type:touch" {
 }
 
 bindsym --to-code {
-    $mod+SHIFT+R reload
     $mod+E fullscreen
     $mod+T floating toggle
     $mod+M focus mode_toggle
-    $mod+N focus next
-    $mod+SHIFT+N focus prev
-    $mod+W layout tabbed
-    $mod+ALT+W layout toggle splitv splith
-    $mod+SHIFT+W split toggle
     $mod+ALT+Q kill
-
-    $mod+INSERT exec \
-            [[ "$(swaymsg -r -t get_inputs | jq -r '.[] | select(.type=="touch") | .libinput.send_events')" == "enabled" ]] && \
-            swaymsg input "type:touch" events disabled || \
-            swaymsg input "type:touch" events enabled
+    $mod+SHIFT+R reload
 
     $mod+$left focus left
     $mod+$right focus right
@@ -148,38 +140,42 @@ bindsym --to-code {
     $mod+SHIFT+$up resize shrink height 10px
 }
 
-bindsym --to-code $mod+Return exec swaymsg workspace $term_workspace && $bin_path/open_app $term
-bindsym --to-code $mod+B exec swaymsg workspace $browser_workspace && $bin_path/open_app $HOME/.local/bin/zen
-bindsym --to-code $mod+I exec $bin_path/idle toggle
-bindsym --to-code $mod+P exec $bin_path/open_app flameshot gui
-bindsym --to-code $mod+SHIFT+P exec $bin_path/open_app flameshot screen
-bindsym --to-code $mod+SHIFT+B exec pkill waybar || exec waybar
-bindsym --to-code --locked $mod+ALT+Space exec swaymsg input 'type:keyboard' xkb_switch_layout next
+bindsym --to-code {
+    $mod+Return exec swaymsg workspace $term_workspace && $bin_path/open_app $term
+    $mod+B exec swaymsg workspace $browser_workspace && $bin_path/open_app $browser
+    $mod+I exec $bin_path/idle toggle
+    $mod+P exec $bin_path/open_app flameshot gui
+    $mod+SHIFT+P exec $bin_path/open_app flameshot screen
+    $mod+SHIFT+B exec pkill waybar || exec waybar
+}
 bindsym $mod+ALT+Escape exec $bin_path/wallpaper apply $wallpaper_path
 bindsym $mod+SHIFT+Escape exec $bin_path/lock
+bindsym --to-code --locked $mod+ALT+Space exec swaymsg input 'type:keyboard' xkb_switch_layout next
 
-bindsym --to-code $mod+Space exec pkill rofi || \
+bindsym --to-code {
+    $mod+Space exec pkill rofi || \
 	rofi -show drun \
 		-show-icons
 
-bindsym --to-code $mod+Slash exec pkill rofi || \
-	rofi -show calc \
-		-theme "$HOME/.config/rofi/themes/calculator.rasi"
+    $mod+Slash exec pkill rofi || \
+        rofi -show calc \
+            -theme "$HOME/.config/rofi/themes/calculator.rasi"
 
-bindsym --to-code $mod+Period exec pkill rofi || \
-	cliphist list | \
-	rofi -dmenu \
-		-p "" \
-		-display-columns 2 \
-		-theme "$HOME/.config/rofi/themes/cliphist.rasi" | \
-		cliphist decode | wl-copy
+    $mod+Period exec pkill rofi || \
+        cliphist list | \
+        rofi -dmenu \
+            -p "" \
+            -display-columns 2 \
+            -theme "$HOME/.config/rofi/themes/cliphist.rasi" | \
+            cliphist decode | wl-copy
 
-bindsym --to-code $mod+SHIFT+Period exec pkill rofi || \
-	rofi -show emoji \
-		-emoji-format '{emoji}' \
-		-kb-secondary-copy "" \
-		-kb-custom-1 Ctrl+c \
-		-theme "$HOME/.config/rofi/themes/emoji.rasi"
+    $mod+SHIFT+Period exec pkill rofi || \
+        rofi -show emoji \
+            -emoji-format '{emoji}' \
+            -kb-secondary-copy "" \
+            -kb-custom-1 Ctrl+c \
+            -theme "$HOME/.config/rofi/themes/emoji.rasi"
+}
 
 bindsym $mod+1 workspace 1
 bindsym $mod+2 workspace 2
@@ -195,16 +191,16 @@ bindsym --to-code $mod+G workspace back_and_forth
 bindgesture swipe:4:left workspace next
 bindgesture swipe:4:right workspace prev
 
-bindsym $mod+SHIFT+1 move workspace 1, workspace 1 
-bindsym $mod+SHIFT+2 move workspace 2, workspace 2 
-bindsym $mod+SHIFT+3 move workspace 3, workspace 3 
-bindsym $mod+SHIFT+4 move workspace 4, workspace 4 
-bindsym $mod+SHIFT+5 move workspace 5, workspace 5 
-bindsym $mod+SHIFT+6 move workspace 6, workspace 6 
-bindsym $mod+SHIFT+7 move workspace 7, workspace 7 
-bindsym $mod+SHIFT+8 move workspace 8, workspace 8 
-bindsym $mod+SHIFT+9 move workspace 9, workspace 9 
-bindsym $mod+SHIFT+0 move workspace 10, workspace 10
+bindsym $mod+ALT+1 move workspace 1, workspace 1 
+bindsym $mod+ALT+2 move workspace 2, workspace 2 
+bindsym $mod+ALT+3 move workspace 3, workspace 3 
+bindsym $mod+ALT+4 move workspace 4, workspace 4 
+bindsym $mod+ALT+5 move workspace 5, workspace 5 
+bindsym $mod+ALT+6 move workspace 6, workspace 6 
+bindsym $mod+ALT+7 move workspace 7, workspace 7 
+bindsym $mod+ALT+8 move workspace 8, workspace 8 
+bindsym $mod+ALT+9 move workspace 9, workspace 9 
+bindsym $mod+ALT+0 move workspace 10, workspace 10
 
 bindsym XF86MonBrightnessUp exec brightnessctl -s set +5% -n 1% 
 bindsym XF86MonBrightnessDown exec brightnessctl -s set 5%- -n 1%
@@ -217,6 +213,11 @@ bindsym SHIFT+XF86AudioRaiseVolume exec wpctl set-volume -l 1.5 @DEFAULT_SINK@ 1
 bindsym SHIFT+XF86AudioLowerVolume exec wpctl set-volume -l 1.5 @DEFAULT_SINK@ 1%-
 bindsym XF86AudioMute exec wpctl set-mute @DEFAULT_SINK@ toggle
 bindsym XF86AudioMicMute exec wpctl set-mute @DEFAULT_SOURCE@ toggle
+
+bindsym $mod+INSERT exec \
+    [[ "$(swaymsg -r -t get_inputs | jq -r '.[] | select(.type=="touch") | .libinput.send_events')" == "enabled" ]] && \
+    swaymsg input "type:touch" events disabled || \
+    swaymsg input "type:touch" events enabled
 
 for_window [shell="xwayland" window_type="splash"] floating enable
 for_window [shell="xwayland" window_type="dialog"] floating enable
