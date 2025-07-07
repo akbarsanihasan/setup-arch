@@ -5,7 +5,7 @@ clear
 current_dir=$PWD
 
 fonts=(inter-font ttf-dejavu ttf-liberation noto-fonts-emoji)
-theme=(nwg-look kvantum sassc qt5ct qt5-wayland qt6ct qt6-wayland adwaita-cursors dconf make)
+theme=(make dconf sassc nwg-look kvantum-qt5 qt5-wayland adwaita-cursors)
 
 sudo pacman -S --noconfirm "${fonts[@]}" "${theme[@]}"
 
@@ -20,7 +20,6 @@ for i in "${!REPOS[@]}"; do
 done
 
 mkdir -p "$HOME"/.local/share/themes
-sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' /tmp/gtk-theme/src/sass/_variables.scss
 cd /tmp/gtk-theme
 ./install.sh --dest "$HOME"/.local/share/themes \
 	--theme default \
@@ -32,11 +31,8 @@ cd /tmp/gtk-theme
 cd /tmp/icon-pack
 make install PREFIX="$HOME"/.local
 
-mkdir -p "$HOME"/.config/{qt5ct,qt6ct}/colors/
-cp /tmp/qtnct/themes/catppuccin-mocha-blue.conf "$HOME"/.config/qt5ct/colors/catppuccin-mocha.conf
-
 dconf write /org/gnome/desktop/interface/cursor-theme "'Adwaita'"
-dconf write /org/gnome/desktop/interface/font-name "'Inter Display Semi-Bold 14'"
+dconf write /org/gnome/desktop/interface/font-name "'Inter Display 14'"
 dconf write /org/gnome/desktop/interface/gtk-theme "'Colloid-Dark-Compact-Catppuccin'"
 dconf write /org/gnome/desktop/wm/preferences/theme "'Colloid-Dark-Compact-Catppuccin'"
 dconf write /org/gnome/desktop/interface/color-scheme "'prefer-dark'"

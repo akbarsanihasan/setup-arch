@@ -8,17 +8,17 @@ mkdir -p "$HOME"/.local/share
 
 sudo pacman -S --noconfirm --needed fd
 
-fd . "$PWD"/.config --max-depth 1 --exec rm -rf "$HOME"/.config/{/}
-fd . "$PWD"/.config --max-depth 1 --exec ln -svfn {} "$HOME"/.config/{/}
+fd . "$PWD"/.dotfiles/.config --max-depth 1 --exec rm -rf "$HOME"/.config/{/}
+fd . "$PWD"/.dotfiles/.config --max-depth 1 --exec ln -svfn {} "$HOME"/.config/{/}
 
-fd . "$PWD"/.local/bin --max-depth 1 --exec rm -rf "$HOME"/.local/bin/{/}
-fd . "$PWD"/.local/bin --max-depth 1 --exec ln -svfn {} "$HOME"/.local/bin/{/}
+fd . "$PWD"/.dotfiles/.local/bin --max-depth 1 --exec rm -rf "$HOME"/.local/bin/{/}
+fd . "$PWD"/.dotfiles/.local/bin --max-depth 1 --exec ln -svfn {} "$HOME"/.local/bin/{/}
 
 rm -rf "$HOME"/.wallpapers
-ln -svfn "$PWD"/.wallpapers "$HOME"/.wallpapers
+ln -svfn "$PWD"/.dotfiles/.wallpapers "$HOME"/.wallpapers
 
 rm -rf "$HOME"/.zprofile
-ln -svfn "$PWD"/.zprofile "$HOME"/.zprofile
+ln -svfn "$PWD"/.dotfiles/.zprofile "$HOME"/.zprofile
 
 rm -rf "$HOME"/.zshrc
-ln -svfn "$PWD"/.zshrc "$HOME"/.zshrc
+ln -svfn "$PWD"/.dotfiles/.zshrc "$HOME"/.zshrc
