@@ -7,16 +7,16 @@ set -euo pipefail
 [[ -f /etc/os-release ]] && . /etc/os-release
 
 if [[ $ID != "arch" ]]; then
-	echo "OS not detected as archlinux"
-	exit 1
+    echo "OS not detected as archlinux"
+    exit 1
 fi
 
 sudo -v
 timestamp_sudo() {
-	while :; do
-		sudo -v
-		sleep 45
-	done
+    while :; do
+        sudo -v
+        sleep 45
+    done
 }
 timestamp_sudo &
 timestamp_sudo_pid=$!
@@ -25,7 +25,7 @@ trap "sudo -k; kill -9 $timestamp_sudo_pid 2>/dev/null;" EXIT SIGINT SIGTERM
 source ./hardware/network
 source ./hardware/bluetooth
 source ./hardware/pipewire
-source ./hardware/graphic
+source ./hardware/intel-graphic
 source ./hardware/disk
 source ./hardware/battery
 
