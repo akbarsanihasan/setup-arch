@@ -7,7 +7,7 @@ sudo pacman -S --noconfirm git base-devel
 AURH=yay
 
 if ! [[ -d /tmp/$AURH ]]; then
-    git clone https://aur.archlinux.org/yay-bin.git /tmp/"$AURH"
+	git clone https://aur.archlinux.org/"$AURH"-bin.git /tmp/"$AURH"
 fi
 
 cd /tmp/"$AURH"
