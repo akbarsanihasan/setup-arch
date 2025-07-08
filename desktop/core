@@ -4,17 +4,17 @@ clear
 
 common=(tmux zsh fzf btop trash-cli)
 compositor=(wayland xorg-xwayland sway swayidle swaybg swaylock xdg-desktop-portal xdg-desktop-portal-wlr xdg-desktop-portal-gtk)
-addons=(waybar swaync rofi rofi-calc rofi-emoji wl-clipboard cliphist polkit-gnome libnotify brightnessctl playerctl)
+widgets=(waybar swaync rofi rofi-calc rofi-emoji)
+utilities=(wl-clipboard cliphist grim polkit-gnome libnotify brightnessctl playerctl pavucontrol blueman nm-connection-editor)
 apps=(foot mpv thunar file-roller okular ristretto mousepad flameshot chromium firefox)
-control_panel=(pavucontrol blueman nm-connection-editor)
-lib=(grim gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin xdg-user-dirs imagemagick)
+lib=(gvfs gvfs-mtp tumbler ffmpegthumbnailer webp-pixbuf-loader thunar-archive-plugin xdg-user-dirs imagemagick)
 tools=(coreutils git dconf fd jq ripgrep gawk less curl wget tar zip unzip unrar p7zip man tldr)
 
 sudo pacman -S --noconfirm --needed "${common[@]}" \
 	"${compositor[@]}" \
-	"${addons[@]}" \
+	"${widgets[@]}" \
 	"${apps[@]}" \
-	"${control_panel[@]}" \
+	"${utilities[@]}" \
 	"${lib[@]}" \
 	"${tools[@]}"
 
@@ -22,8 +22,6 @@ if ! [[ -e "$HOME"/.config/tmux/plugins/tpm ]]; then
 	git clone https://github.com/tmux-plugins/tpm "$HOME"/.config/tmux/plugins/tpm
 fi
 "$HOME"/.config/tmux/plugins/tpm/bin/install_plugins all
-
-zsh -c "source $HOME/.zshrc" || true
 
 /usr/bin/xdg-user-dirs-update
 mkdir -p "$HOME"/.config/gtk-3.0/
@@ -41,3 +39,4 @@ dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
 dconf write /org/gnome/desktop/wm/preferences/button-layout "':'"
 
 sudo chsh -s "$(command -v zsh)" "$USER"
+zsh -c "source $HOME/.zshrc" || true
