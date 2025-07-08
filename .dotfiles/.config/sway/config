@@ -57,8 +57,8 @@ exec udiskie -t --appindicator
 
 xwayland enable
 floating_modifier $mod
-default_border normal 1
-default_floating_border normal 1
+default_border pixel 1
+default_floating_border pixel 1
 titlebar_border_thickness 1
 smart_borders off
 floating_minimum_size 600 x 450 
@@ -72,7 +72,7 @@ mouse_warping container
 tiling_drag enabled
 workspace_auto_back_and_forth no
 font pango:Inter Display Medium 12
-client.focused           $surface0 $surface0 $text  $surface0 $surface0
+client.focused           $lavender $lavender $text  $lavender $lavender
 client.focused_inactive  $crust     $crust $text  $crust $crust
 client.unfocused         $crust     $crust $text  $crust $crust
 client.urgent            $red     $red $text  $red $red

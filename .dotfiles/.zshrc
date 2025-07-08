@@ -6,6 +6,41 @@ SAVEHIST=1000
 autoload -Uz compinit
 compinit
 
+
+#---------- Keybinds ----------#
+tsessionaizer() {
+    zle -I
+    BUFFER="$HOME/.local/bin/tmux_sessionaizer"
+    zle accept-line
+}
+zle -N tsessionaizer
+
+tsessionaizer_global() {
+    zle -I
+    BUFFER="$HOME/.local/bin/tmux_sessionaizer global"
+    zle accept-line
+}
+zle -N tsessionaizer_global
+
+tsessionaizer_main() {
+    zle -I
+    BUFFER="$HOME/.local/bin/tmux_sessionaizer main"
+    zle accept-line
+}
+zle -N tsessionaizer_main
+
+bindkey -e
+if [[ -z $TMUX ]]; then
+    bindkey "^B;" tsessionaizer
+    bindkey "^B/" tsessionaizer_global
+    bindkey "^B'" tsessionaizer_main
+fi
+
+zle -N _git-diff
+bindkey '^Xd' _git-diff
+
+
+
 #---------- Export vars ----------#
 export FZF_DEFAULT_OPTS="--color=bg+:#313244,bg:#1e1e2e,spinner:#f5e0dc,hl:#f38ba8 \
     --color=fg:#cdd6f4,header:#f38ba8,info:#cba6f7,pointer:#f5e0dc \
@@ -52,46 +87,7 @@ zinit snippet OMZL::git.zsh
 zinit snippet OMZL::theme-and-appearance.zsh
 zinit snippet OMZT::robbyrussell
 zinit snippet OMZP::common-aliases
-
-OS_PLUG=""
-if [[ -f /etc/os-release ]]; then
-    source /etc/os-release
-    case "$ID" in 
-        arch) OS_PLUG=archlinux ;;
-        debian) OS_PLUG=debian ;;
-    esac
-fi
-if [[ -n $OS_PLUG ]];then
-    zinit snippet OMZP::archlinux
-fi
-
-
-#---------- Keybinds ----------#
-tmux_sessionaizer() {
-    zle -I
-    BUFFER="$HOME/.local/bin/tmux_sessionaizer"
-    zle accept-line
-}
-zle -N tmux_sessionaizer
-
-tmux_sessionaizer_global() {
-    zle -I
-    BUFFER="$HOME/.local/bin/tmux_sessionaizer global"
-    zle accept-line
-}
-zle -N tmux_sessionaizer_global
-
-tmux_sessionaizer_main() {
-    zle -I
-    BUFFER="$HOME/.local/bin/tmux_sessionaizer main"
-    zle accept-line
-}
-zle -N tmux_sessionaizer_main
-
-bindkey -e
-bindkey "^[;" tmux_sessionaizer
-bindkey "^[/" tmux_sessionaizer_global
-bindkey "^['" tmux_sessionaizer_main
+zinit snippet OMZP::archlinux
 
 
 #---------- Path ----------#
