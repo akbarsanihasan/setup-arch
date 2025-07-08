@@ -24,7 +24,3 @@ export CALIBRE_USE_SYSTEM_THEME=true
 export GTK_IM_MODULE=fcitx
 export XMODIFIERS=@im=fcitx
 export QT_IM_MODULES="wayland;fcitx;ibus"
-
-if [[ -z $DISPLAY ]] && [[ $(tty) = /dev/tty1 ]]; then
-    exec sway
-fi

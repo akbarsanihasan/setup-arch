@@ -16,19 +16,21 @@ VERSIONS=(2024-11-16 20250201 main)
 DOWNLOAD_PATH=(gtk-theme icon-pack qtnct)
 
 for i in "${!REPOS[@]}"; do
-    if ! [[ -d /tmp/"${DOWNLOAD_PATH[$i]}" ]]; then
-        git clone --depth 1 -b "${VERSIONS[$i]}" https://github.com/"${REPOS[$i]}" /tmp/"${DOWNLOAD_PATH[$i]}"
-    fi
+	if ! [[ -d /tmp/"${DOWNLOAD_PATH[$i]}" ]]; then
+		git clone --depth 1 -b "${VERSIONS[$i]}" https://github.com/"${REPOS[$i]}" /tmp/"${DOWNLOAD_PATH[$i]}"
+	fi
 done
+
+sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' /tmp/gtk-theme/src/sass/_variables.scss
 
 mkdir -p "$HOME"/.local/share/themes
 cd /tmp/gtk-theme
 ./install.sh --dest "$HOME"/.local/share/themes \
-    --theme default \
-    --color dark \
-    --size compact \
-    --libadwaita system \
-    --tweaks catppuccin black rimless
+	--theme default \
+	--color dark \
+	--size compact \
+	--libadwaita system \
+	--tweaks catppuccin black rimless
 
 cd /tmp/icon-pack
 make install PREFIX="$HOME"/.local
