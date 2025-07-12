@@ -25,16 +25,16 @@ get_wallpaper() {
     if [[ $wallpaper_path == "time" ]]; then
         case $(date +%H) in
         05 | 06 | 07 | 08 | 09 | 10)
-            dir="$WALLPAPER_ROOT/green"
+            dir="$WALLPAPER_ROOT/light"
             ;;
         11 | 12 | 13 | 14 | 15 | 16)
             dir="$WALLPAPER_ROOT/mix"
             ;;
         17 | 18 | 19 | 20 | 21 | 22)
-            dir="$WALLPAPER_ROOT/pastel"
+            dir="$WALLPAPER_ROOT/dark"
             ;;
         23 | 00 | 01 | 02 | 03 | 04)
-            dir="$WALLPAPER_ROOT/dark"
+            dir="$WALLPAPER_ROOT/green"
             ;;
         esac
     fi
