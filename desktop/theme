@@ -11,17 +11,15 @@ sudo pacman -S --noconfirm "${fonts[@]}" "${theme[@]}"
 
 fc-cache -vf
 
-REPOS=(vinceliuice/Colloid-gtk-theme PapirusDevelopmentTeam/papirus-icon-theme catppuccin/qt5ct)
-VERSIONS=(2024-11-16 20250201 main)
-DOWNLOAD_PATH=(gtk-theme icon-pack qtnct)
+REPOS=(vinceliuice/Colloid-gtk-theme catppuccin/Kvantum PapirusDevelopmentTeam/papirus-icon-theme)
+VERSIONS=(2024-11-16 main 20250201)
+DOWNLOAD_PATH=(gtk-theme qt-theme icon-pack)
 
 for i in "${!REPOS[@]}"; do
 	if ! [[ -d /tmp/"${DOWNLOAD_PATH[$i]}" ]]; then
 		git clone --depth 1 -b "${VERSIONS[$i]}" https://github.com/"${REPOS[$i]}" /tmp/"${DOWNLOAD_PATH[$i]}"
 	fi
 done
-
-sed -E -i '/^\$(modal|corner|menu|window)-radius:/s/:[^;]+;/\: 0px;/' /tmp/gtk-theme/src/sass/_variables.scss
 
 mkdir -p "$HOME"/.local/share/themes
 cd /tmp/gtk-theme
@@ -31,6 +29,13 @@ cd /tmp/gtk-theme
 	--size compact \
 	--libadwaita system \
 	--tweaks catppuccin black rimless
+
+mkdir -p "$HOME"/.config/Kvantum
+cp -R /tmp/qt-theme/themes/catppuccin-mocha-blue "$HOME"/.config/Kvantum
+tee "$HOME"/.config/Kvantum/kvantum.kvconfig <<-EOF
+	[General]
+	theme=catppuccin-mocha-blue
+EOF
 
 cd /tmp/icon-pack
 make install PREFIX="$HOME"/.local

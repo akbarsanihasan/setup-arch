@@ -24,7 +24,7 @@ window#waybar {
     background: transparent;
 }
 
-window#waybar > box {
+window#waybar>box {
     min-height: 1.6rem;
     background-color: @crust;
     border-bottom: 0.08rem solid @surface0;

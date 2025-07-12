@@ -25,7 +25,7 @@ trap "sudo -k; kill -9 $timestamp_sudo_pid 2>/dev/null;" EXIT SIGINT SIGTERM
 source ./hardware/network
 source ./hardware/bluetooth
 source ./hardware/pipewire
-source ./hardware/intel-graphic
+source ./hardware/graphic
 source ./hardware/disk
 source ./hardware/battery
 

@@ -31,8 +31,8 @@ zle -N tsessionaizer_main
 
 bindkey -e
 if [[ -z $TMUX ]]; then
-    bindkey "^B;" tsessionaizer
-    bindkey "^B/" tsessionaizer_global
+    bindkey "^B." tsessionaizer
+    bindkey "^B;" tsessionaizer_global
     bindkey "^B'" tsessionaizer_main
 fi
 

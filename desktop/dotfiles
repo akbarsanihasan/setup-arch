@@ -22,3 +22,12 @@ ln -svfn "$PWD"/.dotfiles/.zprofile "$HOME"/.zprofile
 
 rm -rf "$HOME"/.zshrc
 ln -svfn "$PWD"/.dotfiles/.zshrc "$HOME"/.zshrc
+
+if ! [[ -d $HOME/.config/tmux/theme ]]; then
+    git clone https://github.com/catppuccin/tmux "$HOME"/.config/tmux/theme
+fi
+if ! [[ -e $HOME/.config/btop/themes/catppuccin.theme ]]; then
+    mkdir -p "$HOME"/.config/btop/themes
+    git clone https://github.com/catppuccin/btop /tmp/btop-theme
+    cp /tmp/btop-theme/themes/catppuccin_mocha.theme "$HOME"/.config/btop/themes/catppuccin.theme
+fi

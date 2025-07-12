@@ -1,8 +1,22 @@
 return {
     "epwalsh/obsidian.nvim",
     version = "*",
+    ft = "markdown",
     dependencies = {
         "nvim-lua/plenary.nvim",
+    },
+    keys = {
+        { mode = "n",          "<leader>oss", ":ObsidianSearch<cr>",      silent = true, noremap = true },
+        { mode = "n",          "<leader>osq", ":ObsidianQuickSwitch<cr>", silent = true, noremap = true },
+        { mode = "n",          "<leader>ost", ":ObsidianTags<cr>",        silent = true, noremap = true },
+        { mode = "n",          "<leader>osl", ":ObsidianLinks<cr>",       silent = true, noremap = true },
+        { mode = "n",          "<leader>osb", ":ObsidianBacklinks<cr>",   silent = true, noremap = true },
+        { mode = "n",          "<leader>osd", ":ObsidianDailies<cr>",     silent = true, noremap = true },
+        { mode = "n",          "<leader>onn", ":ObsidianNew<cr>",         silent = true, noremap = true },
+        { mode = "n",          "<leader>oit", ":ObsidianTemplate<cr>",    silent = true, noremap = true },
+        { mode = "n",          "<leader>oow", ":ObsidianOpen<cr>",        silent = true, noremap = true },
+        { mode = { "v" },      "<leader>onl", ":ObsidianLinkNew<cr>",     silent = true, noremap = true },
+        { mode = { "n", "v" }, "<leader>onx", ":ObsidianExtractNote<cr>", silent = true, noremap = true },
     },
     opts = {
         workspaces = {
@@ -43,24 +57,9 @@ return {
             },
         },
         ---@param url string
+        ---t
         follow_url_func = function(url)
             vim.ui.open(url)
         end,
     },
-    config = function(_, opts)
-        local key_opts = { silent = true, noremap = true }
-        vim.keymap.set("n", "<leader>oss", ":ObsidianSearch<cr>", key_opts)
-        vim.keymap.set("n", "<leader>osq", ":ObsidianQuickSwitch<cr>", key_opts)
-        vim.keymap.set("n", "<leader>ost", ":ObsidianTags<cr>", key_opts)
-        vim.keymap.set("n", "<leader>osl", ":ObsidianLinks<cr>", key_opts)
-        vim.keymap.set("n", "<leader>osb", ":ObsidianBacklinks<cr>", key_opts)
-        vim.keymap.set("n", "<leader>osd", ":ObsidianDailies<cr>", key_opts)
-        vim.keymap.set("n", "<leader>onn", ":ObsidianNew<cr>", key_opts)
-        vim.keymap.set("n", "<leader>oit", ":ObsidianTemplate<cr>", key_opts)
-        vim.keymap.set("n", "<leader>oow", ":ObsidianOpen<cr>", key_opts)
-        vim.keymap.set({ "v" }, "<leader>onl", ":ObsidianLinkNew<cr>", key_opts)
-        vim.keymap.set({ "n", "v" }, "<leader>onx", ":ObsidianExtractNote<cr>", key_opts)
-
-        require("obsidian").setup(opts)
-    end
 }

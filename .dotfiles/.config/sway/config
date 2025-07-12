@@ -8,7 +8,7 @@ set $browser $HOME/.local/bin/zen
 set $wallpaper_path time
 set $bin_path $HOME/.local/bin
 
-set $term_workspace 2
+set $term_workspace 1
 set $browser_workspace 10
 
 set $rosewater #f5e0dc
@@ -121,6 +121,7 @@ bindsym --to-code --inhibited {
     $mod+E fullscreen
     $mod+T floating toggle
     $mod+M focus mode_toggle
+    $mod+W layout toggle splitv splith
     $mod+ALT+Q kill
     $mod+SHIFT+R reload
 
