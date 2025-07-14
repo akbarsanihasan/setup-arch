@@ -1,0 +1,14 @@
+#!/usr/bin/env bash
+
+clear
+
+sudo pacman -S --noconfirm --needed iptables nftables firewalld
+
+sudo systemctl enable firewalld
+
+if systemctl --quiet is-active NetworkManager-wait-online &&
+    systemctl --quiet is-enabled NetworkManager-wait-online; then
+    sudo systemctl stop NetworkManager-wait-online.service
+    sudo systemctl disable NetworkManager-wait-online.service
+    sudo systemctl mask NetworkManager-wait-online.service
+fi

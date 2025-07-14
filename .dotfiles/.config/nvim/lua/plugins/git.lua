@@ -14,8 +14,8 @@ return {
                 silent = true,
                 noremap = true,
             },
-            { "gf", ":diffget //2<CR>", silent = true, noremap = true },
-            { "gj", ":diffget //3<CR>", silent = true, noremap = true },
+            { "gl", ":diffget //2<CR>", silent = true, noremap = true },
+            { "gr", ":diffget //3<CR>", silent = true, noremap = true },
         },
     },
     {

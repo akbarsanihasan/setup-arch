@@ -1,0 +1,30 @@
+#!/usr/bin/env bash
+
+clear
+
+packages=(
+	zsh
+	tmux
+	fzf
+	btop
+	trash-cli
+	coreutils
+	fd
+	jq
+	ripgrep
+	gawk
+	less
+	curl
+	wget
+	tar
+	zip
+	unzip
+	unrar
+	p7zip
+	man
+	tldr
+)
+
+sudo pacman -S --noconfirm --needed "${packages[@]}"
+
+sudo chsh -s "$(command -v zsh)" "$USER"

@@ -31,6 +31,7 @@ autocmd("LspAttach", {
 
         vim.keymap.set("n", "K", vim.lsp.buf.hover, keymap_opts)
         vim.keymap.set("n", "gd", vim.lsp.buf.definition, keymap_opts)
+        vim.keymap.set("n", "gf", vim.lsp.buf.references, keymap_opts)
         vim.keymap.set("i", "<C-h>", vim.lsp.buf.signature_help, keymap_opts)
         vim.keymap.set("n", "]d", function()
             vim.diagnostic.jump({ count = 1, float = true })
