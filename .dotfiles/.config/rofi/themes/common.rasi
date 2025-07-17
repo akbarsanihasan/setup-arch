@@ -1,14 +1,41 @@
-@import "../lib/colorscheme.rasi"
+* {
+    rosewater: #f5e0dc;
+    flamingo: #f2cdcd;
+    pink: #f5c2e7;
+    mauve: #cba6f7;
+    red: #f38ba8;
+    maroon: #eba0ac;
+    peach: #fab387;
+    yellow: #f9e2af;
+    green: #a6e3a1;
+    teal: #94e2d5;
+    sky: #89dceb;
+    sapphire: #74c7ec;
+    blue: #89b4fa;
+    lavender: #b4befe;
+    text: #cdd6f4;
+    subtext1: #bac2de;
+    subtext0: #a6adc8;
+    overlay2: #9399b2;
+    overlay1: #7f849c;
+    overlay0: #6c7086;
+    surface2: #585b70;
+    surface1: #45475a;
+    surface0: #313244;
+    base: #1e1e2e;
+    mantle: #181825;
+    crust: #11111b;
+}
 
 * {
-   font: "Inter Display, JetBrainsMono NF 14";
-   text-color: @text;
-   background-color: transparent;
+    font: "Inter Display, JetBrainsMono NF 14";
+    text-color: @text;
+    background-color: transparent;
 }
 
 window {
     width: 40%;
-    height: 50%;
+    height: 0;
     location: north;
     x-offset: 0;
     y-offset: 12%;
@@ -43,8 +70,13 @@ message {
     padding: 0 1em 1.2em;
 }
 
+listview {
+    dynamic: true;
+    lines: 6;
+}
+
 entry {
-   vertical-align: 0.5;
+    vertical-align: 0.5;
     font: "Inter Display 20 Bold";
     text-style: bold;
 }
@@ -52,12 +84,13 @@ entry {
 element {
     padding: 0.5em 1em;
     background-color: transparent;
+    height: 80px;
 }
 
 element-icon {
     background-color: transparent;
     size: 1.6em;
-    margin: 0 0.3em;
+    margin: 0 0.8em 0 0;
 }
 
 element-text {

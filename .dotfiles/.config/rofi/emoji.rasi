@@ -1,9 +1,13 @@
-@import './common.rasi'
+@theme 'common'
 
 configuration {
-    matching: "glob";
     modes: [ emoji ];
+    matching: "glob";
+    display-emoji: "😀";
+    kb-secondary-copy: "";
+    kb-custom-1: "Ctrl+c";
 }
+             
 
 window {
     height: 0;
@@ -17,9 +21,8 @@ entry {
 }
 
 listview {
-    lines: 4;
-    columns: 6;
-    margin: 0 1.2em 1.2em 1.2em;
+    lines: 5;
+    columns: 5;
     fixed-columns: true;
 }
 

@@ -24,10 +24,22 @@ rm -rf "$HOME"/.zshrc
 ln -svfn "$PWD"/.dotfiles/.zshrc "$HOME"/.zshrc
 
 if ! [[ -d $HOME/.config/tmux/theme ]]; then
-    git clone https://github.com/catppuccin/tmux "$HOME"/.config/tmux/theme
+	git clone https://github.com/catppuccin/tmux "$HOME"/.config/tmux/theme
 fi
 if ! [[ -e $HOME/.config/btop/themes/catppuccin.theme ]]; then
-    mkdir -p "$HOME"/.config/btop/themes
-    git clone https://github.com/catppuccin/btop /tmp/btop-theme
-    cp /tmp/btop-theme/themes/catppuccin_mocha.theme "$HOME"/.config/btop/themes/catppuccin.theme
+	mkdir -p "$HOME"/.config/btop/themes
+	git clone https://github.com/catppuccin/btop /tmp/btop-theme
+	cp /tmp/btop-theme/themes/catppuccin_mocha.theme "$HOME"/.config/btop/themes/catppuccin.theme
 fi
+
+OMZ=$HOME/.local/share/oh-my-zsh
+ZSH_PLUGINS=(zsh-users/zsh-autosuggestions zsh-users/zsh-completions zsh-users/zsh-syntax-highlighting)
+if ! [[ -d "$OMZ" ]]; then
+	git clone https://github.com/ohmyzsh/ohmyzsh "$HOME"/.local/share/oh-my-zsh
+fi
+for zsh_plugin in "${ZSH_PLUGINS[@]}"; do
+	name=$(basename "$zsh_plugin")
+	if ! [[ -d "$OMZ"/$name ]]; then
+		git clone https://github.com/"$zsh_plugin" "$OMZ/custom/plugins/$name"
+	fi
+done

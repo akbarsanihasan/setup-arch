@@ -12,7 +12,6 @@ sudo pacman -Sy --noconfirm \
     dmidecode \
     swtpm \
     openbsd-netcat \
-    iptables \
     nftables \
     libguestfs \
     virtiofsd

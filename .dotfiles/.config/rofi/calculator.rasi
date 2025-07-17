@@ -1,7 +1,9 @@
-@import './common.rasi'
+@theme "common"
 
 configuration {
    modes: [ calc ];
+   display-calc: "";
+   show-icons: false;
 }
 
 window {
@@ -15,8 +17,7 @@ entry {
    placeholder: "  Calculator";
 }
 
-listview {
-    dynamic: true;
-    lines: 6;
+mainbox {
+    children: [inputbar, message, listview];
 }
 

@@ -6,7 +6,7 @@
       <property name="position" type="string" value="left"/>
     </property>
     <property name="height" type="uint" value="1039"/>
-    <property name="width" type="uint" value="952"/>
+    <property name="width" type="uint" value="632"/>
   </property>
   <property name="image" type="empty">
     <property name="wrap" type="bool" value="false"/>

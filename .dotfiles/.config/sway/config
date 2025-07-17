@@ -147,28 +147,11 @@ bindsym --to-code --inhibited {
     $mod+SHIFT+P exec $bin_path/open_app flameshot screen
     $mod+SHIFT+B exec pkill waybar || exec waybar
 
-    $mod+Space exec pkill rofi || \
-        rofi -show drun \
-            -show-icons
-
-    $mod+Slash exec pkill rofi || \
-        rofi -show calc \
-            -theme "$HOME/.config/rofi/themes/calculator.rasi"
-
-    $mod+Period exec pkill rofi || \
-        cliphist list | \
-        rofi -dmenu \
-            -p "" \
-            -display-columns 2 \
-            -theme "$HOME/.config/rofi/themes/cliphist.rasi" | \
-            cliphist decode | wl-copy
-
-    $mod+SHIFT+Period exec pkill rofi || \
-        rofi -show emoji \
-            -emoji-format '{emoji}' \
-            -kb-secondary-copy "" \
-            -kb-custom-1 Ctrl+c \
-            -theme "$HOME/.config/rofi/themes/emoji.rasi"
+    $mod+Space exec $bin_path/rofi_launcher
+    $mod+Slash exec $bin_path/rofi_calc
+    $mod+SHIFT+Slash exec $bin_path/rofi_emoji
+    $mod+Period exec $bin_path/rofi_cliphist
+    $mod+SHIFT+Period exec $bin_path/rofi_dunst
 }
 
 bindsym $mod+ALT+Escape exec $bin_path/wallpaper apply $wallpaper_path

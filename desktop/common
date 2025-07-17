@@ -3,28 +3,50 @@
 clear
 
 packages=(
-	zsh
-	tmux
-	fzf
-	btop
-	trash-cli
-	coreutils
-	fd
-	jq
-	ripgrep
-	gawk
-	less
-	curl
-	wget
-	tar
-	zip
-	unzip
-	unrar
-	p7zip
-	man
-	tldr
+    zsh
+    tmux
+    fzf
+    btop
+    # Apps
+    foot
+    chromium
+    firefox
+    vlc
+    thunar
+    file-roller
+    okular
+    ristretto
+    mousepad
+    flameshot
+    # Tools
+    trash-cli
+    coreutils
+    fd
+    jq
+    ripgrep
+    gawk
+    less
+    curl
+    wget
+    tar
+    zip
+    unzip
+    unrar
+    p7zip
+    man
+    tldr
+)
+dependencies=(
+    vlc-plugin-all
+    gvfs-mtp
+    thunar-archive-plugin
+    thunar-volman
+    thunar-media-tags-plugin
+    tumbler
+    ffmpegthumbnailer
+    webp-pixbuf-loader
 )
 
-sudo pacman -S --noconfirm --needed "${packages[@]}"
+sudo pacman -S --noconfirm --needed "${packages[@]}" "${dependencies[@]}"
 
 sudo chsh -s "$(command -v zsh)" "$USER"

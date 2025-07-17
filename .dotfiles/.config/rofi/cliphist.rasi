@@ -1,4 +1,4 @@
-@import './common.rasi'
+@theme "common"
 
 window {
    height: 0;
@@ -9,9 +9,4 @@ window {
 
 entry {
     placeholder: "  Clipboard History";
-}
-
-listview {
-    dynamic: true;
-    lines: 6;
 }

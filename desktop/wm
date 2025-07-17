@@ -3,65 +3,46 @@
 clear
 
 wm=(
-	wayland
-	xorg-xwayland
-	sway
-	swayidle
-	swaybg
-	swaylock
-	xdg-desktop-portal
-	xdg-desktop-portal-wlr
-	xdg-desktop-portal-gtk
+    wayland
+    xorg-xwayland
+    sway
+    swayidle
+    swaybg
+    swaylock
+    xdg-desktop-portal
+    xdg-desktop-portal-wlr
+    xdg-desktop-portal-gtk
 )
 utilities=(
-	dconf
-	xdg-user-dirs
-	wl-clipboard
-	grim
-	gvfs
-	polkit-gnome
-	libnotify
-	brightnessctl
-	playerctl
+    dconf
+    xdg-user-dirs
+    wl-clipboard
+    grim
+    gvfs
+    polkit-gnome
+    libnotify
+    brightnessctl
+    playerctl
 )
 panels=(
-	waybar
-	swaync
-	rofi
-	pavucontrol
-	blueman
-	nm-connection-editor
-)
-apps=(
-	foot
-	mpv
-	chromium
-	firefox
-	thunar
-	file-roller
-	okular
-	ristretto
-	mousepad
-	flameshot
+    waybar
+    swaync
+    rofi
+    pavucontrol
+    blueman
+    nm-connection-editor
 )
 dependencies=(
-	rofi-calc
-	rofi-emoji
-	cliphist
-	gvfs-mtp
-	thunar-archive-plugin
-	thunar-volman
-	thunar-media-tags-plugin
-	tumbler
-	ffmpegthumbnailer
-	webp-pixbuf-loader
+    rofi-calc
+    rofi-emoji
+    cliphist
 )
 
 sudo pacman -S --noconfirm --needed "${wm[@]}" \
-	"${utilities[@]}" \
-	"${panels[@]}" \
-	"${apps[@]}" \
-	"${dependencies[@]}"
+    "${utilities[@]}" \
+    "${panels[@]}" \
+    "${apps[@]}" \
+    "${dependencies[@]}"
 
 dconf write /org/blueman/general/plugin-list "['!ShowConnected', '!StatusIcon']"
 dconf write /org/gnome/desktop/wm/preferences/button-layout "':'"
