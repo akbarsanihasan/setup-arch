@@ -1,5 +1,4 @@
 require("options")
-require("autocommand")
 require("keymap")
 
 local lazypath = vim.fn.stdpath("data") .. "/lazy/lazy.nvim"
@@ -23,13 +22,21 @@ vim.opt.rtp:prepend(lazypath)
 require("lazy").setup({
     spec = {
         { import = "plugins" },
+        { import = "lsp" },
     },
     rocks = {
-        hererocks = true, -- recommended if you do not have global installation of Lua 5.1.
+        hererocks = false,
+        rocks = false
     },
     install = { missing = true, },
-    checker = { enabled = true, notify = false, },
-    change_detection = { enabled = true, notify = false, },
+    checker = {
+        enabled = true,
+        notify = false,
+    },
+    change_detection = {
+        enabled = true,
+        notify = false,
+    },
     performance = {
         rtp = {
             disabled_plugins = {

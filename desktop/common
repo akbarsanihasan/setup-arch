@@ -37,7 +37,7 @@ packages=(
     tldr
 )
 dependencies=(
-    vlc-plugin-all
+    vlc-plugins-all
     gvfs-mtp
     thunar-archive-plugin
     thunar-volman

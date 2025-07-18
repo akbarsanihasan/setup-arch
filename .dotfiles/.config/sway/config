@@ -151,7 +151,7 @@ bindsym --to-code --inhibited {
     $mod+Slash exec $bin_path/rofi_calc
     $mod+SHIFT+Slash exec $bin_path/rofi_emoji
     $mod+Period exec $bin_path/rofi_cliphist
-    $mod+SHIFT+Period exec $bin_path/rofi_dunst
+    $mod+SHIFT+Period exec $bin_path/rofi_notification_log
 }
 
 bindsym $mod+ALT+Escape exec $bin_path/wallpaper apply $wallpaper_path

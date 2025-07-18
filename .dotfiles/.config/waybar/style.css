@@ -1,4 +1,4 @@
-@import './color.css';
+@import "./color.css";
 
 * {
     min-height: 0;
@@ -121,10 +121,6 @@ menuitem:hover:not(.title) {
 
 #custom-battery.charging {
     animation: 1.5s linear charging infinite alternate;
-}
-
-#clock {
-    margin-right: 0.3rem;
 }
 
 #custom-notification,

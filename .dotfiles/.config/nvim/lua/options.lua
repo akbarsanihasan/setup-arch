@@ -34,30 +34,16 @@ vim.opt.backup = false
 vim.opt.updatetime = 50
 vim.opt.autoread = true
 
-vim.diagnostic.config({
-    update_in_insert = false,
-})
-vim.diagnostic.config({
-    virtual_text = true,
-    update_in_insert = false,
-    signs = {
-        text = {
-            [vim.diagnostic.severity.HINT] = "󰛨",
-            [vim.diagnostic.severity.INFO] = "󰌵",
-            [vim.diagnostic.severity.WARN] = "󱧡",
-            [vim.diagnostic.severity.ERROR] = "",
-        },
-        texthl = {
-            [vim.diagnostic.severity.HINT] = "DiagnosticSignHint",
-            [vim.diagnostic.severity.INFO] = "DiagnosticSignInfo",
-            [vim.diagnostic.severity.WARN] = "DiagnosticSignWarn",
-            [vim.diagnostic.severity.ERROR] = "DiagnosticSignError",
-        },
-    },
-})
+local autocmd = vim.api.nvim_create_autocmd
+local augroup = vim.api.nvim_create_augroup
 
-vim.filetype.add({
-    pattern = {
-        [".*%.blade%.php"] = "blade",
-    },
+autocmd("TextYankPost", {
+    group = augroup("HighlightYank", {}),
+    pattern = "*",
+    callback = function()
+        vim.highlight.on_yank({
+            higroup = "IncSearch",
+            timeout = 40,
+        })
+    end,
 })

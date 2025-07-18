@@ -11,6 +11,3 @@ window {
     y-offset: -10%;
 }
 
-listview {
-    lines: 4;
-}

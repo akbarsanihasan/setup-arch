@@ -9,7 +9,7 @@ compinit
 
 #---------- Plugins ----------#
 export ZSH="$HOME/.local/share/oh-my-zsh"
-plugins=(git vi-mode zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
+plugins=(git vi-mode archlinux zsh-autosuggestions zsh-syntax-highlighting zsh-completions)
 ZSH_THEME=robbyrussell
 source $ZSH/oh-my-zsh.sh
 

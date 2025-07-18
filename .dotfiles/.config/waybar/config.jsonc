@@ -10,6 +10,7 @@
     "network#downspeed",
     "network#upspeed",
   ],
+  "modules-center": ["clock"],
   "modules-right": [
     "tray",
     "custom/swayidle",
@@ -18,7 +19,6 @@
     "network",
     "group/audio",
     "custom/battery",
-    "clock",
   ],
   "sway/workspaces": {
     "all-outputs": true,
